@@ -1,0 +1,50 @@
+
+
+
+<div class="collapse navbar-collapse" id="navbar-menu" style="padding-bottom: 35px 0;">
+<ul class="nav navbar-nav navbar-center ulockd-pad9100 pull-right" data-in="flipInX">
+<li class="dropdown">
+<a href="<?php echo base_url(); ?>" >Home</a>
+</li>
+<li class="dropdown">
+<a href="<?php echo base_url(); ?>user/price" >Plan</a>
+</li>
+<li class="dropdown">
+<a href="<?php echo base_url(); ?>searchindex" >Search Profile</a>
+</li>
+<?php 	
+$userid = $this->session->userdata('logged_in'); 
+$admin = $this->session->userdata('adminlogged_in'); 
+$memcode = $this->session->userdata('memcode');
+if($userid=="" && $admin==""){
+?>
+<li class="dropdown">
+<a href="<?php echo base_url(); ?>user/" >Register</a>
+</li>
+<li class="dropdown">
+<a href="<?php echo base_url(); ?>user/login" >Login</a>
+</li>
+<?php }elseif($userid!=""){ ?>
+<li class="dropdown">
+  <a href="<?php echo base_url(); ?>userprofile/index/<?php  echo  $this->chsslibrary->encoder($userid); ?>/<?php  echo  $this->chsslibrary->encoder($memcode); ?>">My Profile</a>
+</li>
+<li class="dropdown">
+  <a href="<?php echo base_url(); ?>searchindex/wishlist">Wish List</a>
+</li>
+<li class="dropdown">
+  <a href="<?php echo base_url(); ?>user/logout">Logout</a>
+</li>
+<?php }elseif($admin!=""){ ?>
+
+<li class="dropdown">
+<a href="<?php echo base_url(); ?>user/login" >Login</a>
+</li>
+
+  <li>
+<a href="<?php echo base_url(); ?>adminmain/member_profilelist">Member profile list </span></a>
+</li>
+
+
+<?php } ?>
+</ul>
+</div>

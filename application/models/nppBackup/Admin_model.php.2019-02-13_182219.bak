@@ -1,0 +1,878 @@
+<?php
+class Admin_model extends CI_Model
+{
+       
+    public function __construct()
+    {
+		parent::__construct();	
+		$this->load->library('Chsslibrary');
+    }
+   
+   //duplicate record
+   //DELETE FROM cm_citymaster WHERE Id NOT IN (SELECT * FROM (SELECT MIN(n.id) FROM cm_citymaster n GROUP BY n.CityName) x)
+   
+   
+	public function plan_profileinactive(){
+		
+		$this->db->select('*');
+		$this->db->from(TBL__PREFIX.'userpayment');
+		$this->db->where('Status', '2');
+		$query=$this->db->get();
+		//echo $this->db->last_query();exit;
+		$row = $query->result();
+		
+		foreach($row as $item){
+			$id=$item->Id;
+			$ActiveDates=$item->ActiveDates;
+			$MemberId=$item->MemberId;
+			$currentdate=$this->chsslibrary->call_date();
+			if(strtotime($ActiveDates) < strtotime($currentdate)){
+				
+				
+				$userid = $this->session->userdata('logged_in');
+				$subscribedplan=$this->usersubscribedplan($userid);  
+
+				$MProfileCounts=$countTototal="";
+				$planid=$PaymentType=$MAmount=$MPaidedValidy="";
+				if(count($subscribedplan)>0){
+				foreach($subscribedplan as $plan){
+				$planid=$plan->Id;
+				$PaymentType=$plan->PaymentType;
+				$MPaidedValidy=$plan->MPaidedValidy;
+				$MProfileCounts=$plan->MProfileCounts;
+				$MAmount=$plan->MAmount;
+
+				}
+				}
+				
+				$userdetails=$this->getprofiledetails_byid($userid);
+				$phone=$email=$Name="";
+				foreach($userdetails as $item){
+				$Name=$item->Name;
+				$email=$item->Email;
+				$phone=$item->ContactNumber;
+				}
+
+
+				$paymentdetails=$this->getpayment_byid($PaymentType);
+				$details="";
+				foreach($paymentdetails as $pay){
+				$statusId=$pay->Id;
+				$details=$pay->PaymentType;
+				}
+
+
+				$countTototal=0;
+				$yetviews=$this->getcurrent_paidviewcount($userid,$planid);  
+				foreach($yetviews as $views){
+				$countTototal=$views->totviewprofil;
+				}
+
+				$config = Array(
+				'protocol' => 'smtp',
+				'smtp_host' => 'smtp.admin@chennaicreativesolutions.com',
+				'smtp_port' => 465,
+				'smtp_user' => 'admin@chennaicreativesolutions.com', // change it to yours
+				'smtp_pass' => 'ccs@9894323@', // change it to yours
+				'mailtype' => 'html',
+				'charset' => 'iso-8859-1',
+				'wordwrap' => TRUE
+				);
+				$from_email = "admin@chennaicreativesolutions.com"; 
+
+				$this->load->library('email'); 
+				$this->email->from($from_email); 
+				$this->email->to($email);
+				$this->email->subject('Matrimony');  
+				$content = $this->chsslibrary->user_plan_inactive($Name,$details,$MAmount,$MPaidedValidy,$MProfileCounts,$countTototal);
+				//print_r($content);die;
+				$this->email->message($content); 
+				$this->email->send();
+				
+				
+			$data = array
+			(
+			'Status' =>'3',
+			);
+			$this->db->set($data); 
+			$this->db->where('Id', $id);
+			$this->db->update(TBL__PREFIX.'userpayment',$data);
+			
+			$data1 = array(
+			'Status' =>'0',
+			);
+
+			$this->update_profileviewcount($data1,$MemberId);
+			
+			}
+		}
+	} 
+   
+   
+   
+   
+   
+    //------------------------------------------------------------------------------        
+    public function gettot_profiledetails($user,$password){  
+        $this->db->select('*');
+        $this->db->from(TBL__PREFIX.'adminlogin');
+        $this->db->where('Username', $user);
+        $this->db->where('Password', $password);
+        $query = $this->db->get();
+		// echo $this->db->last_query();exit;
+        return $query->result();
+    }
+    //------------------------------------------------------------------------------        
+    public function checkLogin($user,$password){  
+        $this->db->select('*');
+        $this->db->from(TBL__PREFIX.'adminlogin');
+        $this->db->where('Username', $user);
+        $this->db->where('Password', $password);
+        $query = $this->db->get();
+		// echo $this->db->last_query();exit;
+        return $query->result();
+    }
+   
+   //------------------------------------------------------------------------------        
+    public function checkuserLogin($user,$password){  
+        $this->db->select('*');
+        $this->db->from(TBL__PREFIX.'member');
+        $this->db->where('Email', $user);
+        $this->db->where('Password', $password);
+        $query = $this->db->get();
+		// echo $this->db->last_query();exit;
+        return $query->result();
+    }
+  
+    //------------------------------------------------------------------------------        
+    public function checkOldPassword($old,$userid){
+		$this->db->select('*');
+        $this->db->from(TBL__PREFIX.'adminlogin');
+        $this->db->where('Id', $userid);
+		$this->db->where('Password', $old);
+        $query = $this->db->get();
+       // echo $this->db->last_query();exit;
+        return $query->result();
+    }
+   
+   //------------------------------------------------------------------------------
+    public function updatepassword_byuser($data,$id){ 
+        $this->db->set($data); //value that used to update column  
+        $this->db->where('Id', $id); //which row want to upgrade  
+        $this->db->update(TBL__PREFIX.'adminlogin',$data);
+    }    
+	
+   
+     //------------------------------------------------------------------------------    
+    public function getMemberCount(){ 
+        $this->db->select('MAX(Id) AS Totalcount');
+        $this->db->from(TBL__PREFIX.'member');
+        $sql=$this->db->get();
+        return $sql->result();
+    }
+  //---------------------------------------------------   
+    public function getMember_Count(){ 
+        $this->db->select('MAX(Id) AS Totalcount');
+        $this->db->from(TBL__PREFIX.'member');
+		$query=$this->db->get();
+		$row = $query->result();
+		return $row;
+    }
+	  
+	//--------------------------------------------------
+	public function getprofiledetails(){ 
+		$this->db->select('*');
+		$this->db->from(TBL__PREFIX.'member');
+		$this->db->order_by("Id", "desc");
+		$query=$this->db->get();
+		//echo $this->db->last_query();exit;
+		$row = $query->result();
+		return $row;
+	}
+
+    //------------------------------------------------------------------------------
+    public function getprofileimageStatus_byid($id){ 
+        $this->db->select('*');
+        $this->db->from(TBL__PREFIX.'userprofile_photo');
+        $this->db->where('MemberId', $id);
+		$this->db->where('Status','1');
+		$this->db->limit('1');
+        $query=$this->db->get();
+        //echo $this->db->last_query();exit;
+        $row = $query->result();
+		return $row;
+    }
+   
+   
+   	//------------------------------------------------------------------------------
+    public function deleteProfile($id){ 
+      
+		$this->db->from(TBL__PREFIX.'userprofile_photo');
+		$this->db->where('MemberId', $id);
+		$query=$this->db->get();
+	
+		$row = $query->result();
+		
+		
+		//print_r($row); die;
+		foreach($row as $item){
+			$FilePath=$item->FilePath;
+			$delete_path='assets/profileimages/'.$FilePath;
+			if (file_exists('assets/profileimages/' . $FilePath)) {
+				chmod($delete_path,0755);
+				unlink("$delete_path");
+				$this->db->where('MemberId', $id);
+				   
+				$this->db->delete(TBL__PREFIX.'userprofile_photo'); 
+				  // echo $this->db->last_query();exit;
+			}
+			
+		}
+		$id=$this->db->where('Id', $id);
+        $this->db->delete(TBL__PREFIX.'member'); 
+    }    
+	
+   
+   	// ------------------------------------------------------------------------------
+    
+    public function memberactive_ajax($data,$id)
+    {
+		$this->db->set($data); //value that used to update column  
+        $this->db->where('Id', $id); //which row want to upgrade  
+        $this->db->update(TBL__PREFIX.'member',$data);
+		//echo $this->db->last_query();exit;
+    }
+   //------------------------------------------------------------------------------
+	public function getpaymentdetails(){ 
+		$this->db->select('*');
+		$this->db->from(TBL__PREFIX2.'payment_master');
+		$query=$this->db->get();
+		//echo $this->db->last_query();exit;
+		$row = $query->result();
+		return $row;
+	}
+	
+	  	// ------------------------------------------------------------------------------
+    
+    public function paymentactive_ajax($data,$id)
+    {
+		$this->db->set($data); //value that used to update column  
+        $this->db->where('Id', $id); //which row want to upgrade  
+        $this->db->update(TBL__PREFIX2.'payment_master',$data);
+		//echo $this->db->last_query();exit;
+    }
+	
+	//------------------------------------------------------------------------------    
+    public function addpayment($data){  
+		$this->db->insert(TBL__PREFIX2.'payment_master',$data); 
+		//  echo $this->db->last_query();exit;
+		return $this->db->insert_id();
+    }
+	
+	
+		//------------------------------------------------------------------------------        
+    public function getpayment_byid($id){
+
+        $this->db->select('*');
+        $this->db->from(TBL__PREFIX2.'payment_master');
+		$this->db->where('Id', $id);
+        $query = $this->db->get();
+      //echo $this->db->last_query();exit;
+        return $query->result();
+    }
+	//------------------------------------------------------------------------------    
+    public function update_paymentbyid($data,$id){  
+        $this->db->set($data); 
+        $this->db->where('Id', $id); 
+        $this->db->update(TBL__PREFIX2.'payment_master',$data);
+    }
+	
+	
+	//------------------------------------------------------------------------------
+	public function getreligondetails(){ 
+		$this->db->select('*');
+		$this->db->from(TBL__PREFIX2.'religion');
+		$query=$this->db->get();
+		//echo $this->db->last_query();exit;
+		$row = $query->result();
+		return $row;
+	}
+	
+	
+	 //------------------------------------------------------------------------------        
+    public function checkemail_Byuser($email){
+
+        $this->db->select('*');
+        $this->db->from(TBL__PREFIX.'member');
+        $this->db->where('Email', $email);
+        $query = $this->db->get();
+       //echo $this->db->last_query();exit;
+        return $query->result();
+    }
+	//-----------------------------------------------------------       
+    public function checkphone_Byuser($email){
+
+        $this->db->select('*');
+        $this->db->from(TBL__PREFIX.'member');
+        $this->db->where('ContactNumber', $email);
+        $query = $this->db->get();
+       // echo $this->db->last_query();exit;
+        return $query->result();
+    }
+	
+	//-----------------------------------------------------------       
+    public function checkphoneByuser($email,$uid){
+
+        $this->db->select('*');
+        $this->db->from(TBL__PREFIX.'member');
+		$this->db->where_not_in('Id', $uid);
+        $this->db->where('ContactNumber', $email);
+        $query = $this->db->get();
+        //echo $this->db->last_query();exit;
+        return $query->result();
+    }
+	
+	
+	
+	//-----------------------------------------------       
+    public function getcasteby_religionajax($id){
+
+        $this->db->select('*');
+        $this->db->from(TBL__PREFIX2.'caste');
+        $this->db->where('ReligionId', $id);
+        $query = $this->db->get();
+       //echo $this->db->last_query();exit;
+        return $query->result();
+    }
+	
+	//------------------------------------------------------------------------------
+	public function getstatedetails(){ 
+		$this->db->select('*');
+		$this->db->from(TBL__PREFIX2.'statemaster');
+		$query=$this->db->get();
+		//echo $this->db->last_query();exit;
+		$row = $query->result();
+		return $row;
+	}
+	
+	//------------------------------------------------------------------------------
+	public function getcastedetails(){ 
+		$this->db->select('*');
+		$this->db->from(TBL__PREFIX2.'caste');
+		$query=$this->db->get();
+		//echo $this->db->last_query();exit;
+		$row = $query->result();
+		return $row;
+	}
+	
+	//-------------------------------------------------
+	public function getcitydetails(){ 
+		$this->db->select('*');
+		$this->db->from(TBL__PREFIX2.'citymaster');
+		$this->db->order_by("CityName", "ASC");
+		$query=$this->db->get();
+		//echo $this->db->last_query();exit;
+		$row = $query->result();
+		return $row;
+	}
+	
+	//------------------------------------------------------------------------------
+	public function getstardetails(){ 
+		$this->db->select('*');
+		$this->db->from(TBL__PREFIX2.'star');
+		$query=$this->db->get();
+		//echo $this->db->last_query();exit;
+		$row = $query->result();
+		return $row;
+	}
+	//------------------------------------------------------------------------------
+	public function getrasidetails(){ 
+		$this->db->select('*');
+		$this->db->from(TBL__PREFIX2.'rasi');
+		$query=$this->db->get();
+		//echo $this->db->last_query();exit;
+		$row = $query->result();
+		return $row;
+	}
+	
+	//------------------------------------------------------------------------------        
+    public function getstarby_rasiajax($id){
+
+        $this->db->select('*');
+        $this->db->from(TBL__PREFIX2.'starrasi');
+        $this->db->where('RasiId', $id);
+        $query = $this->db->get();
+		//echo $this->db->last_query();exit;
+        return $query->result();
+    }
+	
+	
+	
+	//------------------------------------------------------------------------------    
+    public function addmember($data){  
+		$this->db->insert(TBL__PREFIX.'member',$data); 
+		//echo $this->db->last_query();exit;
+		return $this->db->insert_id();
+    }
+	
+	
+	//------------------------------------------------------------------------------    
+    public function userprofile_add($data){  
+	$this->db->insert(TBL__PREFIX.'userprofile_photo',$data); 
+	//echo $this->db->last_query();exit;
+	return $this->db->insert_id();
+    }
+	
+	//------------------------------------------------------------------------------
+    public function updateuserprofile($data,$id){ 
+        $this->db->set($data); //value that used to update column  
+        $this->db->where('Id', $id); //which row want to upgrade 
+	
+        $this->db->update(TBL__PREFIX.'member',$data);
+			//echo $this->db->last_query();exit;	
+    }    
+	
+	//------------------------------------------------------------------------------
+	public function getprofiledetails_byid($id){ 
+		$this->db->select('*');
+		$this->db->from(TBL__PREFIX.'member');
+		$this->db->where('Id', $id); 
+		$query=$this->db->get();
+		//echo $this->db->last_query();exit;
+		$row = $query->result();
+		return $row;
+	}
+	
+	  //------------------------------------------------------------------------------
+    public function getprofileimage_byid($id){ 
+        $this->db->select('*');
+        $this->db->from(TBL__PREFIX.'userprofile_photo');
+        $this->db->where('MemberId', $id);
+        $query=$this->db->get();
+        //echo $this->db->last_query();exit;
+        $row = $query->result();
+		return $row;
+    } 
+	
+	
+	 //------------------------------------------------------------------------------
+    public function deleteprofile_imagebyid($id){ 
+	
+		$this->db->select('*');
+		$this->db->from(TBL__PREFIX.'userprofile_photo');
+		$this->db->where('Id', $id);
+		$query=$this->db->get();
+		 //echo $this->db->last_query();exit;
+		$row = $query->result();
+		
+		foreach($row as $item){
+			$FilePath=$item->FilePath;
+		}
+		//echo $FilePath;die;
+		if($FilePath!='')
+		{
+			$delete_path='assets/profileimages/'.$FilePath;
+			chmod($delete_path,0755);
+			unlink("$delete_path");
+			$this->db->where('Id', $id);
+			$this->db->delete(TBL__PREFIX.'userprofile_photo'); 
+		}
+ 
+    } 
+	
+	
+	//------------------------------------------------------------------------------        
+    public function getprofile_bygender($gender,$caste){
+
+        $this->db->select('*');
+        $this->db->from(TBL__PREFIX.'member');
+        $this->db->where('Gender', $gender);
+		$this->db->where('CastName', $caste);
+		$this->db->limit('10');
+        $query = $this->db->get();
+		//echo $this->db->last_query();exit;
+        return $query->result();
+    }
+	
+	//------------------------------------------------------------------------------
+	public function getpaymentdetailsbystatus(){ 
+		$this->db->select('*');
+		$this->db->from(TBL__PREFIX2.'payment_master');
+		$this->db->where('Status','1');
+		$query=$this->db->get();
+		//echo $this->db->last_query();exit;
+		$row = $query->result();
+		return $row;
+	}
+	
+	
+	//------------------------------------------------------------------------------
+	public function getpaymentdetailsbyamount_payid($payid,$am){ 
+		$this->db->select('*');
+		$this->db->from(TBL__PREFIX2.'payment_master');
+		$this->db->where('Id',$payid);
+		$this->db->where('Amount',$am);
+		$query=$this->db->get();
+		//echo $this->db->last_query();exit;
+		$row = $query->result();
+		return $row;
+	}
+	
+	
+	//------------------------------------------------------------------------------    
+    public function adduser_payment($data){  
+		$this->db->insert(TBL__PREFIX.'userpayment',$data); 
+		//  echo $this->db->last_query();exit;
+		return $this->db->insert_id();
+    }
+	
+	
+	//------------------------------------------------------------------------------    
+    public function getuser_paymentbystatus($id){  
+		$this->db->select('*');
+		$this->db->from(TBL__PREFIX.'userpayment');
+		$this->db->where('MemberId',$id);
+		$this->db->where('Status','2');
+		$query=$this->db->get();
+		//echo $this->db->last_query();exit;
+		$row = $query->result();
+		return $row;
+    }
+	//------------------------------------------------------------------------------
+	public function getprofiledetails_byid_memcode($id,$memcode){ 
+		$this->db->select('*');
+		$this->db->from(TBL__PREFIX.'member');
+		$this->db->where('Id', $id); 
+		$this->db->where('MemberCode', $memcode); 
+		$query=$this->db->get();
+		//echo $this->db->last_query();exit;
+		$row = $query->result();
+		return $row;
+	}
+	 //------------------------------------------------------------------------------        
+    public function checkUserOldPassword($old,$userid){
+		$this->db->select('*');
+        $this->db->from(TBL__PREFIX.'member');
+        $this->db->where('Id', $userid);
+		$this->db->where('Password', $old);
+        $query = $this->db->get();
+       // echo $this->db->last_query();exit;
+        return $query->result();
+    }
+	
+	//------------------------------------------------------------------------------        
+    public function usersubscribedplan($id){
+        $this->db->select('*');
+        $this->db->from(TBL__PREFIX.'userpayment');
+        $this->db->where('MemberId', $id);
+		$this->db->where('Status','2');
+        $query = $this->db->get();
+      //echo $this->db->last_query()."<br>";
+        return $query->result();
+    }
+	
+	
+	//------------------------------------------------------------------------------        
+    public function checkinsert_memberid_viewid($id,$viewid){
+     	$this->db->select('*'); 
+        $this->db->from(TBL__PREFIX.'profileviewcount');
+        $this->db->where('MemberId', $id);
+		$this->db->where('ViewedId',$viewid);
+        $query = $this->db->get();
+		//echo $this->db->last_query();exit;
+        return $query->result();
+    }
+	
+	//------------------------------------------------------------------------------    
+    public function setMemberProfileViewCount($data){  
+		$this->db->insert(TBL__PREFIX.'profileviewcount',$data); 
+		// echo $this->db->last_query();exit;
+		return $this->db->insert_id();
+    }
+	
+	//------------------------------------------------------------------------------        
+    public function getprofile_paidviewcount($id){
+     	$this->db->select('count(ViewCount) as totviewprofil'); 
+        $this->db->from(TBL__PREFIX.'profileviewcount');
+        $this->db->where('MemberId', $id);
+		$this->db->where('Status','1');
+        $query = $this->db->get();
+       //echo $this->db->last_query();exit;
+        return $query->result();
+    }
+	
+	
+	//------------------------------------------------ 
+    public function getprevious_paidviewcount($id,$paidid){
+     	$this->db->select('count(ViewCount) as totviewprofil'); 
+        $this->db->from(TBL__PREFIX.'profileviewcount');
+        $this->db->where('MemberId', $id);
+		$this->db->where('PaIdedId', $paidid);
+		$this->db->where('Status','0');
+        $query = $this->db->get();
+       //echo $this->db->last_query();exit;
+        return $query->result();
+	}
+	
+	
+	
+	  //------------------------------------------------------------------------------
+    public function getprofile_byid($id){ 
+        $this->db->select('*');
+        $this->db->from(TBL__PREFIX.'member');
+        $this->db->where('Id', $id);
+        $query=$this->db->get();
+        //echo $this->db->last_query();exit;
+        $row = $query->result();
+		return $row;
+    } 
+	
+	 //--------------------------------------------------        
+    public function getGroomlist(){  
+	$this->db->select('*');
+	$this->db->from(TBL__PREFIX.'member');
+	$this->db->where('PStatus','1'); 
+	$this->db->where('PublishStatus','1'); 
+	$this->db->where('Gender','M');
+	$this->db->order_by("IndexImage", "DESC");
+	$this->db->limit('4');
+	$query = $this->db->get();
+	//echo $this->db->last_query();exit;
+	return $query->result();	 
+    }
+	
+	//-------------------------------------------------        
+    public function getBridelist(){  
+	$this->db->select('*');
+	$this->db->from(TBL__PREFIX.'member');
+	$this->db->where('PStatus','1'); 
+	$this->db->where('PublishStatus','1'); 
+	$this->db->where('Gender','F');
+	$this->db->order_by("IndexImage", "DESC");
+	$this->db->limit('4');
+	$query = $this->db->get();
+	//echo $this->db->last_query();exit;
+	return $query->result();	 
+    }
+	
+	  //------------------------------------------------------------------------------
+    public function update_planstatus($data,$id){ 
+        $this->db->set($data); //value that used to update column  
+        $this->db->where('MemberId', $id); //which row want to upgrade  
+        $this->db->update(TBL__PREFIX.'userpayment',$data);
+    }
+	  //------------------------------------------------------------------------------
+    public function update_profileviewcount($data,$id){ 
+        $this->db->set($data); //value that used to update column  
+        $this->db->where('MemberId', $id); //which row want to upgrade  
+        $this->db->update(TBL__PREFIX.'profileviewcount',$data);
+		//echo $this->db->last_query();exit;
+    }
+	
+	//------------------------------------------------------------------------------
+	public function getpaid_memberdetails(){ 
+		$this->db->select('*');
+		$this->db->from(TBL__PREFIX.'userpayment');
+		$this->db->where('(Status="2" or  Status="3")');
+		$query=$this->db->get();
+		//echo $this->db->last_query();exit;
+		
+		return $query->result();
+	}
+	
+	//------------------------------------------------       
+    public function userwishlist_bymemid($id){
+   
+		$this->db->select('ViewedId')->from(TBL__PREFIX.'profileviewcount');
+		$this->db->where('MemberId',$id); 
+		$subQuery =  $this->db->get_compiled_select();
+		// Main Query
+		$this->db->select('*');
+		$this->db->from(TBL__PREFIX.'member');
+		$this->db->where("Id IN($subQuery)", NULL, FALSE);
+		//$this->db->where('PStatus','1'); 
+		//$this->db->where('PublishStatus','1'); 
+		$this->db->order_by("Id", "desc");
+		$query=$this->db->get();
+		//echo $query = $this->db->last_query();  exit;
+		return $query->result();
+		
+    }
+	
+	//-----------------------------------------------  
+    public function userhorscop_profileadd($data){  
+	$this->db->insert(TBL__PREFIX.'userhoroscope_photo',$data); 
+	//echo $this->db->last_query();exit;
+	return $this->db->insert_id();
+    }
+	
+	//------------------------------------------------------------------------------
+	public function checkuserhorscop_profile($id){ 
+		$this->db->select('*');
+		$this->db->from(TBL__PREFIX.'userhoroscope_photo');
+		$this->db->where('MemberId',$id); 
+		$query=$this->db->get();
+		//echo $this->db->last_query();exit;
+		return $query->result();
+	}
+	
+	  //------------------------------------------------------------------------------
+    public function updateuser_horoscop_bymemid($data,$id){ 
+        $this->db->set($data); //value that used to update column  
+        $this->db->where('MemberId', $id); //which row want to upgrade  
+        $this->db->update(TBL__PREFIX.'userhoroscope_photo',$data);
+    }  
+	
+	
+	
+	 //------------------------------------------------------------------------------
+    public function deleteHoros_imagebyid($id){ 
+	
+		$this->db->select('*');
+		$this->db->from(TBL__PREFIX.'userhoroscope_photo');
+		$this->db->where('MemberId', $id);
+		$query=$this->db->get();
+		 //echo $this->db->last_query();exit;
+		$row = $query->result();
+		
+		foreach($row as $item){
+			$FilePath=$item->FilePath;
+		}
+		//echo $FilePath;die;
+		if($FilePath!='')
+		{
+			$delete_path='assets/profileimages/'.$FilePath;
+			chmod($delete_path,0755);
+			unlink("$delete_path");
+			$this->db->where('MemberId', $id);
+			$this->db->delete(TBL__PREFIX.'userhoroscope_photo'); 
+		}
+ 
+    } 
+	
+	//------------------------------------------------------------------------------        
+    public function getcurrent_paidviewcount($id,$paidid){
+     	$this->db->select('count(ViewCount) as totviewprofil'); 
+        $this->db->from(TBL__PREFIX.'profileviewcount');
+        $this->db->where('MemberId', $id);
+		$this->db->where('PaIdedId', $paidid);
+		$this->db->where('Status','1');
+        $query = $this->db->get();
+      // echo $this->db->last_query();exit;
+        return $query->result();
+    }
+	
+	//------------------------------------------------ 
+    public function userwishlist_bymemid_payid($id=null,$paid=null){
+		$this->db->select('ViewedId')->from(TBL__PREFIX.'profileviewcount');
+		$this->db->where('MemberId',$id); 
+		$this->db->where('PaIdedId',$paid); 
+		$subQuery =  $this->db->get_compiled_select();
+		// Main Query
+		$this->db->select('*');
+		$this->db->from(TBL__PREFIX.'member');
+		$this->db->where("Id IN($subQuery)", NULL, FALSE);
+		//$this->db->where('PStatus','1'); 
+		//$this->db->where('PublishStatus','1'); 
+		$this->db->order_by("Id", "desc");
+		$query=$this->db->get();
+		//echo $query = $this->db->last_query();  exit;
+		return $query->result();
+    }
+	//------------------------------------------------ 
+    public function getprofil_viewcount_admin($id,$paidid){
+     	$this->db->select('count(ViewCount) as totviewprofil'); 
+        $this->db->from(TBL__PREFIX.'profileviewcount');
+        $this->db->where('MemberId', $id);
+		$this->db->where('PaIdedId', $paidid);
+        $query = $this->db->get();
+       //echo $this->db->last_query();exit;
+        return $query->result();
+	}
+	// --------------------------
+    
+    public function memberpayment_ajax($data,$id)
+    {
+		$this->db->set($data); //value that used to update column  
+        $this->db->where('Id', $id); //which row want to upgrade  
+        $this->db->update(TBL__PREFIX.'userpayment',$data);
+		//echo $this->db->last_query();exit;
+    }
+	
+	
+	//--------------------------------------
+	public function getcomment_byid($id){ 
+		$this->db->select('*');
+		$this->db->from(TBL__PREFIX.'userpayment');
+		$this->db->where('Id',$id); 
+		$query=$this->db->get();
+		//echo $this->db->last_query();exit;
+		return $query->result();
+	}
+	
+	
+	//--------------------------------------------
+	public function getreview(){ 
+		$sql="SELECT *,mem.Id as mem_id,usrev.Id as usrev_id FROM ".TBL__PREFIX."user_review as usrev LEFT JOIN ".TBL__PREFIX."member as mem ON  mem.Id=usrev.MemberID order by usrev.Id desc limit 5";
+		//echo $sql;die;
+		$query = $this->db->query($sql);
+		return $query->result();
+	}
+	
+	
+		
+	//----------------------------------------------   
+    public function review_total()
+    {
+		$sql = "select *  from " . TBL__PREFIX . "user_review";
+		//echo $sql;die;
+		$query = $this->db->query($sql);
+		return $query->num_rows();
+    }
+	
+	
+	//-----------------------------------------------
+    public function review_report($limit,$offset){ 
+	
+	$tail = "";
+	$tail .= " limit $offset,$limit";
+
+	$sql="SELECT *,mem.Id as mem_id,usrev.Id as usrev_id FROM ".TBL__PREFIX."user_review as usrev LEFT JOIN ".TBL__PREFIX."member as mem ON  mem.Id=usrev.MemberID order by usrev.Id desc $tail ";
+	
+	//echo $sql;die;
+	$query = $this->db->query($sql);
+		
+	return $query->result();
+
+    }  
+	
+	//------------------------------------  
+    public function addreview($data){  
+		$this->db->insert(TBL__PREFIX.'user_review',$data); 
+		//  echo $this->db->last_query();exit;
+		return $this->db->insert_id();
+    }
+	
+	
+	
+	//-----------------------------------------------
+    public function review_report_admin(){ 
+	
+	$sql="SELECT *,mem.Id as mem_id,usrev.Id as usrev_id FROM ".TBL__PREFIX."user_review as usrev LEFT JOIN ".TBL__PREFIX."member as mem ON  mem.Id=usrev.MemberID order by usrev.Id desc ";
+	
+	//echo $sql;die;
+	$query = $this->db->query($sql);
+	return $query->result();
+    }
+	
+	
+	//----------------------------------------
+    public function deleteReview($id){ 
+		$id=$this->db->where('Id', $id);
+        $this->db->delete(TBL__PREFIX.'user_review'); 
+			echo $this->db->last_query();exit;
+    } 
+	
+}
+
+?>

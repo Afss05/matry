@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin</title>
+
+    <link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo base_url(); ?>assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="<?php echo base_url(); ?>assets/css/animate.css" rel="stylesheet">
+    <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet">
+
+	
+	<link href="<?php echo base_url(); ?>assets/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+</head>
+
+<body class="">
+<?php echo $leftmenu; ?>
+<div id="wrapper">
+
+<div id="page-wrapper" class="gray-bg">
+<?php echo $menu; ?>
+	<div class="row wrapper border-bottom white-bg page-heading">
+		<div class="col-sm-12">
+			<h2>Paid Member List
+			<span class="pull-right"  >Total Paid Members : <?php echo count($paidmember_details); ?></span>
+			
+			
+			</h2>
+			
+		</div>
+	</div>
+	
+
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+<?php if($this->session->flashdata('message')){     
+?>    
+<div class="alert alert-success success">
+<?php echo $this->session->flashdata('message') ?>                   
+</div>
+<?php } ?> 
+<div class="ibox ">
+                    <div class="ibox-title">
+                        <h5>Paid Member List</h5>
+                    </div>
+                    <div class="ibox-content">
+
+<div class="table-responsive">
+<table class="table table-striped table-bordered table-hover dataTables-example" >
+<thead>
+<tr>
+<th>No</th>
+<th>Details</th>
+<th>Transaction Id</th>
+<th>Name</th>
+<th>Member Code</th>
+<th>Amount</th>
+<th>Subscribed Date</th>
+<th>Validy Days</th>
+<th>Profile Count</th>
+<th>Total Viewed</th>
+
+<th>Action</th>
+					</tr>
+                    </thead>
+                    <tbody>
+					
+<?php 
+$i=0;
+$CommentByadmin="";
+if(isset($paidmember_details) && ($paidmember_details!="")){
+foreach($paidmember_details as $item2){
+$status=$item2->Status;
+$StatusByAdmin=$item2->StatusByAdmin;
+$id=$item2->Id;
+$MemberId=$item2->MemberId;
+$CommentByadmin=$item2->CommentByadmin;
+$PaymentType=$item2->PaymentType;
+$PaymentTypedetails=$this->chsslibrary->getFieldVal(TBL__PREFIX2."payment_master", "PaymentType", "Id=".$PaymentType);
+
+
+$MemberCode=$this->chsslibrary->getFieldVal(TBL__PREFIX."member", "MemberCode", "Id=".$MemberId);
+
+$Membername=$this->chsslibrary->getFieldVal(TBL__PREFIX."member", "Name", "Id=".$MemberId);
+
+$countTototal=0;
+$yetviews=$this->Admin_model->getprofil_viewcount_admin($MemberId,$id);  
+foreach($yetviews as $views){
+	$countTototal=$views->totviewprofil;
+}
+
+
+?>
+
+
+<tr>
+<td ><?php echo ++$i;?></td>
+<td ><?php echo $PaymentTypedetails; ?></td>
+<td ><?php echo $item2->TransactionID; ?></td>
+<td ><?php echo $Membername; ?></td>
+<td ><?php echo $MemberCode; ?></td>
+
+
+<td ><?php if($item2->MAmount!="0"){
+echo $item2->MAmount; } ?></td>
+<td ><?php if($item2->Dates!="0"){
+echo $indiadate=$this->chsslibrary->return_date($item2->Dates);
+} ?></td>
+<td ><?php if($item2->MPaidedValidy!="0"){
+echo $item2->MPaidedValidy; } ?></td>
+<td ><?php echo $item2->MProfileCounts; ?></td>
+
+
+<td><?php echo $countTototal; ?></td>
+
+<td>
+<p>
+<?php if($status=='2'){ ?>
+<span id="chngbtn<?php echo $item2->Id;?>" >
+
+<a> <span class="label label-primary">Active</span> </a>
+</span>
+<?php }elseif($status=='3'){ ?>
+<span id="chngbtn<?php echo $item2->Id;?>" >
+
+<a><span class="label label-warning">Inactvie</span> </a>
+</span>
+<?php } ?>
+
+</p>
+<p>
+<?php if($StatusByAdmin=='1'){ ?>
+<span id="chng2btn<?php echo $item2->Id;?>"  >
+
+<a> <span onclick="profinactive(<?php echo $item2->Id; ?>);"  class="label label-primary">By-Admin-Active</span> </a>
+</span>
+<?php }elseif($StatusByAdmin=='2'){ ?>
+<span id="chng2btn<?php echo $item2->Id;?>" >
+<a><span   onclick="profactive(<?php echo $item2->Id;?>);"  class="label label-warning">By-Admin-Inactvie</span> </a>
+</span>
+<?php } ?>
+
+</p>
+
+<?php 
+if($countTototal!="0"){
+?>
+<p>
+<a class="btn btn-white btn-sm" href="<?php echo base_url(); ?>adminmain/paidmem_viewedprofile/<?php  echo 
+$this->chsslibrary->encoder($MemberId); ?>/<?php  echo 
+$this->chsslibrary->encoder($item2->Id); ?>" title="View profile" ><i class="fa fa-folder"> view </i></a>
+ </p>
+<?php } ?>
+
+<p>
+
+
+<?php if($CommentByadmin!="" && $CommentByadmin!="0")
+{	?>
+ <a class="btn btn-white btn-sm" href="<?php echo base_url(); ?>adminmain/comment_byadmin/<?php  echo 
+$this->chsslibrary->encoder($item2->Id); ?>" title="View Comments" ><i class="fa fa-eye"> Comments </i></a>
+<?php }else{  ?>
+
+ <a class="btn btn-white btn-sm" href="<?php echo base_url(); ?>adminmain/comment_byadmin/<?php  echo 
+$this->chsslibrary->encoder($item2->Id); ?>" title="View Comments" ><i class="fa fa-eye"> Comments </i></a>
+
+<i class="fa fa-pencil"> Comments </i>
+<?php } ?>
+
+ </p>
+
+</td>
+
+
+</tr>
+
+<?php } }  ?>
+
+
+
+
+</tbody>
+
+</table>
+</div>
+
+</div>
+                </div>
+            </div>
+            </div>
+        </div>
+	
+	
+<div class="footer">
+<div class="float-right">
+<strong></strong> .
+</div>
+<div>
+<strong> </strong>  
+</div>
+</div>
+
+</div>
+</div>
+
+
+
+<script>      
+function profinactive(id){
+//alert('asdf');
+    var xmlhttp=new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+    if(this.readyState == 4 && this.status == 200) {
+		window.location.reload();
+	// document.getElementById("chng2btn"+id).innerHTML = this.responseText;
+    }
+
+};        
+xmlhttp.open("GET", "<?php echo base_url(); ?>Ajax/pay_inactivebyadmin_ajax/"+id, true);
+xmlhttp.send();
+
+
+}
+    
+function profactive(id){
+
+    var xmlhttp=new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+    if(this.readyState == 4 && this.status == 200) {
+    //  alert( this.responseText);
+	    window.location.reload();
+	//document.getElementById("chng2btn"+id).innerHTML = this.responseText;
+    }
+
+};        
+xmlhttp.open("GET", "<?php echo base_url(); ?>Ajax/pay_activebyadmin_ajax/"+id, true);
+xmlhttp.send();
+
+
+}
+</script>
+
+
+
+	<?php echo $loadjs; ?>
+</body>
+</html>

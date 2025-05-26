@@ -1,0 +1,77 @@
+   
+<style>
+.nav.navbar-top-links a {
+font-size: 19px;
+}
+.navbar-top-links li a {
+padding: 49px 27px;
+min-height: 50px;
+}
+
+</style>
+    <div class="row border-bottom">
+        <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+         
+            <ul class="nav navbar-top-links ">
+			
+			
+<li class="dropdown">
+<a href="<?php echo base_url(); ?>" >Home</a>
+</li>
+<li class="dropdown">
+<a href="<?php echo base_url(); ?>user/price" >Plan</a>
+</li>
+<li class="dropdown">
+<a href="<?php echo base_url(); ?>searchindex" >Search Profile</a>
+</li>
+<?php 	
+$userid = $this->session->userdata('logged_in'); 
+$memcode = $this->session->userdata('memcode');
+if($userid==""){
+?>
+<li class="dropdown">
+<a href="<?php echo base_url(); ?>user/" >Register</a>
+</li>
+<li class="dropdown">
+<a href="<?php echo base_url(); ?>user/login" >Login</a>
+</li>
+<?php }else{ ?>
+<li class="dropdown">
+  <a href="<?php echo base_url(); ?>userprofile/index/<?php  echo  $this->chsslibrary->encoder($userid); ?>/<?php  echo  $this->chsslibrary->encoder($memcode); ?>">My Profile</a>
+</li>
+<li class="dropdown">
+  <a href="<?php echo base_url(); ?>searchindex/wishlist">Wish List</a>
+</li>
+<li class="dropdown">
+  <a href="<?php echo base_url(); ?>user/logout">Logout</a>
+</li>
+<?php } ?>
+
+           
+           
+            </ul>
+
+        </div>
+        </nav>
+        </div>
+
+		
+		<div class="row border-bottom" style="padding: 25px;">
+<nav class="navbar navbar-static-top  " role="navigation" >
+<div class="navbar-header">
+
+
+</div>
+<ul class="nav navbar-top-links navbar-right">
+
+
+
+<li>
+
+</li>
+</ul>
+
+</nav>
+</div>

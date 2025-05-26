@@ -1,0 +1,866 @@
+<?php
+
+defined('BASEPATH') OR exit('No direct script access allowed');
+//$user_agent = $_SERVER['HTTP_USER_AGENT'];
+//date_default_timezone_set('America/Los_Angeles');
+
+class Chsslibrary  {
+	
+	
+	//----------------------------------    
+	public function get_uniqueid_with($table,$pre){ 
+	$sql="select MAX(MemberCode) AS Totalcount  from $table ";
+	$ci =& get_instance();
+	$query=$ci->db->query($sql);
+	$Total_member=$query->result();
+	$Totalmember=0;
+	if(isset($Total_member)) {
+		foreach($Total_member as $tot){
+		$Totalmember=$tot->Totalcount;
+		}
+		//echo $Totalmember."<br>";
+		$Totalmember = substr($Totalmember, 3); 
+		$Tot_member=$Totalmember+1;
+		$member_code=$pre.$Tot_member;
+		//echo $member_code;die;
+		return $member_code;
+	}else{
+		$Tot_member=$Totalmember+1;
+		$member_code=$pre.$Tot_member;
+		return $member_code;
+	}
+	}
+	
+	
+
+    public function encoder($data)
+    {        
+        $random1 = $this->randomChar(4);
+        $random2 = $this->randomChar(4);
+        $encode = base64_encode($data);
+        $length = strlen($encode);
+        $length_len = strlen($length);
+        $data1 = $length_len.$random1.$length.$encode.$random2;
+        $encript = base64_encode($data1);
+        return $encript;
+    }
+//------------------------------------------------------------------------------
+    
+    public function decoder($data)
+    {
+        $stage1 = base64_decode($data);
+        $len = substr($stage1, 0,1);
+        $strlen = substr($stage1, 5,$len);
+        $stage2 = substr($stage1, 5+$len,$strlen);
+        $stage3 = base64_decode($stage2);
+        return $stage3;
+    }
+//------------------------------------------------------------------------------
+    public function randomChar($length) {
+        $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        $password = substr( str_shuffle( $chars ), 0, $length );
+        return $password;
+    }
+
+//------------------------------------------------------------------------------
+    public function call_date(){
+	$date = date("Y-m-d");
+	return $date;
+    }
+//------------------------------------------------------------------------------
+    public function call_time(){    
+	$time = date("H:i:s");
+	return $time;
+    }
+//------------------------------------------------------------------------------
+    public function call_datetime(){    
+	$time = date("Y-m-d H:i:s");
+	return $time;
+    }
+//------------------------------------------------------------------------------
+    public function call_dateYear(){
+	$date = date("Y");
+	return $date;
+    }
+
+//------------------------------------------------------------------------------
+    public function return_date($datetime){
+	$datetime = new DateTime($datetime);
+	$date = $datetime->format('Y-m-d');
+	return $date;
+    }
+//------------------------------------------------------------------------------
+    public function return_time($datetime){
+	$datetime = new DateTime($datetime);
+	$time = $datetime->format('H:i:s');
+	return $time;
+    }
+//------------------------------------------------------------------------------
+    public function dateIncrement($olddate){
+	$date=date_create("$olddate");
+	date_add($date,date_interval_create_from_date_string("1 days"));
+	return date_format($date,"Y-m-d");
+    }
+//------------------------------------------------------------------------------
+    public function returnModel_date($datetime){
+	$datetime = new DateTime($datetime);
+	$date = $datetime->format('M d, Y');
+	return $date;
+    }
+//------------------------------------------------------------------------------
+    public function randomNum($length) {
+        $chars = "0123456789";
+        $password = substr( str_shuffle( $chars ), 0, $length );
+        return $password;
+    }    
+//------------------------------------------------------------------------------
+    public function call_date_filedid(){
+	$date = date("ymds");
+	return $date;
+    }    
+//------------------------------------------------------------------------------ 
+    public function call_yearsec_field(){
+	$time = date("Ys");
+	return $time;
+    }    
+//------------------------------------------------------------------------------ 
+     public function getFieldVal($tblname,$req_field,$cond){
+        global $con;
+        $client_id='';
+        if(!empty($cond)) $cond =" and ".$cond;
+        $sql="select $req_field from $tblname where 1=1 ".$cond;
+        //echo $sql; exit;
+        $ci =& get_instance();
+        $query=$ci->db->query($sql);
+        $data= $query->result_array();
+        foreach (array_values($data) as $value) // etc{
+        {
+          $client_id=$value[$req_field]; 
+          //echo $client_id; exit;
+	    return $client_id;         
+        }
+    
+    }
+//------------------------------------------------------------------------------
+    public function getCountTotal($tblname,$cond){
+    global $con;
+    if(!empty($cond)) $cond =" and ".$cond;
+    $query="select count(Id) as TotalCount from $tblname where 1=1 ".$cond;
+    $ci =& get_instance();
+    $qry=$ci->db->query($query);
+    $data= $qry->result_array();
+    foreach (array_values($data) as $value) // etc{
+        {
+          $requstcount=$value['TotalCount']; 
+          //echo $client_id; exit;
+            return $requstcount;
+         
+        }   
+    }    
+//------------------------------------------------------------------------------ 
+    public function dateIncrease(){
+	$today=date("Y-m-d");
+	$date = strtotime("+5 day", strtotime($today));
+	$increased_date = date("Y-m-d", $date);
+	return $increased_date;
+    }    
+//------------------------------------------------------------------------------
+    public function call_dateYear1(){
+	$date = date("y");
+	return $date;
+    }
+//------------------------------------------------------------------------------
+    public function date_format(){
+	$date = date("d-m-Y");
+	return $date;
+    }  
+//------------------------------------------------------------------------------
+   public function india_date() {
+        date_default_timezone_set('Asia/Kolkata');
+        return date('d-m-Y H:i');
+   }
+//------------------------------------------------------------------------------
+   public function return_datetime($datetime){
+	$datetime = new DateTime($datetime);
+	$date = $datetime->format('Y-m-d H:i:s');
+	return $date;
+    }
+
+//------------------------------------------------------------------------------
+    public function return_dateof($datetime){
+	$datetime = new DateTime($datetime);
+	$date = $datetime->format('M Y');
+	return $date;
+    }
+//------------------------------------------------------------------------------
+    public function convert_number($number) {
+	if (($number < 0) || ($number > 999999999)) {
+	    throw new Exception("Number is out of range");
+	}
+	$Gn = floor($number / 1000000);
+	/* Millions (giga) */
+	$number -= $Gn * 1000000;
+	$kn = floor($number / 1000);
+	/* Thousands (kilo) */
+	$number -= $kn * 1000;
+	$Hn = floor($number / 100);
+	/* Hundreds (hecto) */
+	$number -= $Hn * 100;
+	$Dn = floor($number / 10);
+	/* Tens (deca) */
+	$n = $number % 10;
+	/* Ones */
+	$res = "";
+	if ($Gn) {
+	    $res .= $this->convert_number($Gn) .  "Million";
+	}
+	if ($kn) {
+	    $res .= (empty($res) ? "" : " ") .$this->convert_number($kn) . " Thousand";
+	}
+	if ($Hn) {
+	    $res .= (empty($res) ? "" : " ") .$this->convert_number($Hn) . " Hundred";
+	}
+	$ones = array("", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eightteen", "Nineteen");
+	$tens = array("", "", "Twenty", "Thirty", "Fourty", "Fifty", "Sixty", "Seventy", "Eigthy", "Ninety");
+	if ($Dn || $n) {
+	    if (!empty($res)) {
+		$res .= " and ";
+	    }
+	    if ($Dn < 2) {
+		$res .= $ones[$Dn * 10 + $n];
+	    } else {
+		$res .= $tens[$Dn];
+		if ($n) {
+		$res .= "-" . $ones[$n];
+		}
+	    }
+	}
+	if (empty($res)) {
+	    $res = "zero";
+	}
+	return $res;
+    }
+//------------------------------------------------------------------------------
+    public function getTimeDifference($startTime,$endTime){
+    $statrTime = new DateTime($startTime);
+    $endTime   = new DateTime($endTime);
+    $TimeDiff  = $statrTime->diff($endTime); 
+    return $TimeDiff->format("%H:%I:%S");
+    }
+//------------------------------------------------------------------------------
+    public function addTime($oldTime,$newTime){
+    $newTime = strtotime($newTime)-strtotime("00:00:00");
+    $result = date("H:i:s",strtotime($oldTime)+$newTime);
+    return $result;
+    }    
+//------------------------------------------------------------------------------
+    public function getYear($date){
+    $time = date("Y", strtotime("$date"));
+    return $time;
+    }
+//------------------------------------------------------------------------------
+    public function getMonth($date){
+    $time = date("M", strtotime("$date"));
+    return $time;
+    }
+//------------------------------------------------------------------------------
+    public function getDay($date){
+    $time = date("d", strtotime("$date"));
+    return $time;
+    }   
+//------------------------------------------------------------------------------
+// Function to get the client OS platform
+    public function getOS() { 
+    //global $user_agent;
+    $user_agent = $_SERVER['HTTP_USER_AGENT'];
+    $os_platform    =   "Unknown OS Platform";
+    $os_array       =   array(
+                            '/windows nt 10/i'     =>  'Windows 10',
+                            '/windows nt 6.3/i'     =>  'Windows 8.1',
+                            '/windows nt 6.2/i'     =>  'Windows 8',
+                            '/windows nt 6.1/i'     =>  'Windows 7',
+                            '/windows nt 6.0/i'     =>  'Windows Vista',
+                            '/windows nt 5.2/i'     =>  'Windows Server 2003/XP x64',
+                            '/windows nt 5.1/i'     =>  'Windows XP',
+                            '/windows xp/i'         =>  'Windows XP',
+                            '/windows nt 5.0/i'     =>  'Windows 2000',
+                            '/windows me/i'         =>  'Windows ME',
+                            '/win98/i'              =>  'Windows 98',
+                            '/win95/i'              =>  'Windows 95',
+                            '/win16/i'              =>  'Windows 3.11',
+                            '/macintosh|mac os x/i' =>  'Mac OS X',
+                            '/mac_powerpc/i'        =>  'Mac OS 9',
+                            '/linux/i'              =>  'Linux',
+                            '/ubuntu/i'             =>  'Ubuntu',
+                            '/iphone/i'             =>  'iPhone',
+                            '/ipod/i'               =>  'iPod',
+                            '/ipad/i'               =>  'iPad',
+                            '/android/i'            =>  'Android',
+                            '/blackberry/i'         =>  'BlackBerry',
+                            '/webos/i'              =>  'Mobile'
+                        );
+    foreach ($os_array as $regex => $value) { 
+        if (preg_match($regex, $user_agent)) {
+            $os_platform    =   $value;
+        }
+    }   
+    return $os_platform;
+    }
+
+//------------------------------------------------------------------------------
+// Function to get the client Browser
+    public function getBrowser() {
+    //global $user_agent;
+    $user_agent = $_SERVER['HTTP_USER_AGENT'];
+    $browser        =   "Unknown Browser";
+    $browser_array  =   array(
+                            '/msie/i'       =>  'Internet Explorer',
+                            '/firefox/i'    =>  'Firefox',
+                            '/safari/i'     =>  'Safari',
+                            '/chrome/i'     =>  'Chrome',
+                            '/edge/i'       =>  'Edge',
+                            '/opera/i'      =>  'Opera',
+                            '/netscape/i'   =>  'Netscape',
+                            '/maxthon/i'    =>  'Maxthon',
+                            '/konqueror/i'  =>  'Konqueror',
+                            '/mobile/i'     =>  'Handheld Browser'
+                        );
+
+    foreach ($browser_array as $regex => $value) { 
+        if (preg_match($regex, $user_agent)) {
+            $browser    =   $value;
+        }
+    }
+    return $browser;
+    }
+//------------------------------------------------------------------------------
+
+// Function to get the client IP address
+    public function get_client_ip() {
+    $ip  = $_SERVER['REMOTE_ADDR'];
+    return $ip;
+    }
+//------------------------------------------------------------------------------
+    public function activation_code( $length = 8 ) {
+    $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    $activation_code = substr( str_shuffle( $chars ), 0, $length );
+    return $activation_code;
+    }   
+//------------------------------------------------------------------------------
+    public function randomNumber( $length ) {
+    $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    $random_num = substr( str_shuffle( $chars ), 0, $length );
+    return $random_num;
+    }
+//------------------------------------------------------------------------------ 
+//get country code from ip
+    public function getLocationInfoByIp($ip_addr)
+    {
+	$return_data  = array('country'=>'');
+	$ip_data = json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=".$ip_addr));
+	if($ip_data && $ip_data->geoplugin_countryName != null)
+	{
+	    $return_data['country'] = $ip_data->geoplugin_countryCode;
+	}
+	return $return_data;
+    }
+//------------------------------------------------------------------------------
+    public function returnCurrencyFormat($currency){
+	$frac  = $currency - (int) $currency;    
+	if($frac!='0'){
+	$fraction=  explode(".", $currency);
+	if($fraction['1']!=''){
+	$numlength = mb_strlen($fraction['1']);
+	}else{
+	    $numlength=0;
+	}
+	if($numlength>8){
+	 return number_format($currency, 8, '.', ','); 
+	}else{
+	    return number_format($currency, $numlength, '.', ','); 
+	}
+	}else{
+	    return number_format($currency, 0, '.', ','); 
+	}   
+
+    }
+//------------------------------------------------------------------------------
+    public function returnCurrencyFormatUsd($currency){
+	 return number_format($currency, 2, '.', ',');     
+    }
+//------------------------------------------------------------------------------
+  //  public function timedelay($timestamp){
+//	$new = (new DateTime())->modify("+1 hours")->format('Y-m-d H:i:s');
+	//return $new;     
+    //}  -->  
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//-------------------------muthu-----------------------------------------------------
+function returnCurrencyValueFormat($currency){
+     
+    $fraction=  explode(",", $currency);
+    //print_r($fraction); exit;
+    if($fraction['0']!=''){
+    $numlength = $fraction['0'];
+    }else{
+	$numlength=0;
+    }
+    if(isset($fraction['1'])){
+    $numlength1 = $fraction['1'];
+    }else{
+	$numlength1='';
+    }
+    if(isset($fraction['2'])){
+    $numlength2 = $fraction['2'];
+    }else{
+	$numlength2='';
+    }
+    if(isset($fraction['3'])){
+    $numlength3 = $fraction['3'];
+    }else{
+	$numlength3='';
+    }
+    $val=$numlength.$numlength1.$numlength2.$numlength3;
+    return $val;
+     //return number_format($val, 2, '.', ','); 
+     
+}
+//------------------------------------------------------------------------------
+function assignmentDocsName(){
+    $random_num = $this->call_yearsec_field();
+    $rand_num = $this->randomNumber(5);
+    $path="docs_".$random_num.$rand_num;
+    return $path;
+}
+//------------------------------------------------------------------------------
+function profileImageName(){
+    $random_num = $this->call_yearsec_field();
+    $rand_num = $this->randomNumber(5);
+    $path="PRO_".$random_num.$rand_num;
+    return $path;
+}
+
+
+//------------------------------------------------------------------------------
+function horscoImageName(){
+    $random_num = $this->call_yearsec_field();
+    $rand_num = $this->randomNumber(5);
+    $path="h_".$random_num.$rand_num;
+    return $path;
+}
+
+//------------------------------------------------------------------------------
+function applicationNumber($count){
+    $year = $this->call_dateyear();
+    $path="763".$year.$count;
+    return $path;
+}
+//------------------------------------------------------------------------------
+function call_timesecond(){    
+    $time = date("s");
+    return $time;
+}
+//------------------------------------------------------------------------------
+function call_datemonth(){    
+    $time = date("m");
+    return $time;
+}
+//------------------------------------------------------------------------------
+function call_date_Year(){
+    $date = date("y");
+    return $date;
+}
+
+
+//------------------------------------------------------------------------------
+function profileWeddingImageName(){
+    $random_num = $this->call_yearsec_field();
+    $rand_num = $this->randomNumber(3);
+    $path="W_".$random_num.$rand_num;
+    return $path;
+}
+
+//------------------------------------------------------------------------------
+function dateIncrementbyvalidate($olddate,$value){
+    $date=date_create("$olddate");
+    date_add($date,date_interval_create_from_date_string("$value days"));
+    return date_format($date,"Y-m-d");
+}
+
+
+
+	function photoWatermark_WithResize_mk($imagepath,$img_width,$img_height){
+		$WaterMarkText = '.com';//Watermark text
+
+		//echo $WaterMarkText; exit;
+		$font = 'arial.ttf';
+		$font_size = 20; 
+		$x=25;
+		$y=240;
+		$angle = 90; //$angle=0;
+		$nwidth=$img_width;
+		$nheight=$img_height;
+		list($width,$height) = getimagesize($imagepath);
+		$size = getimagesize($imagepath); 
+		//echo $size['mime']; exit;
+		switch ($size['mime']) {
+
+		case "image/jpeg": 
+			$image_p = imagecreatetruecolor($nwidth, $nheight);
+			$image = imagecreatefromjpeg($imagepath);
+			imagecopyresampled($image_p, $image, 0, 0, 0, 0,$nwidth, $nheight, $width, $height);
+	/* 		$text_color = imagecolorallocate($image_p, 235, 146, 149);
+			imagettftext($image_p, $font_size, $angle, $x, $y, $text_color, $font, $WaterMarkText); */
+			
+			
+			$bbox = imagettfbbox($font_size, 0, $font, 'ky');
+			$x = 20; $y = 240 - $bbox[5];
+			$black = imagecolorallocate($image_p, 0, 0, 0);
+			$white = imagecolorallocate($image_p, 255, 255, 255);
+			imagettftext($image_p, $font_size, $angle, $x + 1, $y + 1, $black, $font, $WaterMarkText);
+			imagettftext($image_p, $font_size, $angle, $x + 0, $y + 1, $black, $font, $WaterMarkText);
+			imagettftext($image_p, $font_size, $angle, $x + 0, $y + 0, $white, $font, $WaterMarkText);
+
+			if ($imagepath<>'') {
+			imagejpeg($image_p, $imagepath);
+			} else {
+			echo "file not found!";
+			exit;
+			}
+			imagedestroy($image); 
+			imagedestroy($image_p); 		
+			break; 
+
+		case "image/png": 
+			$image_p = imagecreatetruecolor($width, $height);
+			$image = imagecreatefrompng($imagepath);
+			$color = imagecolorallocate($image_p, 255, 255, 255);
+			imagefill($image_p, 0, 0, $color);
+			imagecopyresampled($image_p, $image, 0, 0, 0, 0,$width, $height, $width, $height);
+			$text_color = imagecolorallocate($image_p, 241, 170, 170);
+			imagettftext($image_p, $font_size, $angle, $x, $y, $text_color, $font, $WaterMarkText);
+			if ($imagepath<>'') {
+			imagepng($image_p, $imagepath);
+			} else {
+			echo "file not found!";
+			exit;
+			}
+			imagedestroy($image); 
+			imagedestroy($image_p); 
+		break; 	
+			case "image/gif":
+			$image_p = imagecreatetruecolor($width, $height);
+			$image = imagecreatefromgif($imagepath);
+			$color = imagecolorallocate($image_p, 235, 149, 149);
+			imagefill($image_p, 0, 0, $color);
+			imagecopyresampled($image_p, $image, 0, 0, 0, 0,$width, $height, $width, $height);
+			$text_color = imagecolorallocate($image_p, 242, 128, 128);
+			imagettftext($image_p, $font_size, $angle, $x, $y, $text_color, $font, $WaterMarkText);
+			if ($imagepath<>'') {
+			imagegif($image_p, $imagepath);
+			} else {
+			echo "file not found!";
+			exit;
+			}
+			imagedestroy($image); 
+			imagedestroy($image_p); 
+			break; 
+		}
+	}
+	
+
+//------------------------------------------------------------------------------
+function returnindian_date($date){
+    $datetime = new DateTime($date);
+    $date = $datetime->format('d-m-Y');
+    return $date;
+}
+
+
+//------------------------------------------------------------------------------    
+public function getMemberCode($count){
+	$second=$this->call_timesecond();
+	$month=$this->call_datemonth();
+	$year=$this->call_date_Year();
+	$result="B";
+	$member_code=$result.$count.$second.$month.$year;
+	return $member_code;
+}
+
+
+
+	//------------------------------------------------------------------------------ 
+    public function user_payment_profile_active($Name,$details,$amount,$Paymentdays,$Paymentprofilecount){
+	$content='<div style="font-family:Arial,sans-serif;background-color:#f9f9f9;color:#424242;text-align:center">
+	<table style="table-layout:fixed;width:90%;width:600px;margin:0 auto;background:#fff;font-size:14px;border:2px solid #e8e8e8;text-align:left;table-layout:fixed;padding-bottom:67px;border-spacing:0">
+	<thead>
+	<tr style="background-color:#11c0b4; color:#fff;">
+	<th colspan="5" style="padding:20px;text-align:center;font-weight:bold;font-size:1.2em" >Welcome to BharatVivaha Family.</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr >
+	<td colspan="5" style="padding:20px 30px 0px 30px;text-align:center;color:#000;">Hi  '.$Name.' </td>
+	<tr >
+	
+	<tr >
+	<td colspan="5" style="padding:20px 30px 0px 30px;text-align:center;color:#000;">Hi  '.$Name.' </td>
+	<tr >
+	<td colspan="5" style="padding:20px 30px 0px 30px;text-align:center;color:#000;">Plan Subscribed Details </td>
+
+
+	<tr>
+	<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;"></td>
+	<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;">Details</td>
+	<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;">'.$details.' </td>
+		<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;"></td>
+	</tr>
+	<tr>
+		<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;"></td>
+	<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;">Profile View</td>
+	<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;">'.$Paymentprofilecount.' </td>
+		<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;"></td>
+	</tr>
+	<tr>
+		<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;"></td>
+	<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;">Amount  </td>
+	<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;">'.$amount.' </td>
+		<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;"></td>
+	</tr>
+	<tr>
+		<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;"></td>
+	<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;">Days   </td>
+	<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;">'.$Paymentdays.' </td>
+		<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;"></td>
+	</tr>
+	';
+
+	$content .='
+	<tr>
+	<td colspan="5" style="padding:30px 30px 0px 30px;text-align:center;color:#000;">	
+	
+	</td>
+	</tr>
+
+	</tbody>
+	</table>
+	<br>
+	<table style="table-layout:fixed;width:90%;width:600px;margin:0 auto;background:#fff;font-size:14px;border:2px solid #e8e8e8;text-align:left;table-layout:fixed;border-spacing:0">
+	<thead></thead>
+	<tbody>
+	<tr>
+	<td style="text-align:center;padding:0px 0px 15px 0px"></td>
+	</tr>
+	</tbody>
+	</table>
+	<div class="yj6qo"></div><div class="adL">
+	</div>
+	</div>';
+	return $content;
+    }
+	
+	
+		//---------------------------------------------------------------------------- 
+    public function forgot_password_mail($email,$name,$password){
+	$content='<div style="font-family:Arial,sans-serif;background-color:#f9f9f9;color:#424242;text-align:center">
+  <table style="table-layout:fixed;width:90%;width:600px;margin:0 auto;background:#fff;font-size:14px;border:2px solid #e8e8e8;text-align:left;table-layout:fixed;padding-bottom:67px;border-spacing:0">
+    <tbody>
+      <tr>
+        <td style="background-color:#11c0b4;padding:20px 30px 20px 30px;text-align:center;color:#fff;font-weight:bold;font-size:1.2em">
+          Welcome to Bharat Vivaha – Family. 
+        </td>
+      </tr>
+	 
+	  
+	   <tr>
+        <td style="padding:10px 10px 10px 10px;line-height:1.8;text-align:center;color:#000;">
+          <p><strong>Hi : '. $name .'</strong></p>
+          <p></p>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:10px 10px 10px 10px;line-height:1.8;text-align:center;color:#000;">
+          <p><strong>Your Email ID: '. $email .'</strong></p>
+          <p></p>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:10px 10px 10px 10px;line-height:1.8;text-align:center;color:#000;">
+          <p><strong>Your Password : '. $password .'</strong></p>
+      
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  <table style="table-layout:fixed;width:90%;width:600px;margin:0 auto;background:#fff;font-size:14px;border:2px solid #e8e8e8;text-align:left;table-layout:fixed;border-spacing:0">
+    <tbody>
+      <tr>
+        <td style="text-align:center;padding:0px 0px 15px 0px"></td>
+      </tr>
+    </tbody>
+  </table>
+  <table style="width:90%;width:600px;margin:0 auto;font-size:10px;table-layout:fixed;border-spacing:0">
+    <tbody>
+      <tr style="text-align:center">
+        <td style="padding-top:20px"></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="yj6qo"></div>
+  <div class="adL">
+  </div>
+</div>';
+	return $content;
+    }
+	
+	
+	//------------------------------------------------------------------------------ 
+    public function user_plan_inactive($Name,$details,$MAmount,$MPaidedValidy,$MProfileCounts,$countTototal){
+	$content='<div style="font-family:Arial,sans-serif;background-color:#f9f9f9;color:#424242;text-align:center">
+	<table style="table-layout:fixed;width:90%;width:600px;margin:0 auto;background:#fff;font-size:14px;border:2px solid #e8e8e8;text-align:left;table-layout:fixed;padding-bottom:67px;border-spacing:0">
+	<thead>
+	<tr style="background-color:#11c0b4; color:#fff;">
+	<th colspan="5" style="padding:20px;text-align:center;font-weight:bold;font-size:1.2em" >Welcome to Bharat Vivaha Online Matrimony.</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr >
+	<td colspan="5" style="padding:20px 30px 0px 30px;text-align:center;color:#000;">Hi  '.$Name.' </td>
+	<tr >
+	<td colspan="5" style="padding:20px 30px 0px 30px;text-align:center;color:#000;">Plan Subscribed Details </td>
+
+	<tr>
+	<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;"></td>
+	<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;">Details</td>
+	<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;">'.$details.' </td>
+		<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;"></td>
+	</tr>
+
+	<tr>
+		<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;"></td>
+	<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;">Amount  </td>
+	<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;">'.$MAmount.' </td>
+		<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;"></td>
+	</tr>
+	<tr>
+		<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;"></td>
+	<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;">Days   </td>
+	<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;">'.$MPaidedValidy.' </td>
+		<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;"></td>
+	</tr>
+	<tr>
+	<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;"></td>
+	<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;">Profile View</td>
+	<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;">'.$MProfileCounts.' </td>
+	<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;"></td>
+	</tr>
+	<tr>
+		<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;"></td>
+	<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;">Total Viewed   </td>
+	<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;">'.$countTototal.' </td>
+		<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;"></td>
+	</tr>
+	';
+
+	$content .='
+	<tr>
+	<td colspan="5" style="padding:30px 30px 0px 30px;text-align:center;color:#000;">	
+	Your plan expired...
+	</td>
+	</tr>
+
+	</tbody>
+	</table>
+	<br>
+	<table style="table-layout:fixed;width:90%;width:600px;margin:0 auto;background:#fff;font-size:14px;border:2px solid #e8e8e8;text-align:left;table-layout:fixed;border-spacing:0">
+	<thead></thead>
+	<tbody>
+	<tr>
+	<td style="text-align:center;padding:0px 0px 15px 0px"></td>
+	</tr>
+	</tbody>
+	</table>
+	<div class="yj6qo"></div><div class="adL">
+	</div>
+	</div>';
+	return $content;
+    }
+	
+	function photoWatermark_WithResize($imagepath,$img_width,$img_height){
+		$WaterMarkText = '';//Watermark text
+
+		//echo $WaterMarkText; exit;
+		$font = 'arial.ttf';
+		$font_size = 20; 
+		$x=25;
+		$y=240;
+		$angle = 90; //$angle=0;
+		$nwidth=$img_width;
+		$nheight=$img_height;
+		list($width,$height) = getimagesize($imagepath);
+		$size = getimagesize($imagepath); 
+		//echo $size['mime']; exit;
+		switch ($size['mime']) {
+
+		case "image/jpeg": 
+			$image = imagecreatefromjpeg($imagepath);
+			break;
+
+		case "image/png": 
+		
+			$image = imagecreatefrompng($imagepath);
+			break;
+		break; 	
+			case "image/gif":
+		
+			$image = imagecreatefromgif($imagepath);
+			break;
+		}
+		
+		$image_p = imagecreatetruecolor($nwidth, $nheight);
+
+		imagecopyresampled($image_p, $image, 0, 0, 0, 0,$nwidth, $nheight, $width, $height);
+/* 		$text_color = imagecolorallocate($image_p, 235, 146, 149);
+		imagettftext($image_p, $font_size, $angle, $x, $y, $text_color, $font, $WaterMarkText); */
+		
+		
+		$bbox = imagettfbbox($font_size, 0, $font, 'ky');
+		$x = 20; $y = 240 - $bbox[5];
+		$black = imagecolorallocate($image_p, 0, 0, 0);
+		$white = imagecolorallocate($image_p, 255, 255, 255);
+		imagettftext($image_p, $font_size, $angle, $x + 1, $y + 1, $black, $font, $WaterMarkText);
+		imagettftext($image_p, $font_size, $angle, $x + 0, $y + 1, $black, $font, $WaterMarkText);
+		imagettftext($image_p, $font_size, $angle, $x + 0, $y + 0, $white, $font, $WaterMarkText);
+
+		if ($imagepath<>'') {
+		imagejpeg($image_p, $imagepath);
+		} else {
+		echo "file not found!";
+		exit;
+		}
+		imagedestroy($image); 
+		imagedestroy($image_p); 	
+		
+		
+	}
+	
+
+}
+
+?>

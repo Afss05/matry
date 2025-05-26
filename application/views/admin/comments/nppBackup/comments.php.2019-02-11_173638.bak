@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin</title>
+
+    <link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo base_url(); ?>assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="<?php echo base_url(); ?>assets/css/animate.css" rel="stylesheet">
+    <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet">
+<style>
+.mk_select{
+    background-color: #FFFFFF;
+    background-image: none;
+    border: 1px solid #e5e6e7;
+    border-radius: 1px;
+    color: inherit;
+
+    padding: 6px 12px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+  
+}
+
+</style>
+</head>
+
+<body class="">
+<?php echo $leftmenu; ?>
+<div id="wrapper">
+
+<div id="page-wrapper" class="gray-bg">
+<?php echo $menu; ?>
+
+
+<?php 
+
+
+
+$PaymentType=$ProfileCounts=$Amount=$PaidedValidy=$Id="";
+if(count($paymentlist)>0 && $paymentlist!=""){								
+foreach($paymentlist as $item)
+{
+ $Id=$item->Id;
+$PaymentType=$item->PaymentType;
+$ProfileCounts=$item->ProfileCounts;
+$Amount=$item->Amount;
+$PaidedValidy=$item->PaidedValidy;
+	
+}
+}
+$title="";
+if($Id!=""){
+	$action=base_url()."adminmain/updatepayment";
+	$btn="Update";
+	 $title="Update";
+}else{
+	$action=base_url()."adminmain/add_userprofile_byadmin";
+	 $btn="Save";
+	 $title="Add";
+}
+
+
+?>
+
+<div class="row wrapper border-bottom white-bg page-heading">
+<div class="col-sm-4">
+<h2><?php echo $title; ?> Profile </h2>
+
+</div>
+</div>
+	
+
+<div class="wrapper wrapper-content animated fadeInRight">
+<div class="row">
+<div class="col-lg-12">
+<div class="ibox ">
+<div class="ibox-title">
+<h5><?php echo $title; ?> Profile </h5>
+<!--   <div class="ibox-tools">
+<a class="collapse-link">
+<i class="fa fa-chevron-up"></i>
+</a>
+
+
+<a class="close-link">
+<i class="fa fa-times"></i>
+</a>
+</div> -->
+</div>
+
+
+<form action="<?php echo $action; ?>" name="register" method="post" enctype="multipart/form-data"  >
+
+
+<div class="ibox-title" style="    background-color: #1ab394; color: #fff;">
+<h5>Personal Details  </h5>
+</div>
+<div class="ibox-content">
+<div class="row">
+<div class="col-sm-12 b-r">
+
+<?php if($this->session->flashdata('message')){     
+?>    
+<div class="alert alert-success success">
+<?php echo $this->session->flashdata('message') ?>                   
+</div>
+<?php } ?> 
+
+
+  
+<div class="row">
+<div class="col-md-3">
+
+<div class="form-group"><label>Present  Address</label>
+<textarea name="present_address" required placeholder="Present Address" class="form-control" rows="2" id="present_address"></textarea>
+</div>
+</div>
+<div class="col-md-3">
+<div class="col-md-3">
+
+<div class="form-group"><label>Present  Address</label>
+<textarea name="present_address" required placeholder="Present Address" class="form-control" rows="2" id="present_address"></textarea>
+</div>
+</div>
+<div class="form-group"><label>Name </label> 
+<input name="registername" required  value="" type="text" placeholder="Enter Name" class="form-control">
+</div>
+</div>
+
+<div class="col-md-3">
+
+<div class="form-group"><label>Gender  </label> 
+<select class="form-control m-b" required name="gender">
+
+<option value="">Select Gender</option>
+<option value="M"  >Male</option>
+<option value="F"  >Female</option>					
+</select>
+</div>
+</div>
+<div class="col-md-3">
+
+
+
+<div class="form-group"><label>DOB  </label> <br>
+<select class="mk_select m-b"  style="   width:30%;" id="day" name="day" required  >
+<option value="" >Day</option>
+<?php  
+$i=1;
+for($i=1; $i<=31; $i++){
+?>
+<option value="<?php  echo $i; ?>"><?php  echo $i; ?></option>
+<?php  
+}
+?>               
+</select>
+<select  class="mk_select m-b" style="width:30%;" id="month" name="month" required >
+	<option value="" >Month</option>
+	<option value="01" >Jan</option>
+	<option value="02" >Feb</option>
+	<option value="03" >Mar</option>
+	<option value="04" >Apr</option>
+	<option value="05" >May</option>
+	<option value="06" >Jun</option>
+	<option value="07" >Jul</option>
+	<option value="08" >Aug</option>
+	<option value="09" >Sep</option>
+	<option value="10" >Oct</option>
+	<option value="11" >Nov</option>
+	<option value="12" >Dec</option>
+</select>
+
+<select class="mk_select m-b" style="width:32%;" id="dobyear" name="dobyear" required>     
+<option value="" >Year</option>	
+<?php  
+$curr_year=$this->chsslibrary->call_dateYear();
+$i_value=$curr_year-70;
+$i_end=$curr_year-18;
+for($i=$i_value; $i<=$i_end; $i++){
+?>
+<option value="<?php  echo $i; ?>"><?php  echo $i; ?></option>
+<?php  
+}
+?>
+</select>
+
+</div>
+</div>
+<div class="col-md-3">
+<div class="form-group"><label>Email</label> 
+<input name="email" required id="email" onblur="checkemail(this.value)"  maxlength="120" value="<?php echo $PaymentType; ?>" type="email" placeholder="Email" class="form-control">
+</div>
+</div>
+
+
+
+
+
+
+
+<div class="col-md-3">
+<div class="form-group"><label>Mobile Number </label> 
+<input name="contact_number" id="contact_number" required  oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="12" value="" onblur="checkphone(this.value)" type="text" placeholder="Enter Mobile Number" class="form-control">
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="form-group"><label>Alternative Contact Number </label> 
+<input name="alter_contact_number" required  maxlength="12" value="" type="text" placeholder=" Alternative Contact Number" class="form-control">
+</div>
+</div>
+
+
+<div class="col-md-3">
+
+<div class="form-group"><label>State   </label> 
+<select class="form-control m-b" required name="state">
+<option value="">select</option>
+<?php 
+foreach($state_details as $stateitem1){
+?>
+<option value="<?php echo $stateitem1->Id; ?>"  ><?php echo $stateitem1->StateName; ?></option>
+<?php } ?>
+</select>
+</div>
+</div>
+
+<div class="col-md-3">
+
+<div class="form-group"><label>City   </label> 
+<select class="form-control m-b" required name="city">
+<option value="">select</option>
+<?php 
+foreach($city_details as $cityde){
+?>
+<option value="<?php echo $cityde->Id; ?>"  ><?php echo $cityde->CityName; ?></option>
+<?php } ?>
+</select>
+</div>
+</div>
+
+
+<div class="col-md-3">
+
+<div class="form-group"><label>Height</label> 
+<select class="form-control m-b" required name="height">
+<option value="">Height</option>
+    
+        <option value="4ft - 121cm">4ft - 121cm</option>
+        <option value="4ft 1in - 124cm">4ft 1in - 124cm</option>
+        <option value="4ft2in-127cm">4ft2in-127cm</option>
+        <option value="4ft3in - 129cm">4ft3in - 129cm</option>
+        <option value="4ft4in - 132cm">4ft4in - 132cm</option>
+        <option value="4ft5in - 134cm">4ft5in - 134cm</option>
+        <option value="4ft6in - 137cm">4ft6in - 137cm</option>
+        <option value="4ft7in - 139cm">4ft7in - 139cm</option>
+        <option value="4ft8in - 142cm">4ft8in - 142cm</option>
+        <option value="4ft9in - 144cm">4ft9in - 144cm</option>
+        <option value="4ft10in - 147cm">4ft10in - 147cm</option>
+        <option value="4ft11in - 149cm">4ft11in - 149cm</option>
+        <option value="5ft - 152cm">5ft - 152cm</option>
+        <option value="5ft1in - 154cm">5ft1in - 154cm</option>
+        <option value="5ft2in - 157cm">5ft2in - 157cm</option>
+        <option value="5ft3in - 160cm">5ft3in - 160cm</option>
+        <option value="5ft4in - 162cm">5ft4in - 162cm</option>
+        <option value="5ft5in - 165cm">5ft5in - 165cm</option>
+        <option value="5ft6in - 167cm">5ft6in - 167cm</option>
+        <option value="5ft7in - 170cm">5ft7in - 170cm</option>
+        <option value="5ft8in - 172cm">5ft8in - 172cm</option>
+        <option value="5ft9in - 175cm">5ft9in - 175cm</option>
+        <option value="5ft10in - 177cm">5ft10in - 177cm</option>
+        <option value="5ft11in - 180cm">5ft11in - 180cm</option>
+        <option value="6ft - 182cm">6ft - 182cm</option>
+        <option value="6ft1in - 185cm">6ft1in - 185cm</option>
+        <option value="6ft2in - 187cm">6ft2in - 187cm</option>
+        <option value="6ft3in - 190cm">6ft3in - 190cm</option>
+        <option value="6ft4in - 193cm">6ft4in - 193cm</option>
+        <option value="6ft5in - 195cm">6ft5in - 195cm</option>
+        <option value="6ft6in - 198cm">6ft6in - 198cm</option>
+        <option value="6ft7in - 200cm">6ft7in - 200cm</option>
+        <option value="6ft8in - 203cm">6ft8in - 203cm</option>
+        <option value="6ft9in - 205cm">6ft9in - 205cm</option>
+        <option value="6ft10in - 208cm">6ft10in - 208cm</option>
+        <option value="6ft11in - 210cm">6ft11in - 210cm</option>
+        <option value="7ft - 213cm">7ft - 213cm</option>
+</select>
+</div>
+</div>
+
+
+<div class="col-md-3">
+<div class="form-group"  >
+<label class="col-sm-12 ">Any Disability </label>
+<div class="col-sm-12 ">
+<label> <input  type="radio" required value="Normal" id="Normal" name="disability"> Normal  </label>
+<label> <input  type="radio"  value="Physically challenged " id="Physically" name="disability"> Physically challenged
+</label>
+</div>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="form-group"><label>Marital Status</label> 
+<select class="form-control m-b" required name="maritalstatus">
+<option value="">select</option>
+<option value="Unmarried">Unmarried</option>
+<option value="Married">Married</option>
+<option value="Widow/Widower">Widow/Widower</option>
+<option value="Divoce">Divoce</option>
+<option value="Doesnt Matter">Doesn't Matter</option>
+</select>
+</div>
+</div>
+
+
+
+
+<div class="col-md-3">
+
+<div class="form-group"><label>Rasi</label> 
+<select class="form-control m-b"  onchange="getstar(this.value);"  name="rasi">
+
+<option value="">Select Rasi</option>
+<?php 
+if(isset($rasi_details) && ($rasi_details!="")){
+foreach($rasi_details as $castede){
+$id=$castede->Id;
+$RasiName=$castede->RasiName;
+?>
+<option value="<?php echo $id; ?>"  > <?php echo $RasiName; ?> </option>
+<?php 
+} }
+?>
+</select>
+</div>
+</div>
+
+<div class="col-md-3">
+
+<div class="form-group"><label>Star</label> 
+<select class="form-control m-b"  id="starid"  name="star">
+
+<option value="">Select Star</option>
+  <?php 
+if(isset($Star_details) && ($Star_details!="")){
+foreach($Star_details as $starde){
+$id=$starde->Id;
+$StarName=$starde->StarName;
+?>
+<option value="<?php echo $id; ?>"  > <?php echo $StarName; ?></option>
+<?php 
+} }
+?>
+</select>
+</div>
+</div>
+
+
+<div class="col-md-3">
+
+<div class="form-group"><label>Permenant Address</label>
+<textarea name="perm_address" required placeholder="Permenant Address" class="form-control" rows="2" id="perm_address"></textarea>
+</div>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+</div>
+</div>
+
+
+
+
+
+
+<div class="ibox-title" style="   background-color: #1ab394; color: #fff;">
+<h5>Religion Details  </h5>
+</div>
+<div class="ibox-content">
+<div class="row">
+<div class="col-sm-12 b-r">
+<div class="row">
+
+
+<div class="col-md-3">
+
+<div class="form-group"><label>Religion </label> 
+<select class="form-control m-b"   onchange="getcaste(this.value);" required name="religion">
+<option value="">select</option>
+   <?php 
+if(isset($religionlist) && ($religionlist!="")){
+foreach($religionlist as $relgiode){
+$id=$relgiode->Id;
+$Religion=$relgiode->Religion;
+?>
+<option value="<?php echo $id; ?>"  > <?php echo $Religion; ?> </option>
+<?php 
+} }
+?>						
+</select>
+</div>
+</div>
+<div class="col-md-3">
+
+<div class="form-group"><label>Mother Tongue </label> 
+<select class="form-control m-b" required name="r_mother">
+<option value="">Mother Tongue</option>
+<option value="English">English</option>
+<option value="Gujarathi">Gujarathi</option>
+<option value="Hindhi">Hindhi</option>
+<option value="Kannadam">Kannadam</option>
+<option value="Malayalam">Malayalam</option>
+<option value="Marathi">Marathi</option>
+<option value="Punjabi">Punjabi</option>
+<option value="Tamil">Tamil</option>
+<option value="Telugu">Telugu</option>
+		
+</select>
+</div>
+</div>
+
+<div class="col-md-3">
+
+<div class="form-group"><label>Caste  </label> 
+<select class="form-control m-b" id="r_case"  name="r_case">
+<option value="">Select Caste</option>
+</select>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="form-group"><label>Subcaste </label> 
+<input name="subcaste"   maxlength="12" value="" type="text" placeholder="  Enter Subcaste " class="form-control">
+</div>
+</div>
+
+<div class="col-md-3" id="castegothram" style="display:none;">
+<div class="form-group"><label>Gothram </label> 
+<input name="gothram" id="gothram"    maxlength="12" value="" type="text" placeholder="  Enter Gothra " class="form-control">
+</div>
+</div>
+<div class="col-md-3" id="castedosham" style="display:none;">
+
+<div class="form-group"  >
+<label class="col-sm-12 ">Dosham </label>
+<div class="col-sm-12 ">
+<label> <input  type="radio" value="1" onchange="dosham_change(this.value)" id="no" name="doshamname"> No</label>
+<label> <input  type="radio" onchange="dosham_change(this.value)"  value="2" id="yes" name="doshamname"> Yes</label>
+<label> <input type="radio" value="3" onchange="dosham_change(this.value)" id="dno" name="doshamname"> Don't know  </label>
+</div>
+
+<div class="col-sm-12" id="doshamshow" style="display:none;">
+<label> <input type="checkbox" value="Manglik"  name="doshamdetails[]" id="Manglik"> Manglik </label> 
+<label class="checkbox-inline"><input type="checkbox"  name="doshamdetails[]" value="Sarpa dosh" id="Sarpa"> Sarpa dosh </label>
+ <label><input type="checkbox" value="Kala sarpa dosh"  name="doshamdetails[]" id="Kala"> Kala sarpa dosh </label>
+ 
+ 
+ <label> <input type="checkbox" value="Rahu dosh"  name="doshamdetails[]" id="Rahu"> Rahu dosh </label> 
+<label class="checkbox-inline"><input type="checkbox" value="Kethu dosh"  name="doshamdetails[]" id="Kethu">Kethu dosh </label>
+ <label><input type="checkbox" value="Kalathra dosh" name="doshamdetails[]" id="Kalathra"> Kalathra dosh </label>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+</div>
+</div>
+
+</div>
+</div>
+
+
+
+<div class="ibox-title" style="   background-color: #1ab394; color: #fff;">
+<h5>Family Details  </h5>
+</div>
+<div class="ibox-content">
+<div class="row">
+<div class="col-sm-12 b-r">
+<div class="row">
+
+<div class="col-md-3">
+<div class="form-group"><label for="father_name">Father's Name   </label> 
+<input id="father_name" required name="father_name" class="form-control" placeholder="Enter Father's Name">
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="form-group"  >
+<label class="col-sm-12">Father's Alive  </label>
+<div class="col-sm-12 ">
+<label> <input  class="form-control" style="height: 14px;" type="radio" value="No" id="no" name="father_alive"> No</label>
+<label> <input  required class="form-control" style="height: 14px;" type="radio"  value="Yes" id="yes" name="father_alive"> Yes</label>
+
+</div>
+</div>
+</div>
+<div class="col-md-3">
+<div class="form-group"><label for="father_name">Father's Job  </label> 
+<input id="father_job"   name="father_job" class="form-control" placeholder="Enter Father's Job ">
+</div>
+</div>
+
+
+<div class="col-md-3">
+<div class="form-group"><label for="mother_name">Mother's Name  </label> 
+<input id="mother_name" required name="mother_name" class="form-control" placeholder="Enter Father's Name">
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="form-group"  >
+<label class="col-sm-12">Mother's Alive  </label>
+<div class="col-sm-12 ">
+<label> <input  required class="form-control" style="height: 14px;" type="radio" value="No" id="no" name="mother_alive"> No</label>
+<label> <input  class="form-control" style="height: 14px;" type="radio"  value="Yes" id="yes" name="mother_alive"> Yes</label>
+
+</div>
+</div>
+</div>
+<div class="col-md-3">
+<div class="form-group"><label for="father_name">Mother's Job   </label> 
+<input id="mother_job"  name="mother_job" class="form-control" placeholder="Enter Mother's Job ">
+</div>
+</div>
+<div class="col-md-3">
+
+<div class="form-group"><label>Order Of Birth </label> 
+<select class="form-control"  required id="orderof" name="orderof">
+<option value="">Select</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+</select>
+</div>
+</div>
+<div class="col-md-3">
+
+<div class="form-group"><label>No Of Brothers  </label> 
+<select class="form-control" required id="brothers" name="brothers">
+<option value="">Select</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+</select>
+</div>
+</div>
+<div class="col-md-3">
+
+<div class="form-group"><label>No Of Sister  </label> 
+<select class="form-control"  required id="sister" name="sister">
+<option value="">Select</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+</select>
+</div>
+</div>
+
+
+<div class="col-md-3">
+<div class="form-group"  >
+<label class="col-sm-12 ">Family Status </label>
+<div class="col-sm-12 ">
+<label> <input type="radio" required value="Rich"  id="Rich" name="family_status">Rich  </label>
+<label> <input type="radio" value="Affluent"  id="Affluent" name="family_status">Affluent  </label>
+<label> <input  type="radio" value="Middle class" id="Middle" name="family_status"> Middle class </label>
+<label> <input  type="radio"  value="Upper middle class" id="Upper" name="family_status"> Upper middle class</label>
+
+</div>
+</div>
+</div>
+<div class="col-md-3">
+<div class="form-group"  >
+<label class="col-sm-12 ">Family Type </label>
+<div class="col-sm-12 ">
+<label> <input  type="radio" required value="Joint" id="Joint" name="family_type"> Joint  </label>
+<label> <input  type="radio"  value="Nuclear" id="Nuclear" name="family_type"> Nuclear
+</label>
+</div>
+</div>
+</div>
+<div class="col-md-3">
+<div class="form-group"  >
+<label class="col-sm-12 ">Family Values </label>
+<div class="col-sm-12 ">
+<label> <input  type="radio" required value="Orthodox" id="Orthodox" name="family_values"> Orthodox  </label>
+<label> <input  type="radio"  value="Traditional" id="Traditional" name="family_values"> Traditional
+</label>
+<label> <input  type="radio"  value="Moderate" id="Moderate" name="family_values"> Moderate
+</label>
+<label> <input type="radio"  value="Liberal" id="Liberal" name="family_values"> Liberal
+</label>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+</div>
+
+
+
+<div class="ibox-title" style="   background-color: #1ab394; color: #fff;">
+<h5>Professional Details   </h5>
+</div>
+<div class="ibox-content">
+<div class="row">
+<div class="col-sm-12 b-r">
+<div class="row">
+
+
+<div class="col-md-3">
+<div class="form-group"><label>Qualification</label> 
+<input name="qualification" required id="qualification" maxlength="120" value="<?php echo $PaymentType; ?>" type="text" placeholder="Qualification" class="form-control">
+</div>
+</div>
+
+<div class="col-md-3">
+
+<div class="form-group"><label>Employed in </label> 
+<select class="form-control m-b" required name="YourEmployed">
+<option value="">select</option>
+<option value="1"   >Private Company</option>
+<option value="2"  >Government / Public Sector</option>
+<option value="3"  >Defense / Civil Services</option>
+<option value="4"   >Business / Self-Employed</option>
+<option value="5"  >Not Working</option>
+</select>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="form-group"><label>Occupation</label> 
+<input name="occupation" required id="occupation" maxlength="120" value="<?php echo $PaymentType; ?>" type="text" placeholder="Occupation" class="form-control">
+</div>
+</div>
+
+<div class="col-md-3">
+
+<div class="form-group"><label>Annual Income  </label> 
+<select class="form-control m-b" required name="YourAnnual">
+<option value="">select</option>
+<option value="3">0 - 1 Lakh</option>
+<option value="4">1 - 2 Lakhs</option>
+<option value="5">2 - 3 Lakhs</option>
+<option value="6">3 - 4 Lakhs</option>
+<option value="7">4 - 5 Lakhs</option>
+<option value="8">5 - 6 Lakhs</option>
+<option value="9">6 - 7 Lakhs</option>
+<option value="10">7 - 8 Lakhs</option>
+<option value="11">8 - 9 Lakhs</option>
+<option value="12">9 - 10 Lakhs</option>
+<option value="13">10 - 12 Lakhs</option>
+<option value="14">12 - 14 Lakhs</option>
+<option value="15">14 - 16 Lakhs</option>
+<option value="16">16 - 18 Lakhs</option>
+<option value="17">18 - 20 Lakhs</option>
+<option value="18">20 - 25 Lakhs</option>
+<option value="19">25 - 30 Lakhs</option>
+<option value="20">30 - 35 Lakhs</option>
+<option value="21">35 - 40 Lakhs</option>
+<option value="22">40 - 45 Lakhs</option>
+<option value="23">45 - 50 Lakhs</option>
+<option value="24">50 - 60 Lakhs</option>
+<option value="25">60 - 70 Lakhs</option>
+<option value="26">70 - 80 Lakhs</option>
+<option value="27">80 - 90 Lakhs</option>
+<option value="28">90 Lakhs - 1 Crore</option>
+<option value="29">1 Crore & Above</option>
+</select>
+</div>
+</div>
+
+
+
+
+</div>
+</div>
+
+</div>
+</div>
+
+
+<div class="ibox-title" style="   background-color: #1ab394; color: #fff;">
+<h5>About Me   </h5>
+</div>
+<div class="ibox-content">
+<div class="row">
+<div class="col-sm-12 b-r">
+<div class="row">
+
+<div class="col-md-12">
+<div class="form-group"><label>About Me</label> 
+<div class="col-sm-12 col-md-12">
+<textarea name="about" required class="form-control" rows="3" id="about"></textarea>
+</div>
+</div>
+</div>
+
+
+</div>
+</div>
+
+</div>
+</div>
+
+
+<div class="ibox-title" style="   background-color: #1ab394; color: #fff;">
+<h5>Profile Image   </h5>
+</div>
+<div class="ibox-content">
+<div class="row">
+<div class="col-sm-12 b-r">
+<div class="row">
+
+<div class="col-md-12">
+<div class="form-group"><label>Profile Image</label> 
+<div class="col-sm-12 col-md-12">
+      <input type="file" multiple="" required onchange="ValidateSize(this)"  name="profile_image[]" id="image-upload" >
+</div>
+</div>
+</div>
+
+
+</div>
+</div>
+
+</div>
+</div>
+
+
+
+
+<div class="ibox-title" style="   background-color: #1ab394; color: #fff;">
+<h5>Horoscope Image   </h5>
+</div>
+<div class="ibox-content">
+<div class="row">
+<div class="col-sm-12 b-r">
+<div class="row">
+
+<div class="col-md-12">
+<div class="form-group"><label>Horoscope Image</label> 
+<div class="col-sm-12 col-md-12">
+      <input type="file"  onchange="ValidateSize1(this)" name="horos_image[]" id="horos_image" >
+</div>
+</div>
+</div>
+
+
+</div>
+</div>
+
+</div>
+</div>
+
+
+
+<div class="ibox-title" style="   background-color: #1ab394; color: #fff;">
+<h5>Partner Expectation Details    </h5>
+</div>
+<div class="ibox-content">
+<div class="row">
+<div class="col-sm-12 b-r">
+<div class="row">
+
+
+
+<div class="col-md-3">
+<div class="form-group"><label>Qualification</label> 
+<input name="Pqualification" required id="Pqualification" maxlength="120" value="<?php echo $PaymentType; ?>" type="text" placeholder="Qualification" class="form-control">
+</div>
+</div>
+
+<div class="col-md-3">
+
+<div class="form-group"><label>Employed in </label> 
+<select class="form-control m-b" required name="PEmployed">
+<option value="">select</option>
+<option value="1"   >Private Company</option>
+<option value="2"  >Government / Public Sector</option>
+<option value="3"  >Defense / Civil Services</option>
+<option value="4"   >Business / Self-Employed</option>
+<option value="5"  >Not Working</option>
+</select>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="form-group"><label>Occupation</label> 
+<input name="Poccupation" required id="Poccupation" maxlength="120" value="<?php echo $PaymentType; ?>" type="text" placeholder="Occupation" class="form-control">
+</div>
+</div>
+
+<div class="col-md-3">
+
+<div class="form-group"><label>Annual Income  </label> 
+<select class="form-control m-b" required name="PAnnual">
+<option value="">select</option>
+<option value="3">0 - 1 Lakh</option>
+<option value="4">1 - 2 Lakhs</option>
+<option value="5">2 - 3 Lakhs</option>
+<option value="6">3 - 4 Lakhs</option>
+<option value="7">4 - 5 Lakhs</option>
+<option value="8">5 - 6 Lakhs</option>
+<option value="9">6 - 7 Lakhs</option>
+<option value="10">7 - 8 Lakhs</option>
+<option value="11">8 - 9 Lakhs</option>
+<option value="12">9 - 10 Lakhs</option>
+<option value="13">10 - 12 Lakhs</option>
+<option value="14">12 - 14 Lakhs</option>
+<option value="15">14 - 16 Lakhs</option>
+<option value="16">16 - 18 Lakhs</option>
+<option value="17">18 - 20 Lakhs</option>
+<option value="18">20 - 25 Lakhs</option>
+<option value="19">25 - 30 Lakhs</option>
+<option value="20">30 - 35 Lakhs</option>
+<option value="21">35 - 40 Lakhs</option>
+<option value="22">40 - 45 Lakhs</option>
+<option value="23">45 - 50 Lakhs</option>
+<option value="24">50 - 60 Lakhs</option>
+<option value="25">60 - 70 Lakhs</option>
+<option value="26">70 - 80 Lakhs</option>
+<option value="27">80 - 90 Lakhs</option>
+<option value="28">90 Lakhs - 1 Crore</option>
+<option value="29">1 Crore & Above</option>
+</select>
+</div>
+</div>
+
+
+
+<div class="col-md-3">
+<div class="form-group"  >
+<label class="col-sm-12 ">Marital Status </label>
+<div class="col-sm-12 ">
+<label> <input type="checkbox" value="Unmarried"  name="pstatus[]" id="PUnmarried"> Unmarried  </label> 
+<label class="checkbox-inline"><input type="checkbox"  name="pstatus[]" value="Married" id="PMarried">Married</label>
+ <label><input type="checkbox" value="Widow/Widower"  name="pstatus[]" id="PWidow"> Widow/Widower </label>
+ 
+ 
+ <label> <input type="checkbox" value="Divoce"  name="pstatus[]" id="PDivoce"> Divoce </label> 
+
+ <label> <input type="checkbox" value="Doesnt Matter"  name="pstatus[]" id="PDoesnt"> Doesnt Matter</label> 
+</div>
+</div>
+</div>
+
+
+<div class="col-md-3">
+<div class="form-group"><label>Preferred Age  </label> <br>
+<select class="mk_select m-b"  style="   width:40%;" id="Pfromage" name="Pfromage" required  >
+<option value="0">FromAge</option>
+
+<?php
+for($i=18;$i<=70;$i++)
+{
+echo '<option value="'.$i.'">'.$i.'</option>';
+}
+?>
+</select>
+<select  class="mk_select m-b" style="width:45%;" id="Ptoage" name="Ptoage" required >
+
+<option value="0">To Age</option>
+             
+<?php
+for($i=18;$i<=70;$i++)
+{
+echo '<option value="'.$i.'">'.$i.'</option>';
+}
+?>
+</select>
+
+
+</div>
+</div>
+
+
+<div class="col-md-3">
+<div class="form-group"  >
+<label class="col-sm-12 ">Job </label>
+<div class="col-sm-12 ">
+<label> <input  type="radio" required value="Must" id="Must" name="pjobreq"> Must  </label>
+<label> <input  type="radio"  value="Optional" id="Optional" name="pjobreq"> Optional
+</label>
+<label> <input  type="radio"  value="Not required" id="not_required" name="pjobreq"> Not required
+</label>
+</div>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="form-group"  >
+<label class="col-sm-12 ">Diet </label>
+<div class="col-sm-12 ">
+<label> <input type="checkbox" value="Vegetarian"  name="pdiet[]" id="Vegetarian"> Vegetarian  </label> 
+<label class="checkbox-inline"><input type="checkbox"  name="pdiet[]" value="Non-Vegetarian" id="Sarpa"> Non-Vegetarian</label>
+ <label><input type="checkbox" value="Eggetarian"  name="pdiet[]" id="Eggetarian"> Eggetarian </label>
+ 
+ 
+ <label> <input type="checkbox" value="Doesnt Matter"  name="pdiet[]" id="Doesnt">  Doesn't Matter </label> 
+
+</div>
+</div>
+</div>
+
+<div>
+
+<input type="hidden" value="adminmain/member_profilelist"  name="redirect">
+<button class="btn btn-sm btn-primary float-left m-t-n-xs" onClick = "return valthisform();" name="update" value="<?php  
+if($Id!=""){
+echo $this->chsslibrary->decoder($Id);
+}
+ ?>" type="submit"><strong><?php echo $btn; ?></strong></button>
+
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+
+
+
+
+
+</form>
+
+</div>
+</div>
+</div>
+</div>
+       
+	
+	
+<div class="footer">
+<div class="float-right">
+<strong></strong> .
+</div>
+<div>
+<strong> </strong>  
+</div>
+</div>
+
+</div>
+</div>
+
+	  
+	<script>  
+
+function valthisform()
+{
+	var checked=false;
+	var elements = document.getElementsByName("pstatus[]");
+	for(var i=0; i < elements.length; i++){
+		if(elements[i].checked) {
+			checked = true;
+		}
+	}
+	if (!checked) {
+		alert('please select atleast one Partner Marital Status');
+		return checked;
+	}
+	
+	var checked=false;
+	var elements = document.getElementsByName("pdiet[]");
+	for(var i=0; i < elements.length; i++){
+		if(elements[i].checked) {
+			checked = true;
+		}
+	}
+	if (!checked) {
+		alert('please select atleast  one Partner Diet');
+		return checked;
+	}
+}
+
+  function ValidateSize1(file) {
+        var FileSize = file.files[0].size / 1024 / 1024; // in MB
+
+        if (FileSize > 1) {
+			document.getElementById('horos_image').value  = ''; 
+            alert('File size exceeds 2 MB');
+           // $(file).val(''); //for clearing with Jquery
+        } else {
+
+        }
+		
+		var type='image/jpeg';
+		var file_type=document.getElementById('horos_image').files[0].type;
+		if(file_type!=type){
+		document.getElementById('horos_image').value  = ''; 
+		alert('Format not supported,Only .jpeg images are accepted');
+		return false;
+		}
+
+    }
+
+  /* function ValidateSize(file) {
+        var FileSize = file.files[0].size / 1024 / 1024; // in MB
+
+        if (FileSize > 1) {
+			document.getElementById('image-upload').value  = ''; 
+            alert('File size exceeds 2 MB');
+           // $(file).val(''); //for clearing with Jquery
+        } else {
+
+        }
+		
+		var type='image/jpeg';
+		var file_type=document.getElementById('image-upload').files[0].type;
+		if(file_type!=type){
+		document.getElementById('image-upload').value  = ''; 
+		alert('Format not supported,Only .jpeg images are accepted');
+		return false;
+		}
+
+    } */
+    
+	function checkphone(id){
+		
+		if(document.register.contact_number.value!=""){
+    var mobile=document.register.contact_number.value;
+    var cont_code=101;
+    if(cont_code=='101'){
+	var digit = mobile.toString()[0];
+	if(digit=='0' || digit=='1' || digit=='2' || digit=='3' || digit=='4' || digit=='5'){
+	    alert("Sorry, Mobile number is not valid !!!");
+	    document.register.contact_number.value='';
+	    document.register.contact_number.focus();
+	    return false; 
+	}
+	if(Number(mobile.length)!='10'){
+	    alert("Sorry, Mobile number is not valid !!!");
+	    document.register.contact_number.value='';
+	    document.register.contact_number.focus();
+	    return false; 
+	}
+    }
+    if(Number(mobile.length) < 6 || Number(mobile.length) > 12){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='111111' || Number(mobile)=='1111111' || Number(mobile)=='11111111' || Number(mobile)=='111111111' || Number(mobile)=='1111111111'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='222222' || Number(mobile)=='2222222' || Number(mobile)=='22222222' || Number(mobile)=='222222222' || Number(mobile)=='2222222222'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='333333' || Number(mobile)=='3333333' || Number(mobile)=='33333333' || Number(mobile)=='333333333' || Number(mobile)=='3333333333'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='444444' || Number(mobile)=='4444444' || Number(mobile)=='44444444' || Number(mobile)=='444444444' || Number(mobile)=='4444444444'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='555555' || Number(mobile)=='5555555' || Number(mobile)=='55555555' || Number(mobile)=='555555555' || Number(mobile)=='5555555555'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='666666' || Number(mobile)=='6666666' || Number(mobile)=='66666666' || Number(mobile)=='666666666' || Number(mobile)=='6666666666'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='777777' || Number(mobile)=='7777777' || Number(mobile)=='77777777' || Number(mobile)=='777777777' || Number(mobile)=='7777777777'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='888888' || Number(mobile)=='8888888' || Number(mobile)=='88888888' || Number(mobile)=='888888888' || Number(mobile)=='8888888888'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='999999' || Number(mobile)=='9999999' || Number(mobile)=='99999999' || Number(mobile)=='999999999' || Number(mobile)=='9999999999'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='000000' || Number(mobile)=='0000000' || Number(mobile)=='00000000' || Number(mobile)=='000000000' || Number(mobile)=='0000000000'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    }
+		
+		
+		
+		
+	var xmlhttp=new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+	if(this.readyState == 4 && this.status == 200) {
+		//alert(this.responseText);
+	if(this.responseText==1){
+	alert("already registered phone number ")
+	document.getElementById("contact_number").value='';
+	}
+	}
+	};        
+	xmlhttp.open("GET", "<?php echo base_url(); ?>ajax/checkby_phonejax/"+id, true);
+	xmlhttp.send();
+	} 
+	</script>
+	<script>      
+	function checkemail(id){
+
+	var xmlhttp=new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+	if(this.readyState == 4 && this.status == 200) {
+		//alert(this.responseText);
+	if(this.responseText==1){
+	alert("already registered email ")
+	document.getElementById("email").value='';
+	}
+	}
+	};        
+	xmlhttp.open("GET", "<?php echo base_url(); ?>ajax/check_useremailbyajax/"+id, true);
+	xmlhttp.send();
+	}
+
+function getcaste(rasiid){
+if(rasiid==''){
+document.getElementById('castegothram').style.display = 'none'; // Show el
+document.getElementById('castedosham').style.display = 'none'; // Show el
+document.getElementById('doshamshow').style.display = 'none'; // Show el
+document.getElementById('gothram').value  = ''; // Show el
+var items = document.getElementsByName('doshamdetails[]');
+for (var i = 0; i < items.length; i++) {
+if (items[i].type == 'checkbox')
+items[i].checked = false;
+}
+var radList = document.getElementsByName('doshamname');
+for (var i = 0; i < radList.length; i++) {
+if(radList[i].checked) radList[i].checked = false;
+}
+
+	
+	
+return false;
+}else{
+	
+	
+if(rasiid==1){
+document.getElementById('doshamshow').style.display = 'none'; // Show el
+document.getElementById('castegothram').style.display = 'block'; // Show el
+document.getElementById('castedosham').style.display = 'block'; // Show el
+}else{	
+document.getElementById('castegothram').style.display = 'none'; // Show el
+document.getElementById('castedosham').style.display = 'none'; // Show el
+document.getElementById('gothram').value  = ''; // Show el
+var items = document.getElementsByName('doshamdetails[]');
+for (var i = 0; i < items.length; i++) {
+if (items[i].type == 'checkbox')
+items[i].checked = false;
+}
+var radList = document.getElementsByName('doshamname');
+for (var i = 0; i < radList.length; i++) {
+  if(radList[i].checked) radList[i].checked = false;
+}
+
+}
+	
+	
+}
+var xmlhttp=new XMLHttpRequest();	
+xmlhttp.onreadystatechange = function() {
+if (this.readyState == 4 && this.status == 200) {
+//alert(this.responseText);
+document.getElementById("r_case").innerHTML = this.responseText;
+
+
+
+}
+
+};
+xmlhttp.open("GET", "<?php echo base_url(); ?>adminmain/getcastebyreligion_ajax/"+rasiid, true);
+xmlhttp.send();
+}
+</script>	
+
+
+
+<script>
+
+function dosham_change(el){
+if(el == '2'){ 
+	document.getElementById('doshamshow').style.display = 'block'; // Show el
+}else{
+	var items = document.getElementsByName('doshamdetails[]');
+	for (var i = 0; i < items.length; i++) {
+	if (items[i].type == 'checkbox')
+	items[i].checked = false;
+	}
+	document.getElementById('doshamshow').style.display = 'none'; // Hide el
+}
+}
+
+</script>
+
+<script>
+function getstar(rasiid){
+
+if(rasiid==''){
+return false;
+}
+var xmlhttp=new XMLHttpRequest();	
+xmlhttp.onreadystatechange = function() {
+if (this.readyState == 4 && this.status == 200) {
+//alert(this.responseText);
+document.getElementById("starid").innerHTML = this.responseText;
+}
+};
+xmlhttp.open("GET", "<?php echo base_url(); ?>ajax/getstarbyrasi_ajax/"+rasiid, true);
+xmlhttp.send();
+}
+</script>	
+
+
+
+<?php echo $loadjs; ?>
+	
+	
+	
+</body>
+</html>

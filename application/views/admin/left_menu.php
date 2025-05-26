@@ -1,0 +1,44 @@
+
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav metismenu" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element">
+<!--           <img alt="image" class="rounded-circle" src="img/profile_small.jpg"/> -->
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="block m-t-xs font-bold">Admin</span>
+                        </a>
+                     
+                    </div>
+                    <div class="logo-element">
+                        Admin
+                    </div>
+                </li>
+<!-- <li>
+                    <a href="<?php echo base_url(); ?>adminmain"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
+                   
+                </li> -->
+				  <li>
+                    <a href="<?php echo base_url(); ?>adminmain/member_profilelist"><i class="fa fa-user"></i> <span class="nav-label">Member profile list </span></a>
+                </li>
+				 <li>
+                    <a href="<?php echo base_url(); ?>adminmain/paymentlist"><i class="fa fa-money"></i> <span class="nav-label">Payment master</span></a>
+                </li>
+				 <li>
+                    <a href="<?php echo base_url(); ?>adminmain/paidmemberlist"><i class="fa fa-money"></i> <span class="nav-label">Paid Member List</span></a>
+                </li>
+               <li>
+                    <a href="<?php echo base_url(); ?>adminmain/review_list"><i class="fa fa-pencil"></i> <span class="nav-label">Review Report</span></a>
+                </li>
+               <li>
+                    <a href="<?php echo base_url(); ?>adminmain/change_password"><i class="fa fa-lock"></i> <span class="nav-label">Change Password </span></a>
+                </li>
+              
+                 <li>
+                    <a href="<?php echo base_url(); ?>wedding_directory/"><i class="fa fa-user-plus"></i> <span class="nav-label">Wedding Directory</span></a>
+                </li>
+                
+            </ul>
+
+        </div>
+    </nav>

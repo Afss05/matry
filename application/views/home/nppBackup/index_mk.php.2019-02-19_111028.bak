@@ -1,0 +1,731 @@
+<?php 
+
+/* header("Cache-Control: no cache");
+session_cache_limiter("private_no_expire"); */
+
+?>
+
+
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<head>
+    <title>Bharat Vivaha Matrimony</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- css file -->
+<!--mk -->
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets_index/css/colors/default.css">
+
+
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets_index/css/bootstrap.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets_index/css/style.css">
+<!-- Responsive stylesheet -->
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets_index/css/responsive.css">
+<!-- Title -->
+<title></title>
+<!-- Favicon -->
+<link href="images/favicon.ico" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
+<link href="images/favicon.ico" sizes="128x128" rel="shortcut icon" />
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	
+	
+	<style>
+
+nav.navbar.bootsnav ul.nav li a.active, nav.navbar.bootsnav ul.nav li a:hover, nav.navbar.bootsnav ul.nav li a:focus {
+    color: #fff !important;
+}
+</style>
+</head>
+<body>
+<div class="wrapper">
+ 
+		<!-- Header Styles -->
+	<header class="header-nav transparent">
+		<div class="container">
+		    <!-- Start Navigation -->
+		    <nav class="navbar navbar-default navbar-fixed white no-background bootsnav">
+		        <div class="container">
+		            <!-- Start Header Navigation -->
+		            <div class="navbar-header">
+		                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+		                    <i class="fa fa-bars"></i>
+		                </button>
+		                <a class="navbar-brand ulockd-main-logo2" href="<?php echo base_url(); ?>">
+		                    <img src="<?php echo base_url(); ?>assets_index/images/header-logo2.png" class="logo logo-display hidden-md" alt="header-logo.png" style="height:70px;">
+		                    <img src="<?php echo base_url(); ?>assets_index/images/header-logo2.png" class="logo logo-scrolled" alt="" style="height:70px;">
+		                </a>
+		            </div>
+		            <!-- End Header Navigation -->
+
+		            <!-- Collect the nav links, forms, and other content for toggling -->
+		        
+						<?php echo $topmenu; ?>
+
+				</div>
+		    </nav>
+		    <!-- End Navigation -->
+		</div>
+	</header>
+	<section class="ulockd-rsvp ulockd_bgi3 parallax" data-stellar-background-ratio="0.3" style="    padding: 82px 0;">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">
+                	
+					<?php echo $registerform; ?>
+					
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<!-- Our About -->
+	<section class="ulockd-about bgc-overlay-white8 ulockd_bgp3" style="padding-top:0px;">
+		<div class="container">
+		<div class="row">
+		<div class="col-sm-12 col-md-8 col-md-offset-2 text-center" >
+		<div class="ulockd-main-title">
+		<img  style="height:100px;width:750px;" class="img-responsive img-whp" src="<?php echo base_url(); ?>assets/profileimages/bgimg.png">
+		</div>
+		</div>
+				<div class="col-sm-12 col-md-12 text-center">
+					<div class="ulockd-main-title">
+						<h2 class="ulockd-mrgn630"><span class="text-thm2">About bharat vivaha </span></h2>
+						<p>Bharat Vivaha is a No.1 Matrimony site in Chennai, India. Marriage (also called matrimony or wedlock) is a socially or ritually recognized union or legal contract between spouses that establishes rights and obligations between them, between them and their children, and between them and their in-laws. Bharat Vivaha Matrimony for All Relegion & All Caste. Our mission is to help you find your life partner and nothing else. Select from multiple options to create your own unique profile. Bharat Vivaha Matrimony are a great way for couples to share details about their big wedding day with family and friends. Matrimonial sites register users, after which they are able to upload their profile onto a searchable database maintained by the website.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Our First Divider -->
+	<section class="testimonial parallax ulockd_bgi1 overlay-tc8" data-stellar-background-ratio="0.3">
+		<div class="container">
+			<div class="row ulockd-mrgn1240">
+				<div class="col-md-6 p0-mdd">
+					<div class="wedding-invitation tac-xsd">
+						
+						
+					</div>
+				</div>
+				<div class="col-md-6 text-center p0-mdd">
+					<div class="wedding-invitation tac-xsd">
+						
+					
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Our BridesMaids -->
+	<section class="our-team bgc-overlay-white8 ulockd_bgp3">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3 text-center">
+					<div class="ulockd-main-title">
+						<h2 class="text-thm2">Brides</h2>
+						<img src="<?php echo base_url(); ?>assets_index/images/resource/title-bottom.png" alt="title-bottom.png">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+			
+<?php
+
+$MemberCode="";
+if(count ($bride_details>0)){
+foreach($bride_details as $item4){
+$memberid=$item4->Id;
+
+$MemberCode=$item4->MemberCode;
+?>
+			<div class="col-xxs-12 col-xs-6 col-sm-6 col-md-3 ulockd-pdng5">
+					<div class="team-one text-center">
+						<div class="team-thumb">
+						
+<?php  
+$profile_image=$this->Admin_model->getprofileimageStatus_byid($memberid);
+$FilePath="";
+if(isset($profile_image) && ($profile_image!="")){
+foreach($profile_image as $row){
+$rid=$row->Id;
+$FilePath=$row->FilePath;
+}}  
+if($FilePath!=""){
+?>
+<a href="<?php echo base_url(); ?>searchindex/index/?gender=&status=&fromage=&endage=&religion=&caste=&SearchByID=<?php echo $MemberCode; ?>">					
+<img  style="height: 165px;" class="img-responsive img-whp img-whp2" src="<?php echo base_url(); ?>assets/profileimages/<?php echo $FilePath; ?>">
+</a>
+<?php }else{ ?>
+<a href="<?php echo base_url(); ?>searchindex/index/?gender=&status=&fromage=&endage=&religion=&caste=&SearchByID=<?php echo $MemberCode; ?>">	
+<img style="height: 165px;"  class="img-responsive img-whp img-whp2"  src="<?php echo base_url(); ?>assets/profileimages/defaultimage.jpg">
+</a>
+<?php } ?>
+
+						
+</div>
+<div class="team-details">
+<h3 class="member-name"><a href="<?php echo base_url(); ?>searchindex/index/?gender=&status=&fromage=&endage=&religion=&caste=&SearchByID=<?php echo $MemberCode; ?>" ><?php echo $item4->Name; ?></a> </h3>
+<h5 class="member-post" style="margin-top:5px;"><a href="<?php echo base_url(); ?>searchindex/index/?gender=&status=&fromage=&endage=&religion=&caste=&SearchByID=<?php echo $MemberCode; ?>" style="margin-bottom: 10px; margin-top: 10px;" >Age : <?php echo $item4->Age; ?></a></h5>
+<h5 class="member-post"><?php if($item4->Qualification!="" && $item4->Qualification!="0" ){ ?>
+<a href="<?php echo base_url(); ?>searchindex/index/?gender=&status=&fromage=&endage=&religion=&caste=&SearchByID=<?php echo $MemberCode; ?>" >
+<?php echo $item4->Qualification; ?></a>
+<?php } ?></h5>
+</div>
+</div>
+</div>
+
+<?php } } ?>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row ulockd-mrgn1230">
+				<div class="col-md-6 col-md-offset-3 text-center">
+					<div class="ulockd-main-title">
+						<h2 class="text-thm2">Grooms</h2>
+						<img src="<?php echo base_url(); ?>assets_index/images/resource/title-bottom.png" alt="title-bottom.png">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+			<style>
+			
+.img-whp2 {
+width: 90% !important;
+}
+
+			</style>
+			
+				
+<?php
+
+$MemberCode=$memberid="";
+if(count ($groom_details>0)){
+foreach($groom_details as $item4){
+$memberid=$item4->Id;
+
+$MemberCode=$item4->MemberCode;
+?>
+			<div class="col-xxs-12 col-xs-6 col-sm-6 col-md-3 ulockd-pdng5">
+					<div class="team-one text-center">
+						<div class="team-thumb">
+						
+<?php  
+$profile_image=$this->Admin_model->getprofileimageStatus_byid($memberid);
+$FilePath="";
+if(isset($profile_image) && ($profile_image!="")){
+foreach($profile_image as $row){
+$rid=$row->Id;
+$FilePath=$row->FilePath;
+}}  
+if($FilePath!=""){
+?>
+<a href="<?php echo base_url(); ?>searchindex/index/?gender=&status=&fromage=&endage=&religion=&caste=&SearchByID=<?php echo $MemberCode; ?>">					
+<img style="height: 165px;"  class="img-responsive img-whp img-whp2" src="<?php echo base_url(); ?>assets/profileimages/<?php echo $FilePath; ?>">
+</a>
+<?php }else{ ?>
+<a href="<?php echo base_url(); ?>searchindex/index/?gender=&status=&fromage=&endage=&religion=&caste=&SearchByID=<?php echo $MemberCode; ?>">	
+<img style="height: 165px;"  class="img-responsive img-whp img-whp2"  src="<?php echo base_url(); ?>assets/profileimages/defaultimage.jpg">
+</a>
+<?php } ?>
+
+						
+</div>
+<div class="team-details">
+<h3 class="member-name"><a href="<?php echo base_url(); ?>searchindex/index/?gender=&status=&fromage=&endage=&religion=&caste=&SearchByID=<?php echo $MemberCode; ?>" ><?php echo $item4->Name; ?></a> </h3>
+<h5 class="member-post" style="margin-top:5px;"><a href="<?php echo base_url(); ?>searchindex/index/?gender=&status=&fromage=&endage=&religion=&caste=&SearchByID=<?php echo $MemberCode; ?>" style="margin-bottom: 10px; margin-top: 10px;" >Age : <?php echo $item4->Age; ?></a></h5>
+<h5 class="member-post"><?php if($item4->Qualification!="" && $item4->Qualification!="0" ){ ?>
+<a href="<?php echo base_url(); ?>searchindex/index/?gender=&status=&fromage=&endage=&religion=&caste=&SearchByID=<?php echo $MemberCode; ?>" >
+<?php echo $item4->Qualification; ?></a>
+<?php } ?></h5>
+</div>
+</div>
+</div>
+
+<?php } } ?>
+			
+			
+			
+			</div>
+		
+		
+		
+		
+		
+		</div>
+	</section>
+
+	
+<?php if(isset($review_details) && count($review_details)>0){ ?>
+	<!-- Our Story -->
+<section id="story" class="ulockd-about bgc-overlay-white9 ">
+<div class="container">
+<div class="row">
+<div class="col-md-6 col-md-offset-3 text-center">
+<div class="ulockd-main-title">
+<h2 class="text-thm2">Review</h2>
+<img src="<?php echo base_url(); ?>assets_index/images/resource/title-bottom.png"  alt="title-bottom.png">
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-md-12">					
+<ul class="our-story timeline">
+<?php 
+$i=0;
+
+
+foreach($review_details as $item4){
+?>
+
+<li class="<?php if ($i % 2 == 0){ echo ""; }else { echo "timeline-inverted";}
+  $i++;
+?>">
+<div class="timeline-badge"><i class="glyphicon glyphicon-pencil"></i></div>
+<div class="timeline-panel left">
+<div class="timeline-body w50prcnt pull-left ulockd-pdng15">
+	<h5 class="text-thm2"><?php echo $item4->Name; ?></h5>
+	<p><small class="text-muted badge ulockd-bgthm"><span class="text-thm2"></span> <?php echo 
+	 $datebirth = $this->chsslibrary->returnindian_date($item4->CreatedDate);
+	?> </small></p>
+	
+	<p> <?php echo $item4->Comments; ?></p>
+</div>
+ <div class="timeline-body w50prcnt pull-right">
+ 
+ <?php
+ if($FilePath!=""){
+?>
+<a href="<?php echo base_url(); ?>searchindex/index/?gender=&status=&fromage=&endage=&religion=&caste=&SearchByID=<?php echo $MemberCode; ?>">					
+<img style="height: 165px;"  class="img-responsive img-whp img-whp2" src="<?php echo base_url(); ?>assets/profileimages/<?php echo $FilePath; ?>">
+</a>
+<?php }else{ ?>
+
+	<img src="assets/profileimages/defaultimage.jpg" class="img-responsive" >
+	
+<?php } ?>
+ 
+ 
+ 
+ 
+ 
+
+</div> 
+</li>
+
+<?php  }  ?>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<?php  }  ?>
+	
+	
+	
+	
+	<?php echo $footer; ?>
+
+
+
+</div>
+
+
+<script>
+
+/* 
+	
+  function ValidateSize1(file) {
+        var FileSize = file.files[0].size / 1024 / 1024; // in MB
+
+        if (FileSize > 1) {
+			document.getElementById('horos_image').value  = ''; 
+            alert('File size exceeds 2 MB');
+           // $(file).val(''); //for clearing with Jquery
+        } else {
+
+        }
+		
+		var type='image/jpeg';
+		var file_type=document.getElementById('horos_image').files[0].type;
+		if(file_type!=type){
+		document.getElementById('horos_image').value  = ''; 
+		alert('Format not supported,Only .jpeg images are accepted');
+		return false;
+		}
+
+    } */
+
+ /*  function ValidateSize(file) {
+        var FileSize = file.files[0].size / 1024 / 1024; // in MB
+
+        if (FileSize > 1) {
+			document.getElementById('image-upload').value  = ''; 
+            alert('File size exceeds 2 MB');
+           // $(file).val(''); //for clearing with Jquery
+        } else {
+
+        }
+		
+		var type='image/jpeg';
+		var file_type=document.getElementById('image-upload').files[0].type;
+		if(file_type!=type){
+		document.getElementById('image-upload').value  = ''; 
+		alert('Format not supported,Only .jpeg images are accepted');
+		return false;
+		}
+
+    } */
+	
+function getstar(rasiid){
+
+if(rasiid==''){
+return false;
+}
+var xmlhttp=new XMLHttpRequest();	
+xmlhttp.onreadystatechange = function() {
+if (this.readyState == 4 && this.status == 200) {
+//alert(this.responseText);
+document.getElementById("starid").innerHTML = this.responseText;
+}
+
+};
+xmlhttp.open("GET", "<?php echo base_url(); ?>ajax/getstarbyrasi_ajax/"+rasiid, true);
+xmlhttp.send();
+}
+</script>	
+
+<script>
+
+function dosham_change(el){
+if(el == '2'){ 
+	document.getElementById('doshamshow').style.display = 'block'; // Show el
+}else{
+	var items = document.getElementsByName('doshamdetails[]');
+	for (var i = 0; i < items.length; i++) {
+	if (items[i].type == 'checkbox')
+	items[i].checked = false;
+	}
+	document.getElementById('doshamshow').style.display = 'none'; // Hide el
+}
+}
+
+</script>
+
+
+
+<script>
+
+function getcaste1(rasiid){
+
+if(rasiid==''){
+return false;
+}
+
+//alert(rasiid);
+var xmlhttp=new XMLHttpRequest();	
+xmlhttp.onreadystatechange = function() {
+if (this.readyState == 4 && this.status == 200) {
+//alert(this.responseText);
+document.getElementById("r_case1").innerHTML = this.responseText;
+}
+
+};
+xmlhttp.open("GET", "<?php echo base_url(); ?>Ajax/getcastebyreligion_ajax/"+rasiid, true);
+xmlhttp.send();
+}
+function getcaste(rasiid){
+	
+if(rasiid==''){
+return false;
+}
+var xmlhttp=new XMLHttpRequest();	
+xmlhttp.onreadystatechange = function() {
+if (this.readyState == 4 && this.status == 200) {
+//alert(this.responseText);
+document.getElementById("r_case").innerHTML = this.responseText;
+}
+
+};
+xmlhttp.open("GET", "<?php echo base_url(); ?>ajax/getcastebyreligion_ajax/"+rasiid, true);
+xmlhttp.send();
+}
+</script>	
+
+  
+<script>    
+
+function checkemail(id){
+//alert(id);
+var xmlhttp=new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+if(this.readyState == 4 && this.status == 200) {
+//alert(this.responseText);
+if(this.responseText==1){
+alert("already registered email ")
+document.getElementById("email").value='';
+}
+}
+};        
+xmlhttp.open("GET", "<?php echo base_url(); ?>ajax/check_useremailbyajax/"+id, true);
+xmlhttp.send();
+}
+
+	
+function checkphone(id){
+		
+		if(document.register.contact_number.value!=""){
+    var mobile=document.register.contact_number.value;
+    var cont_code=101;
+    if(cont_code=='101'){
+	var digit = mobile.toString()[0];
+	if(digit=='0' || digit=='1' || digit=='2' || digit=='3' || digit=='4' || digit=='5'){
+	    alert("Sorry, Mobile number is not valid !!!");
+	    document.register.contact_number.value='';
+	    document.register.contact_number.focus();
+	    return false; 
+	}
+	if(Number(mobile.length)!='10'){
+	    alert("Sorry, Mobile number is not valid !!!");
+	    document.register.contact_number.value='';
+	    document.register.contact_number.focus();
+	    return false; 
+	}
+    }
+    if(Number(mobile.length) < 6 || Number(mobile.length) > 12){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='111111' || Number(mobile)=='1111111' || Number(mobile)=='11111111' || Number(mobile)=='111111111' || Number(mobile)=='1111111111'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='222222' || Number(mobile)=='2222222' || Number(mobile)=='22222222' || Number(mobile)=='222222222' || Number(mobile)=='2222222222'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='333333' || Number(mobile)=='3333333' || Number(mobile)=='33333333' || Number(mobile)=='333333333' || Number(mobile)=='3333333333'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='444444' || Number(mobile)=='4444444' || Number(mobile)=='44444444' || Number(mobile)=='444444444' || Number(mobile)=='4444444444'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='555555' || Number(mobile)=='5555555' || Number(mobile)=='55555555' || Number(mobile)=='555555555' || Number(mobile)=='5555555555'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='666666' || Number(mobile)=='6666666' || Number(mobile)=='66666666' || Number(mobile)=='666666666' || Number(mobile)=='6666666666'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='777777' || Number(mobile)=='7777777' || Number(mobile)=='77777777' || Number(mobile)=='777777777' || Number(mobile)=='7777777777'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='888888' || Number(mobile)=='8888888' || Number(mobile)=='88888888' || Number(mobile)=='888888888' || Number(mobile)=='8888888888'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='999999' || Number(mobile)=='9999999' || Number(mobile)=='99999999' || Number(mobile)=='999999999' || Number(mobile)=='9999999999'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='000000' || Number(mobile)=='0000000' || Number(mobile)=='00000000' || Number(mobile)=='000000000' || Number(mobile)=='0000000000'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    }
+		
+		
+	
+	
+var xmlhttp=new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+if(this.readyState == 4 && this.status == 200) {
+	//alert(this.responseText);
+if(this.responseText==1){
+alert("already registered phone number ")
+document.getElementById("contact_number").value='';
+}
+}
+};        
+xmlhttp.open("GET", "<?php echo base_url(); ?>ajax/checkby_phonejax/"+id, true);
+xmlhttp.send();
+} 
+
+function checkphone_without(id,uid){
+	
+	if(document.register.contact_number.value!=""){
+    var mobile=document.register.contact_number.value;
+    var cont_code=101;
+    if(cont_code=='101'){
+	var digit = mobile.toString()[0];
+	if(digit=='0' || digit=='1' || digit=='2' || digit=='3' || digit=='4' || digit=='5'){
+	    alert("Sorry, Mobile number is not valid !!!");
+	    document.register.contact_number.value='';
+	    document.register.contact_number.focus();
+	    return false; 
+	}
+	if(Number(mobile.length)!='10'){
+	    alert("Sorry, Mobile number is not valid !!!");
+	    document.register.contact_number.value='';
+	    document.register.contact_number.focus();
+	    return false; 
+	}
+    }
+    if(Number(mobile.length) < 6 || Number(mobile.length) > 12){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='111111' || Number(mobile)=='1111111' || Number(mobile)=='11111111' || Number(mobile)=='111111111' || Number(mobile)=='1111111111'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='222222' || Number(mobile)=='2222222' || Number(mobile)=='22222222' || Number(mobile)=='222222222' || Number(mobile)=='2222222222'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='333333' || Number(mobile)=='3333333' || Number(mobile)=='33333333' || Number(mobile)=='333333333' || Number(mobile)=='3333333333'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='444444' || Number(mobile)=='4444444' || Number(mobile)=='44444444' || Number(mobile)=='444444444' || Number(mobile)=='4444444444'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='555555' || Number(mobile)=='5555555' || Number(mobile)=='55555555' || Number(mobile)=='555555555' || Number(mobile)=='5555555555'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='666666' || Number(mobile)=='6666666' || Number(mobile)=='66666666' || Number(mobile)=='666666666' || Number(mobile)=='6666666666'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='777777' || Number(mobile)=='7777777' || Number(mobile)=='77777777' || Number(mobile)=='777777777' || Number(mobile)=='7777777777'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='888888' || Number(mobile)=='8888888' || Number(mobile)=='88888888' || Number(mobile)=='888888888' || Number(mobile)=='8888888888'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='999999' || Number(mobile)=='9999999' || Number(mobile)=='99999999' || Number(mobile)=='999999999' || Number(mobile)=='9999999999'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='000000' || Number(mobile)=='0000000' || Number(mobile)=='00000000' || Number(mobile)=='000000000' || Number(mobile)=='0000000000'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    }
+		
+		
+	
+	
+var xmlhttp=new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+if(this.readyState == 4 && this.status == 200) {
+	//alert(this.responseText);
+if(this.responseText==1){
+alert("already registered phone number ")
+document.getElementById("contact_number").value='';
+}
+}
+};        
+xmlhttp.open("GET", "<?php echo base_url(); ?>ajax/checkby_phonejax_withuser/"+id+"/"+uid, true);
+xmlhttp.send();
+} 
+
+
+</script>
+
+
+
+<!-- Wrapper End -->
+<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/bootsnav.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/parallax.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/scrollto.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jquery-scrolltofixed-min.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jquery.counterup.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/gallery.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/wow.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/slider.js"></script>
+<!--  <script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/video-player.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jflickrfeed.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jquery.barfiller.js"></script>
+<!-- 
+<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/timepicker.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/tweetie.js"></script>
+<!-- Custom script for all pages 
+<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/color-switcher.js"></script> --> 
+<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/script.js"></script>
+<script type='text/javascript'>
+// [].slice.call( document.querySelectorAll( '.photostack' ) ).forEach( function( el ) { new Photostack( el ); } );
+new Photostack( document.getElementById( 'photostack-3' ), {
+    callback : function( item ) {
+        //console.log(item)
+    }
+});
+</script>
+
+
+
+</body>
+</html>

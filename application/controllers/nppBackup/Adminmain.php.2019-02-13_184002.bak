@@ -1,0 +1,952 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+class adminmain extends CI_Controller
+{
+    public function __construct(){
+	parent::__construct();
+	$this->load->database();
+	$this->load->model("Admin_model");
+
+	$this->load->helper('form');
+	$this->load->helper('url');
+	$this->load->helper('string');
+	$this->load->helper('download');
+	$this->load->library('session');
+	$this->load->library('email',array('mailtype'=>'html'));
+	$this->load->library('Chsslibrary');
+	$this->load->library('pagination');
+	$this->load->library('excel');	
+	$this->Admin_model->plan_profileinactive();
+	$userid = $this->session->userdata('adminlogged_in');
+	if($userid==""){
+		redirect(base_url() . 'adminmainlogin/');
+	}
+			
+	}
+   	
+    // ----------------------------------------------------------------------------- 
+    public function index(){
+		$data["member_list"] = "Management";
+		$this->data = $data;
+		$this->template['leftmenu'] = $this->load->view('admin/left_menu', $this->data, true);		
+		$this->template['menu'] = $this->load->view('admin/menu', $this->data, true);
+		$this->template['loadjs'] = $this->load->view('admin/loadjs', $this->data, true);
+		$this->load->view('admin/dashboard', $this->template);
+    }
+	
+	
+	// -----------------------------------------------------------------------------    
+    public function change_password($id=null){
+        $data["member_list"] = "Management";
+		$this->data = $data;
+		$this->template['leftmenu'] = $this->load->view('admin/left_menu', $this->data, true);		
+		$this->template['menu'] = $this->load->view('admin/menu', $this->data, true);
+		$this->template['loadjs'] = $this->load->view('admin/loadjs', $this->data, true);
+		$this->load->view('admin/change_password', $this->template);
+  }
+  
+  
+  
+  // -----------------------------------------------------------------------------    
+    public function change_password_submit($id=null){
+        $data["member_list"] = "Management";
+		$userid = $this->session->userdata('adminlogged_in');
+		$old = $this->input->post('currentpassword');
+		$password = $this->input->post('newpassword');
+		$retypepassword = $this->input->post('retypepassword');
+		$result = $this->Admin_model->checkOldPassword($old,$userid);
+		
+		if($password!=$retypepassword){
+			$this->session->set_flashdata('message', 'password should be same');
+			redirect(base_url() . 'adminmain/change_password');
+		}
+		
+		if(count($result)>0){
+			
+			$data = array
+			(
+				'Password' =>$password
+			);
+			
+			$this->Admin_model->updatepassword_byuser($data,$userid);
+			$this->session->set_flashdata('message', 'Password changed successfully');
+			redirect(base_url() . 'adminmain/change_password');
+		}else{
+			$this->session->set_flashdata('message', 'old password incorrect');
+			redirect(base_url() . 'adminmain/change_password');
+		}
+	}
+  
+  
+	// ----------------------------------------------- 
+    public function member_profilelist($id=null){
+		$data["member_list"] = "Management";
+		
+		$userid = $this->session->userdata('adminlogged_in');
+
+		$data["profile_details"]=$this->Admin_model->getprofiledetails();
+		$data["Totalmember"]=$this->Admin_model->getprofiledetails();
+
+		$this->data = $data;
+		$this->template['leftmenu'] = $this->load->view('admin/left_menu', $this->data, true);		
+		$this->template['menu'] = $this->load->view('admin/menu', $this->data, true);
+		$this->template['loadjs'] = $this->load->view('admin/loadjs', $this->data, true);
+		$this->load->view('admin/member_profilelist', $this->template);
+    }
+  
+	//------------------------------------------------------------------------------
+    public function profile_delete($id=null){
+		$id=$this->chsslibrary->decoder($id);
+		$this->Admin_model->deleteProfile($id);
+		$this->session->set_flashdata('message', 'Deleted successfully.');
+		redirect(base_url() . 'adminmain/member_profilelist');
+	}  
+  
+ 
+	//------------------------------------------------------------------------------
+    public function member_inactive_ajax($id)
+    {
+		$data = array
+        (
+			'PStatus' => '2',
+        );
+		
+        $this->Admin_model->memberactive_ajax($data,$id);
+
+        $data["id"] = $id;
+        $this->data = $data;
+        $this->load->view('admin/ajax_member_inactive', $this->data);    
+    }
+  
+  //------------------------------------------------------------------------------
+    public function member_active_ajax($id)
+    {
+		$data = array
+        (
+			'PStatus' => '1',
+        );
+		
+        $this->Admin_model->memberactive_ajax($data,$id);
+
+        $data["id"] = $id;
+        $this->data = $data;
+        $this->load->view('admin/ajax_member_active', $this->data);    
+    }
+  
+  	// ----------------------------------------------------------------------------- 
+    public function paymentlist($id=null){
+		$data["member_list"] = "Management";
+		
+		$userid = $this->session->userdata('adminlogged_in');
+
+		$data["payment_details"]=$this->Admin_model->getpaymentdetails();
+
+		
+		$this->data = $data;
+		$this->template['leftmenu'] = $this->load->view('admin/left_menu', $this->data, true);		
+		$this->template['menu'] = $this->load->view('admin/menu', $this->data, true);
+		$this->template['loadjs'] = $this->load->view('admin/loadjs', $this->data, true);
+		$this->load->view('admin/payment_list', $this->template);
+    }
+  
+  
+	  //------------------------------------------------------------------------------
+    public function payment_active_ajax($id)
+    {
+		$data = array
+        (
+			'Status' => '1',
+        );
+		
+        $this->Admin_model->paymentactive_ajax($data,$id);
+
+        $data["id"] = $id;
+        $this->data = $data;
+        $this->load->view('admin/ajax_payment_active', $this->data);    
+    }
+	
+	
+	//------------------------------------------------------------------------------
+    public function payment_inactive_ajax($id)
+    {
+		$data = array
+        (
+			'Status' => '2',
+        );
+		
+        $this->Admin_model->paymentactive_ajax($data,$id);
+
+        $data["id"] = $id;
+        $this->data = $data;
+        $this->load->view('admin/ajax_payment_inactive', $this->data);    
+    }
+	
+	// -----------------------------------------------------------------------------    
+    public function add_payment($id=null){
+        $data["member_list"] = "Management";
+		$data['paymentlist']="";
+		if($id!=""){
+		
+			$deid=$this->chsslibrary->decoder($id);
+			$data['paymentlist']=$this->Admin_model->getpayment_byid($deid);
+
+		}
+	
+		$this->data = $data;
+		$this->template['leftmenu'] = $this->load->view('admin/left_menu', $this->data, true);		
+		$this->template['menu'] = $this->load->view('admin/menu', $this->data, true);
+		$this->template['loadjs'] = $this->load->view('admin/loadjs', $this->data, true);
+		$this->load->view('admin/payment_add', $this->template);
+  }
+  // ----------------------------------------------------------------------------- 
+    public function set_payment()
+    {
+		$payment=$this->input->post('payment');
+		$profilecount=$this->input->post('profilecount');
+		$amount=$this->input->post('amount');
+		$validy=$this->input->post('validy');
+        $data = array
+        (
+			'PaymentType' => $payment,
+			'ProfileCounts' => $profilecount,
+			'Amount' => $amount,
+			'PaidedValidy' => $validy,
+		);
+        $this->Admin_model->addpayment($data);
+		
+		$this->session->set_flashdata('message', 'Successfully Added !!!');
+        redirect(base_url() . 'adminmain/paymentlist/');
+		
+	}
+ 
+	// -----------------------------------------------------------------------------  
+	 public function updatepayment(){		
+		$updateid= $this->input->post('update');
+		$payment=$this->input->post('payment');
+		$profilecount=$this->input->post('profilecount');
+		$amount=$this->input->post('amount');
+		$validy=$this->input->post('validy');
+        $data = array
+        (
+			'PaymentType' => $payment,
+			'ProfileCounts' => $profilecount,
+			'Amount' => $amount,
+			'PaidedValidy' => $validy,
+		);
+        $this->Admin_model->update_paymentbyid($data,$updateid);
+        $this->session->set_flashdata('message', 'Updated successfully.');
+        redirect(base_url() . 'adminmain/paymentlist/');
+    }
+	
+	// -----------------------------------------------------------------------------    
+    public function add_profile($id=null){
+        $data["member_list"] = "Management";
+		$data['paymentlist']="";
+		if($id!=""){
+		
+			$deid=$this->chsslibrary->decoder($id);
+			$data['paymentlist']=$this->Admin_model->getpayment_byid($deid);
+
+		}
+		$data['religionlist']=$this->Admin_model->getreligondetails();
+		$data['state_details']=$this->Admin_model->getstatedetails();
+		$data['city_details']=$this->Admin_model->getcitydetails();
+		$data['Star_details']=$this->Admin_model->getstardetails();
+		$data['rasi_details']=$this->Admin_model->getrasidetails();
+		$data['caste_details']=$this->Admin_model->getcastedetails();
+		$this->data = $data;
+		$this->template['leftmenu'] = $this->load->view('admin/left_menu', $this->data, true);		
+		$this->template['menu'] = $this->load->view('admin/menu', $this->data, true);
+		$this->template['loadjs'] = $this->load->view('admin/loadjs', $this->data, true);
+		$this->load->view('admin/profile_add', $this->template);
+  }
+	
+ 
+	
+	
+  
+    // ------------------------------------------------  
+    public function getcastebyreligion_ajax($id=null){
+	$data["member_list"] = "Management";
+	$data["reliid"]=$this->Admin_model->getcasteby_religionajax($id);
+	//print_r($data["starid"]);
+	$this->data = $data;
+	
+	$this->load->view('ajax_caste_byreligion', $this->data);
+    } 
+	
+	
+	
+	
+	
+	
+    // ----------------------------------------------   
+    public function add_userprofile_byadmin()
+    {
+        
+		$redirect       = $this->input->post('redirect');
+		$decouserid       = $this->input->post('update');
+        $userid       = $this->chsslibrary->decoder($decouserid);
+
+        
+        $partnerstatus = $this->input->post('pstatus');
+        $tail12        = "";
+        if ($partnerstatus != '') {
+            $countstatus = count($partnerstatus);
+            
+            for ($i = 0; $i < $countstatus; $i++) {
+                $tail12 .= $partnerstatus[$i] . ",";
+            }
+            $length1       = strlen($tail12) - 1;
+            $partnerstatus = substr($tail12, 0, $length1);
+        }
+        
+        
+        $partnerdiet = $this->input->post('pdiet');
+        $tail12      = "";
+        if ($partnerdiet != '') {
+            $countdiet = count($partnerdiet);
+            
+            for ($i = 0; $i < $countdiet; $i++) {
+                $tail12 .= $partnerdiet[$i] . ",";
+            }
+            $length1     = strlen($tail12) - 1;
+            $partnerdiet = substr($tail12, 0, $length1);
+        }
+        
+		
+		$doshamdetails = $this->input->post('doshamdetails');
+        $tail12 = "";
+        if ($doshamdetails != '') {
+            $countdiet = count($doshamdetails);
+            
+            for ($i = 0; $i < $countdiet; $i++) {
+                $tail12 .= $doshamdetails[$i] . ",";
+            }
+            $length1     = strlen($tail12) - 1;
+            $doshamdetails = substr($tail12, 0, $length1);
+        }
+		
+		
+		
+        
+        $dob_day   = $this->input->post('day');
+        $dob_month = $this->input->post('month');
+        $dob_year  = $this->input->post('dobyear');
+        
+        $dob       = $dob_year . '-' . $dob_month . '-' . $dob_day;
+        $datebirth = $this->chsslibrary->return_date($dob);
+        $today     = $this->chsslibrary->call_date();
+        
+        $age = date_diff(date_create($dob), date_create($today))->y;
+        //print_r($age);die;
+        
+        $pjobreq = $this->input->post('pjobreq');
+        
+        if ($pjobreq == "") {
+            $pjobreq = 0;
+        }
+
+        
+        if ($partnerstatus == "") {
+            $partnerstatus = "0";
+        }
+        if ($partnerdiet == "") {
+            $partnerdiet = "0";
+        }
+		if ($doshamdetails == "") {
+            $doshamdetails = "0";
+        }
+        $disability=$doshamname=0;
+		$disability= $this->input->post('disability');
+		if ($disability == "") {
+            $disability = "0";
+        }
+        $doshamname=$this->input->post('doshamname');
+		if ($doshamname == "") {
+            $doshamname = "0";
+        }
+		
+		$father_name=$this->input->post('father_name');
+		if ($father_name == "") {
+            $father_name = "0";
+        }
+		$father_alive=$this->input->post('father_alive');
+		if ($father_alive == "") {
+            $father_alive = "0";
+        }
+		$father_job=$this->input->post('father_job');
+		if ($father_job == "") {
+            $father_job = "0";
+        }
+		
+		$mother_name=$this->input->post('mother_name');
+		if ($mother_name == "") {
+            $mother_name = "0";
+        }
+		$mother_alive=$this->input->post('mother_alive');
+		if ($mother_alive == "") {
+            $mother_alive = "0";
+        }
+		$mother_job=$this->input->post('mother_job');
+		if ($mother_job == "") {
+            $mother_job = "0";
+        }
+		$family_status=$this->input->post('family_status');
+		if ($family_status == "") {
+            $family_status = "0";
+        }
+		$family_type=$this->input->post('family_type');
+		if ($family_type == "") {
+            $family_type = "0";
+        }
+		$family_values =$this->input->post('family_values');
+		if ($family_values == "") {
+            $family_values = "0";
+        }
+		
+		
+		/* $Total_member=$this->Admin_model->getMemberCount();  
+     
+		foreach($Total_member as $tot){
+			$Totalmember=$tot->Totalcount;
+		}
+		
+        $mem_code=$this->chsslibrary->getMemberCode($Totalmember+1); */
+		
+		$table=TBL__PREFIX.'member';
+		$pre="BV0";
+		$mem_code=$this->chsslibrary->get_uniqueid_with($table,$pre);
+		
+		$pass=$this->chsslibrary->randomChar($length = 5);
+		$password=md5($pass);
+        $data = array(
+            'MemberCode' =>$mem_code,
+			'Password' =>$password,
+			'PStatus' =>'1',
+            'ProfileFor' => $this->input->post('profilefor'),
+            'Name' =>$this->input->post('registername'),
+			'Gender' => $this->input->post('gender'),
+			'DOB' => $datebirth,
+			'Age' => $age,
+            'Email' => $this->input->post('email'),
+			'ContactNumber' => $this->input->post('contact_number'),
+			'AlternativeNumber' =>$this->input->post('alter_contact_number'),
+			'StateId' => $this->input->post('state'),
+            'CityId' => $this->input->post('city'),
+            'Height' => $this->input->post('height'),
+			'Disability' => $disability,
+			'MaritalStatus' => $this->input->post('maritalstatus'),
+			'ReligionId' => $this->input->post('religion'),
+				   
+				   
+            'MotherTongue' => $this->input->post('r_mother'),
+			'CastName' => $this->input->post('r_case'),
+			'SubCaste' =>  $this->input->post('subcaste'),
+	
+			'HDossam' => $doshamname,
+			'HDoshamDetails' => $doshamdetails,
+         
+			'Qualification' => $this->input->post('qualification'),
+            'UserEmployed' =>$this->input->post('YourEmployed'),
+			'Occupation' => $this->input->post('occupation'),
+		
+			'MonthlyIncome' => $this->input->post('YourAnnual'),
+	
+            'PresentAddress' => $this->input->post('present_address'),
+     
+	 
+			'FatherName' => $father_name,
+	
+	
+			'MotherName' => $mother_name,
+	
+		
+	 
+            'Star' => $this->input->post('star'),
+            'Rasi' => $this->input->post('rasi'),
+            'PQualification' =>$this->input->post('Pqualification'),
+            'PJob' =>  $this->input->post('PEmployed') ,
+			'POccupation' =>  $this->input->post('Poccupation'),
+            'PJobRequest' => $pjobreq,
+            'PIncome' => $this->input->post('PAnnual'),
+            'PFromAge' => $this->input->post('Pfromage'),
+            'PToAge' => $this->input->post('Ptoage'),
+            'PDiet' =>  $partnerdiet,
+		
+            'PMaritalStatus' => $partnerstatus,
+		
+        );
+        $userid=$this->Admin_model->addmember($data);
+        
+		
+		$data2 = array(
+
+		'ProAlignment' =>$userid,
+		);
+		$this->Admin_model->updateuserprofile($data2,$userid);
+
+		if($userid!=""){
+        $config = array();
+        $this->load->library('upload');
+        $files   = $_FILES;
+        $cpt     = count($_FILES['profile_image']['name']);
+        $newname = "";
+        $file    = "";
+        
+        
+        for ($i = 0; $i < $cpt; $i++) {
+            
+            $_FILES['profile_image']['name']     = $files['profile_image']['name'][$i];
+            $_FILES['profile_image']['type']     = $files['profile_image']['type'][$i];
+            $_FILES['profile_image']['tmp_name'] = $files['profile_image']['tmp_name'][$i];
+            $_FILES['profile_image']['error']    = $files['profile_image']['error'][$i];
+            $_FILES['profile_image']['size']     = $files['profile_image']['size'][$i];
+            
+            $path1 = $this->chsslibrary->profileImageName();
+            $path  = $path1 . "_" . $userid;
+            $file  = $files['profile_image']['name'][$i];
+            
+            $temp = explode(".", $file);
+            if (isset($temp[1])) {
+                $newname = $path . '.' . $temp[1];
+            } else {
+                $newname = "";
+            }
+            $new_path                = './assets/profileimages/';
+            $old_path                = $files['profile_image']['tmp_name'][$i];
+            $config['upload_path']   = './assets/profileimages/';
+            //$config['file_name']        = $directoy;
+            //$config['allowed_types']        = 'jpg|png|pdf|doc';
+            $config['allowed_types'] = 'jpg|png';
+            $config['max_size']      = 20000;
+            $config['max_width']     = 10024;
+            $config['max_height']    = 7068;
+            $config['file_name']     = $newname;
+            $config['overwrite']     = FALSE;
+            
+            
+            $this->upload->initialize($config);
+            $this->upload->do_upload();
+            
+            if (!$this->upload->do_upload('profile_image')) {
+                //print_r($error=array('error' => $this->upload->display_errors()));die;
+                $error = array(
+                    'error' => $this->upload->display_errors()
+                );
+            } else {
+                $this->upload->data();
+                
+                if ($file == "") {
+                    $dbprofile_image = $this->input->post('dbprofile_image');
+                    if ($dbprofile_image != "" && $dbprofile_image != "0") {
+                        $newname = $dbprofile_image;
+                    } else {
+                        $newname = 0;
+                    }
+                } else {
+                    
+                    
+                    $data1 = array(
+                        'MemberId' => $userid,
+                        'FilePath' => $newname
+                    );
+                    $this->Admin_model->userprofile_add($data1);
+                    $directoy = $new_path . $newname;
+                    $this->chsslibrary->photoWatermark_WithResize($directoy, 670, 350);
+                }
+                
+            }
+        }
+        
+		
+		$config ="";
+		$config = array();
+        $this->load->library('upload');
+        $files   = $_FILES;
+        $cpt     = count($_FILES['horos_image']['name']);
+        $newname = "";
+        $file    = "";
+        $new_path = "";
+        
+        for ($i = 0; $i < $cpt; $i++) {
+            
+            $_FILES['horos_image']['name']     = $files['horos_image']['name'][$i];
+            $_FILES['horos_image']['type']     = $files['horos_image']['type'][$i];
+            $_FILES['horos_image']['tmp_name'] = $files['horos_image']['tmp_name'][$i];
+            $_FILES['horos_image']['error']    = $files['horos_image']['error'][$i];
+            $_FILES['horos_image']['size']     = $files['horos_image']['size'][$i];
+            
+            $path1 = $this->chsslibrary->horscoImageName();
+            $path  = $path1 . "_" . $userid;
+            $file  = $files['horos_image']['name'][$i];
+            
+            $temp = explode(".", $file);
+            if (isset($temp[1])) {
+                $newname = $path . '.' . $temp[1];
+            } else {
+                $newname = "";
+            }
+            $new_path                = './assets/profileimages/';
+            $old_path                = $files['profile_image']['tmp_name'][$i];
+            $config['upload_path']   = './assets/profileimages/';
+            //$config['file_name']        = $directoy;
+            //$config['allowed_types']        = 'jpg|png|pdf|doc';
+            $config['allowed_types'] = 'jpg|png';
+            $config['max_size']      = 20000;
+            $config['max_width']     = 10024;
+            $config['max_height']    = 7068;
+            $config['file_name']     = $newname;
+            $config['overwrite']     = FALSE;
+            
+            
+            $this->upload->initialize($config);
+            $this->upload->do_upload();
+            
+            if (!$this->upload->do_upload('horos_image')) {
+                //print_r($error=array('error' => $this->upload->display_errors()));die;
+                $error = array(
+                    'error' => $this->upload->display_errors()
+                );
+            } else {
+                $this->upload->data();
+                
+                if ($file == "") {
+                    
+                } else {
+					
+					
+					$check=$this->Admin_model->checkuserhorscop_profile($userid);
+                    if(count($check)>0){
+						
+						$data12 = array(
+						'FilePath' => $newname
+						);
+						$this->Admin_model->updateuser_horoscop_bymemid($data12,$userid);
+						
+					}else{
+						$data12 = array(
+						'MemberId' => $userid,
+						'FilePath' => $newname
+						);
+						$this->Admin_model->userhorscop_profileadd($data12);
+						
+					}
+					$directoy = $new_path . $newname;
+                    $this->chsslibrary->photoWatermark_WithResize($directoy, 270, 300);
+                }
+                
+            }
+        }
+		
+		
+		
+		
+		
+			$userprofil=$this->Admin_model->getprofiledetails_byid($userid);
+			
+			$Gender=$CastName=$Email=$Name="";
+			foreach($userprofil as $item){ 
+				$Name=$item->Name;
+				$Gender=$item->Gender;
+				$CastName=$item->CastName;
+				$Email=$item->Email;
+			}
+			
+			if($Gender=="M"){
+				$Gender="F";
+			}elseif($Gender=="F"){
+				$Gender="M";
+			}
+			
+			
+			
+			
+			$config = Array(
+			'protocol' => 'smtp',
+			'smtp_host' => 'smtp.info@bharatvivaha.com',
+			'smtp_port' => 465,
+			'smtp_user' => 'info@bharatvivaha.com', // change it to yours
+			'smtp_pass' => 'Bharatvivaha@567', // change it to yours
+			'mailtype' => 'html',
+			'charset' => 'iso-8859-1',
+			'wordwrap' => TRUE
+			);
+
+			$from_email = "info@bharatvivaha.com"; 
+			$this->load->library('email'); 
+			$this->email->from($from_email); 
+			$this->email->to($Email);
+			$this->email->subject('Matrimony'); 
+			//$content = 
+			$content='<div style="font-family:Arial,sans-serif;background-color:#f9f9f9;color:#424242;text-align:center">
+
+
+			<table style="table-layout:fixed;width:90%;width:600px;margin:0 auto;background:#fff;font-size:14px;border:2px solid #e8e8e8;text-align:left;table-layout:fixed;padding-bottom:67px;border-spacing:0">
+			<thead>
+			<tr style="background-color:#11c0b4; color:#fff;">
+			<th colspan="5" style="padding:20px;text-align:center;font-weight:bold;font-size:1.2em" >Welcome to ; Online Matrimony.</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr >
+			<td colspan="5" style="padding:20px 30px 0px 30px;text-align:center;color:#000;">Hi  '.$Name.' </td>
+
+			</tr>
+			<tr >
+			<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;">sl.no </td>
+			<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;">Image</td>
+			<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;"> Name </td>
+			<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;">Register No </td>
+			<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;">Age</td>
+
+			</tr>
+
+			';
+			$i=1;
+			$cart_list=$this->Admin_model->getprofile_bygender($Gender,$CastName);
+			foreach($cart_list as  $item){
+			$Name=$item->Name;
+			$meid=$item->Id;
+			$Age=$item->Age;
+
+			$profile_image=$this->Admin_model->getprofileimageStatus_byid($meid);
+			$FilePath="";
+			if(isset($profile_image) && ($profile_image!="")){
+			foreach($profile_image as $row){
+			$rid=$row->Id;
+			$FilePath=$row->FilePath;
+			}}  
+
+			if($FilePath!=""){
+			$image=base_url()."assets/profileimages/".$FilePath;
+			}else{
+			$image=base_url()."assets/profileimages/defaultimage.jpg";
+			}
+
+
+			$MemberCode=$item->MemberCode;
+			$content .=
+			'
+			<tr >
+			<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;">'.$i++.'</td>
+			<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;"> <img src="'.$image.'" style="width:120px;">
+			</td>
+
+			<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;">'.$Name.' </td>
+			<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;">'.$MemberCode.' .</td>
+			<td style="padding:20px 30px 0px 30px;text-align:center;color:#000;">'.$Age.' .</td>
+
+
+			</tr>';
+			}
+
+			$content .='
+			<tr>
+			<td colspan="5" style="padding:30px 30px 0px 30px;text-align:center;color:#000;">	
+			<p>.com</p>
+			<p>Online matrimony</p>
+			<p>@  .com</p>
+			<p>2018 All rights reserved</p>
+			</td>
+			</tr>
+
+			</tbody>
+			</table>
+			<br>
+			<table style="table-layout:fixed;width:90%;width:600px;margin:0 auto;background:#fff;font-size:14px;border:2px solid #e8e8e8;text-align:left;table-layout:fixed;border-spacing:0">
+			<thead></thead>
+			<tbody>
+			<tr>
+			<td style="text-align:center;padding:0px 0px 15px 0px"></td>
+			</tr>
+			</tbody>
+			</table>
+			<div class="yj6qo"></div><div class="adL">
+			</div>
+			</div>
+			';
+
+			//print_r($content);die;
+			$this->email->message($content); 
+			$this->email->send();
+		
+        $this->session->set_flashdata('message', 'Added successfully.');
+        redirect(base_url() . $redirect);
+		
+		
+		}else{
+			
+        $this->session->set_flashdata('message', 'please try again');
+        redirect(base_url() . $redirect);
+		}
+		
+    }
+	
+	
+	
+   // ------------------------------------------------
+    public function logout()
+    {
+	// Removing session data
+	$this->session->unset_userdata('adminlogged_in');
+	$this->session->set_flashdata('message', 'Successfully Logged Out');
+	redirect(base_url() . 'adminmainlogin/');
+    }
+    
+		// ----------------------------------------------------------------------------- 
+    public function paidmemberlist($id=null){
+		$data["member_list"] = "Management";
+		
+		$userid = $this->session->userdata('adminlogged_in');
+
+		$data["paidmember_details"]=$this->Admin_model->getpaid_memberdetails();
+
+		
+		$this->data = $data;
+		$this->template['leftmenu'] = $this->load->view('admin/left_menu', $this->data, true);		
+		$this->template['menu'] = $this->load->view('admin/menu', $this->data, true);
+		$this->template['loadjs'] = $this->load->view('admin/loadjs', $this->data, true);
+		$this->load->view('admin/payment_paid_memberlist', $this->template);
+    }
+	
+	// ----------------------------------------------------------------------------- 
+    public function userprofile_align()
+    {
+		$updateid = $this->input->post('updateid');
+		$data = array
+		(
+			'ProAlignment' => $this->input->post('palignment'),
+			
+		);
+		$this->Admin_model->memberactive_ajax($data,$updateid);
+		  redirect(base_url() . 'adminmain/member_profilelist/');
+    }
+	
+	
+	// ----------------------------------------------- 
+    public function paidmem_viewedprofile($id=null,$payid=null){
+		$data["member_list"] = "Management";
+		
+		$userid = $this->session->userdata('adminlogged_in');
+		$id=$this->chsslibrary->decoder($id);
+		$payid=$this->chsslibrary->decoder($payid);		
+		$data["profile_details"]=$this->Admin_model->userwishlist_bymemid_payid($id,$payid);
+	
+		$this->data = $data;
+		$this->template['leftmenu'] = $this->load->view('admin/left_menu', $this->data, true);		
+		$this->template['menu'] = $this->load->view('admin/menu', $this->data, true);
+		$this->template['loadjs'] = $this->load->view('admin/loadjs', $this->data, true);
+		$this->load->view('admin/paidmember_view_profilelist', $this->template);
+    }
+	
+	
+	// ----------------------------------------------- 
+    public function comment_byadmin($id=null){
+		$data["member_list"] = "Management";
+		if($id!=""){
+			$id=$this->chsslibrary->decoder($id);
+		$data["Commentlist"] =$this->Admin_model->	getcomment_byid($id);
+		$this->data = $data;
+		$this->template['leftmenu'] = $this->load->view('admin/left_menu', $this->data, true);		
+		$this->template['menu'] = $this->load->view('admin/menu', $this->data, true);
+		$this->template['loadjs'] = $this->load->view('admin/loadjs', $this->data, true);
+		$this->load->view('admin/comments/comments', $this->template);
+		}
+    }
+	
+	
+	
+    // ----------------------------------------------   
+    public function add_comments_byadmin()
+    {
+		$comments   = $this->input->post('comments');
+		$updateid    = $this->input->post('updateid');
+		$data = array(
+		'CommentByadmin' =>$comments,
+		);
+		$userid=$this->Admin_model->memberpayment_ajax($data,$updateid);
+		$this->session->set_flashdata('message', 'Added Successfully...');
+		$id=$this->chsslibrary->encoder($updateid);
+		redirect(base_url() ."adminmain/comment_byadmin/".$id);
+    }
+
+	
+	// ----------------------------------------------
+    public function userimage_index()
+    {
+		$updateid = $this->input->post('updateid');
+		$data = array
+		(
+			'IndexImage' => $this->input->post('palignment'),
+		);
+		$this->Admin_model->memberactive_ajax($data,$updateid);
+		  redirect(base_url() . 'adminmain/member_profilelist/');
+    }
+	
+	
+	 
+	// ----------------------------------------------- 
+    public function review_list(){
+		$data["member_list"] = "Management";
+		$data["review_details"]=$this->Admin_model->review_report_admin();
+		$this->data = $data;
+		$this->template['leftmenu'] = $this->load->view('admin/left_menu', $this->data, true);		
+		$this->template['menu'] = $this->load->view('admin/menu', $this->data, true);
+		$this->template['loadjs'] = $this->load->view('admin/loadjs', $this->data, true);
+		$this->load->view('admin/review/review_list', $this->template);
+    }
+  //----------------------------------------------
+    public function review_delete($id=null){
+		$id=$this->chsslibrary->decoder($id);
+		$this->Admin_model->deleteReview($id);
+		$this->session->set_flashdata('message', 'Deleted successfully.');
+		redirect(base_url() . 'adminmain/review_list');
+	}  
+	
+	
+	// ----------------------------------------------
+    public function edit_review($id=null){
+		
+		$data["member_list"] = "Management";
+		if($id!=""){
+		$id=$this->chsslibrary->decoder($id);	
+		$data["review_list"] =$this->Admin_model->	getreview_byid($id);
+		$this->data = $data;
+		
+		$this->template['leftmenu'] = $this->load->view('admin/left_menu', $this->data, true);		
+		$this->template['menu'] = $this->load->view('admin/menu', $this->data, true);
+		$this->template['loadjs'] = $this->load->view('admin/loadjs', $this->data, true);
+		$this->load->view('admin/review/review_edit', $this->template);
+			
+		}else{
+			  redirect(base_url());
+		}
+		
+    }
+	
+	 // -------------------------------------------------   
+    public function review_submit($id=null){
+        $data["member_list"] = "Management";
+$comments  = $this->input->post('comments');
+		$comments  = $this->input->post('comments');
+
+			$data = array
+			(	
+				'Comments' =>$comments,
+			);
+		
+			$updateid=$this->Admin_model->update_view($data);
+			if($updateid!=""){
+			$this->session->set_flashdata('message', 'Added successfully...');
+			redirect(base_url() . 'user/review_add');
+			}else{
+			$this->session->set_flashdata('message', 'Please Try Again...');
+			redirect(base_url() . 'user/review_add');
+			}
+	}
+	
+	
+}
+
+?>

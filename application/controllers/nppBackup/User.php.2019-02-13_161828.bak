@@ -1,0 +1,1014 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+class User extends CI_Controller
+{
+    public function __construct(){
+	parent::__construct();
+	$this->load->database();
+	$this->load->model("Admin_model");
+	$this->load->helper('form');
+	$this->load->helper('url');
+	$this->load->helper('string');
+	$this->load->helper('download');
+	$this->load->library('session');
+	$this->load->library('email',array('mailtype'=>'html'));
+	$this->load->library('Chsslibrary');
+	$this->load->library('pagination');
+	$this->Admin_model->plan_profileinactive();
+	$this->db->initialize();
+	//$this->load->library('excel');	
+	
+	
+    }
+	
+	// ------------------------------------------------------------------
+    public function index(){
+	
+		$data["member_list"] = "Management";
+		$data['step']="";
+
+		$data['religionlist']=$this->Admin_model->getreligondetails();
+		$data['state_details']=$this->Admin_model->getstatedetails();
+		$data['city_details']=$this->Admin_model->getcitydetails();
+		$data['Star_details']=$this->Admin_model->getstardetails();
+		$data['rasi_details']=$this->Admin_model->getrasidetails();
+		$data['caste_details']=$this->Admin_model->getcastedetails();
+		
+		$data['groom_details']=$this->Admin_model->getGroomlist();	
+		$data['bride_details']=$this->Admin_model->getBridelist();
+		$data['userid']="";
+		$this->data = $data;	
+		$this->template['registerform'] = $this->load->view('register_form', $this->data, true);
+		$this->template['topmenu'] = $this->load->view('home/top_menu', $this->data, true);
+		$this->template['footer'] = $this->load->view('home/footer', $this->data, true);
+		$this->load->view('home/index_mk', $this->template);
+    }
+	
+	
+	// ----------------------------------------------------------------------------- 
+    public function price(){
+		
+		$this->session->unset_userdata('PaymentTypeId');
+		$this->session->unset_userdata('PaymentAmount');
+		$this->session->unset_userdata('Paymentdays');
+		$this->session->unset_userdata('Paymentprofilecount');
+		$data["member_list"] = "Management";
+		
+		$data['payment_details']=$this->Admin_model->getpaymentdetailsbystatus();
+		$this->data = $data;	
+		
+		$this->template['topmenu'] = $this->load->view('home/top_menu', $this->data, true);
+		$this->template['footer'] = $this->load->view('home/footer', $this->data, true);
+		$this->load->view('home/pricing', $this->template);
+    }
+	
+	
+	// ----------------------------------------------------------------------------- 
+    public function logout()
+    {
+	// Removing session data
+	$this->session->unset_userdata('logged_in');
+	$this->session->unset_userdata('gender');
+	$this->session->unset_userdata('memcode');
+	$this->session->set_flashdata('message', 'Successfully Logged Out');
+	redirect(base_url() . 'User/login');
+    }
+	
+	
+	
+	
+	
+	
+	// ------------------------------------------------------------
+    public function register_redirect($step=null,$dbid=null){
+	
+	
+	if($dbid!="" && $step!=""){
+		$step=$this->chsslibrary->decoder($step);
+		$userid=$this->chsslibrary->decoder($dbid);
+		$data["member_list"] = "Management";
+		$data['religionlist']=$this->Admin_model->getreligondetails();
+		$data['state_details']=$this->Admin_model->getstatedetails();
+		$data['city_details']=$this->Admin_model->getcitydetails();
+		$data['Star_details']=$this->Admin_model->getstardetails();
+		$data['rasi_details']=$this->Admin_model->getrasidetails();
+		$data['caste_details']=$this->Admin_model->getcastedetails();
+		$data['groom_details']=$this->Admin_model->getGroomlist();	
+		$data['bride_details']=$this->Admin_model->getBridelist();
+
+		$data['step']=$step;
+		$data['userid']=$userid;
+		$data['userdbid']=$dbid;
+		$this->data = $data;	
+		$this->template['registerform'] = $this->load->view('register_form', $this->data, true);
+		$this->template['topmenu'] = $this->load->view('home/top_menu', $this->data, true);
+		$this->template['footer'] = $this->load->view('home/footer', $this->data, true);
+		$this->load->view('home/index_mk', $this->template);
+	}else{
+		$this->session->set_flashdata('message', 'Email already registered or please try again');
+		redirect(base_url() );
+	}
+    }
+	
+    // --------------------------------------------------------------
+    public function register_step1()
+    {
+        
+		$email       = $this->input->post('email');
+		
+		$result=$this->Admin_model->checkemail_Byuser($email);
+		if(count($result)==0){
+		$dob_day   = $this->input->post('day');
+        $dob_month = $this->input->post('month');
+        $dob_year  = $this->input->post('dobyear');
+        $dob       = $dob_year . '-' . $dob_month . '-' . $dob_day;
+        $datebirth = $this->chsslibrary->return_date($dob);
+        $today     = $this->chsslibrary->call_date();
+        $age = date_diff(date_create($dob), date_create($today))->y;
+        //print_r($age);die;
+		/* $Total_member=$this->Admin_model->getMemberCount(); 
+		foreach($Total_member as $tot){
+			$Totalmember=$tot->Totalcount;
+		}
+        $mem_code=$this->chsslibrary->getMemberCode($Totalmember+1); */
+		
+		
+		$table=TBL__PREFIX.'member';
+		$pre="BV0";
+		$mem_code=$this->chsslibrary->get_uniqueid_with($table,$pre);
+		
+		$pass = $this->input->post('password');
+		$password=md5($pass);
+        $data = array(
+            'MemberCode' =>$mem_code,
+			'Password' =>$password,
+			
+            'ProfileFor' => $this->input->post('profilefor'),
+            'Name' =>$this->input->post('registername'),
+			'Gender' => $this->input->post('gender'),
+			'DOB' => $datebirth,
+			'Age' => $age,
+            'Email' =>$this->input->post('email'),
+			'ContactNumber' => $this->input->post('contact_number'),
+			'ReligionId' => $this->input->post('religion'),	   
+            'MotherTongue' => $this->input->post('r_mother'),
+			'CastName' => $this->input->post('r_case'),
+        );
+        $userid=$this->Admin_model->addmember($data);
+        
+		if($userid!=""){
+        $this->session->set_flashdata('message', 'Added successfully.');
+		$userid=$this->chsslibrary->encoder($userid);
+		$step=$this->chsslibrary->encoder("step2");
+        redirect(base_url() ."user/register_redirect/".$step."/".$userid);
+		redirect(base_url() ."user/register_redirect/".$step."/".$userid);
+		}else{
+			
+        $this->session->set_flashdata('message', 'please try again');
+        redirect(base_url());
+		}
+	
+		}else{
+			
+        $this->session->set_flashdata('message', 'Already email id exists..');
+        redirect(base_url() );
+		}
+		
+    }
+	
+	
+	// ------------------------------------------------------------------
+    public function register_step1_form(){
+	
+	
+		$decouserid       = $this->input->post('update');
+        $userid       = $this->chsslibrary->decoder($decouserid);
+	
+		if($userid!=""){
+			
+	
+		$data['profile_details']=$this->Admin_model->getprofiledetails_byid($userid);
+		$data['userid']=$userid;
+		$data['userdbid']=$decouserid;
+		$data["member_list"] = "Management";
+		$data['step']="reform";
+
+		$data['religionlist']=$this->Admin_model->getreligondetails();
+		$data['state_details']=$this->Admin_model->getstatedetails();
+		$data['city_details']=$this->Admin_model->getcitydetails();
+		$data['Star_details']=$this->Admin_model->getstardetails();
+		$data['rasi_details']=$this->Admin_model->getrasidetails();
+		$data['caste_details']=$this->Admin_model->getcastedetails();
+		
+		$data['groom_details']=$this->Admin_model->getGroomlist();	
+		$data['bride_details']=$this->Admin_model->getBridelist();
+	
+		$this->data = $data;	
+		$this->template['registerform'] = $this->load->view('register_form', $this->data, true);
+		$this->template['topmenu'] = $this->load->view('home/top_menu', $this->data, true);
+		$this->template['footer'] = $this->load->view('home/footer', $this->data, true);
+		$this->load->view('home/index_mk', $this->template);
+		}else{
+		$this->session->set_flashdata('message', 'Please Try Again....');
+        redirect(base_url() );
+		}
+    }
+	
+	
+	// --------------------------------------------------------------
+    public function register_step1_update()
+    {
+        
+		
+		$decouserid       = $this->input->post('update');
+        $userid       = $this->chsslibrary->decoder($decouserid);
+		if($userid!=""){
+			
+		$email       = $this->input->post('email');
+		
+		$dob_day   = $this->input->post('day');
+        $dob_month = $this->input->post('month');
+        $dob_year  = $this->input->post('dobyear');
+        $dob       = $dob_year . '-' . $dob_month . '-' . $dob_day;
+        $datebirth = $this->chsslibrary->return_date($dob);
+        $today     = $this->chsslibrary->call_date();
+        $age = date_diff(date_create($dob), date_create($today))->y;
+        //print_r($age);die;
+		
+		$pass = $this->input->post('password');
+		$password=md5($pass);
+        $data = array(
+          
+			'Password' =>$password,
+            'ProfileFor' => $this->input->post('profilefor'),
+            'Name' =>$this->input->post('registername'),
+			'Gender' => $this->input->post('gender'),
+			'DOB' => $datebirth,
+			'Age' => $age,
+            'Email' =>$this->input->post('email'),
+			'ContactNumber' => $this->input->post('contact_number'),
+			'ReligionId' => $this->input->post('religion'),	   
+            'MotherTongue' => $this->input->post('r_mother'),
+			'CastName' => $this->input->post('r_case'),
+        );
+   
+		$this->Admin_model->updateuserprofile($data,$userid);
+	
+        $this->session->set_flashdata('message', 'Added successfully.');
+		$userid=$this->chsslibrary->encoder($userid);
+		$step=$this->chsslibrary->encoder("step2");
+        redirect(base_url() ."user/register_redirect/".$step."/".$userid);
+		redirect(base_url() ."user/register_redirect/".$step."/".$userid);
+		}else{
+		$this->session->set_flashdata('message', 'please try again');
+        redirect(base_url());
+		}
+    }
+	
+    // ------------------------------------------------------------
+    public function register_step2()
+    {
+        $decouserid       = $this->input->post('update');
+        $userid       = $this->chsslibrary->decoder($decouserid);
+		if($userid!=""){
+			$disability= $this->input->post('disability');
+			if ($disability == "") {
+				$disability = "0";
+			}
+			
+			$doshamdetails = $this->input->post('doshamdetails');
+			$tail12 = "";
+			if ($doshamdetails != '') {
+			$countdiet = count($doshamdetails);
+
+			for ($i = 0; $i < $countdiet; $i++) {
+				$tail12 .= $doshamdetails[$i] . ",";
+			}
+			$length1     = strlen($tail12) - 1;
+			$doshamdetails = substr($tail12, 0, $length1);
+			}
+			if ($doshamdetails == "") {
+			$doshamdetails = "0";
+			}
+
+			$doshamname=$this->input->post('doshamname');
+			if ($doshamname == "") {
+			$doshamname = "0";
+			}
+		
+		   
+		$father_name=$this->input->post('father_name');
+		if ($father_name == "") {
+            $father_name = "0";
+        }
+	
+		$mother_name=$this->input->post('mother_name');
+		if ($mother_name == "") {
+            $mother_name = "0";
+        }
+			$data = array(
+				'AlternativeNumber' => $this->input->post('alter_contact_number'),
+			
+				'Height' => $this->input->post('height'),
+				'Disability' => $disability,
+				'MaritalStatus' => $this->input->post('maritalstatus'),
+					    
+				'Qualification' => $this->input->post('qualification'),
+				'UserEmployed' =>$this->input->post('YourEmployed'),
+				'Occupation' => $this->input->post('occupation'),
+				'MonthlyIncome' => $this->input->post('YourAnnual'),
+				'StateId' => $this->input->post('state'),
+				'CityId' => $this->input->post('city'),
+				'PresentAddress' =>$this->input->post('present_address'),
+				//'ProAlignment' =>$userid,
+				
+				'Star' => $this->input->post('star'),
+				'Rasi' => $this->input->post('rasi'),
+				'SubCaste' =>$this->input->post('subcaste'),
+				'HDossam' => $doshamname,
+				'HDoshamDetails' => $doshamdetails,
+			
+				'FatherName' =>$father_name,
+				'MotherName' => $mother_name,
+				
+			);
+			
+		if($userid!=""){
+			
+		$this->Admin_model->updateuserprofile($data,$userid);
+		
+	
+        $config = array();
+        $this->load->library('upload');
+        $files   = $_FILES;
+        $cpt     = count($_FILES['profile_image']['name']);
+        $newname = "";
+        $file    = "";
+        
+        
+        for ($i = 0; $i < $cpt; $i++) {
+            
+            $_FILES['profile_image']['name']     = $files['profile_image']['name'][$i];
+            $_FILES['profile_image']['type']     = $files['profile_image']['type'][$i];
+            $_FILES['profile_image']['tmp_name'] = $files['profile_image']['tmp_name'][$i];
+            $_FILES['profile_image']['error']    = $files['profile_image']['error'][$i];
+            $_FILES['profile_image']['size']     = $files['profile_image']['size'][$i];
+            
+            $path1 = $this->chsslibrary->profileImageName();
+            $path  = $path1 . "_" . $userid;
+            $file  = $files['profile_image']['name'][$i];
+            
+            $temp = explode(".", $file);
+            if (isset($temp[1])) {
+                $newname = $path . '.' . $temp[1];
+            } else {
+                $newname = "";
+            }
+            $new_path                = './assets/profileimages/';
+            $old_path                = $files['profile_image']['tmp_name'][$i];
+            $config['upload_path']   = './assets/profileimages/';
+            //$config['file_name']        = $directoy;
+            //$config['allowed_types']        = 'jpg|png|pdf|doc';
+            $config['allowed_types'] = 'jpg|png';
+            $config['max_size']      = 50000;
+            $config['max_width']     = 10024;
+            $config['max_height']    = 7068;
+            $config['file_name']     = $newname;
+            $config['overwrite']     = FALSE;
+            
+            
+            $this->upload->initialize($config);
+            $this->upload->do_upload();
+            
+            if (!$this->upload->do_upload('profile_image')) {
+                //print_r($error=array('error' => $this->upload->display_errors()));die;
+                $error = array(
+                    'error' => $this->upload->display_errors()
+                );
+            } else {
+                $this->upload->data();
+                
+                if ($file == "") {
+                    $dbprofile_image = $this->input->post('dbprofile_image');
+                    if ($dbprofile_image != "" && $dbprofile_image != "0") {
+                        $newname = $dbprofile_image;
+                    } else {
+                        $newname = 0;
+                    }
+                } else {
+                    
+                    
+                    $data1 = array(
+                        'MemberId' => $userid,
+                        'FilePath' => $newname
+                    );
+                    $this->Admin_model->userprofile_add($data1);
+                    $directoy = $new_path . $newname;
+					//echo $directoy;die;
+                    $this->chsslibrary->photoWatermark_WithResize($directoy, 670, 350);
+                }
+                
+            }
+        }
+		
+		
+		$config ="";
+		$config = array();
+        $this->load->library('upload');
+        $files   = $_FILES;
+        $cpt     = count($_FILES['horos_image']['name']);
+        $newname = "";
+        $file    = "";
+        $new_path = "";
+        
+        for ($i = 0; $i < $cpt; $i++) {
+            
+            $_FILES['horos_image']['name']     = $files['horos_image']['name'][$i];
+            $_FILES['horos_image']['type']     = $files['horos_image']['type'][$i];
+            $_FILES['horos_image']['tmp_name'] = $files['horos_image']['tmp_name'][$i];
+            $_FILES['horos_image']['error']    = $files['horos_image']['error'][$i];
+            $_FILES['horos_image']['size']     = $files['horos_image']['size'][$i];
+            
+            $path1 = $this->chsslibrary->horscoImageName();
+            $path  = $path1 . "_" . $userid;
+            $file  = $files['horos_image']['name'][$i];
+            
+            $temp = explode(".", $file);
+            if (isset($temp[1])) {
+                $newname = $path . '.' . $temp[1];
+            } else {
+                $newname = "";
+            }
+            $new_path                = './assets/profileimages/';
+            $old_path                = $files['profile_image']['tmp_name'][$i];
+            $config['upload_path']   = './assets/profileimages/';
+            //$config['file_name']        = $directoy;
+            //$config['allowed_types']        = 'jpg|png|pdf|doc';
+            $config['allowed_types'] = 'jpg|png';
+            $config['max_size']      = 20000;
+            $config['max_width']     = 10024;
+            $config['max_height']    = 7068;
+            $config['file_name']     = $newname;
+            $config['overwrite']     = FALSE;
+            
+            
+            $this->upload->initialize($config);
+            $this->upload->do_upload();
+            
+            if (!$this->upload->do_upload('horos_image')) {
+                //print_r($error=array('error' => $this->upload->display_errors()));die;
+                $error = array(
+                    'error' => $this->upload->display_errors()
+                );
+            } else {
+                $this->upload->data();
+                
+                if ($file == "") {
+                    
+                } else {
+					
+					
+					$check=$this->Admin_model->checkuserhorscop_profile($userid);
+                    if(count($check)>0){
+						
+						$data12 = array(
+						'FilePath' => $newname
+						);
+						$this->Admin_model->updateuser_horoscop_bymemid($data12,$userid);
+						
+					}else{
+						$data12 = array(
+						'MemberId' => $userid,
+						'FilePath' => $newname
+						);
+						$this->Admin_model->userhorscop_profileadd($data12);
+						
+					}
+					$directoy = $new_path . $newname;
+				  $this->chsslibrary->photoWatermark_WithResize($directoy, 800, 450);
+                }
+                
+            }
+        }
+		
+		
+        $this->session->set_flashdata('message', 'Added successfully.');
+		$userid=$this->chsslibrary->encoder($userid);
+		$step=$this->chsslibrary->encoder("step5");
+        redirect(base_url() ."user/register_redirect/".$step."/".$userid);
+		redirect(base_url() ."user/register_redirect/".$step."/".$userid);
+		}else{
+		$this->session->set_flashdata('message', 'please try again');
+        redirect(base_url() );
+		}
+    }
+	}
+	
+    // -----------------------------------------------------------
+    public function register_step5()
+    {
+        $decouserid       = $this->input->post('update');
+        $userid       = $this->chsslibrary->decoder($decouserid);
+		$pjobreq = $this->input->post('pjobreq');
+        
+        if ($pjobreq == "") {
+            $pjobreq = 0;
+        }
+		 
+        $partnerdiet = $this->input->post('pdiet');
+        $tail12      = "";
+        if ($partnerdiet != '') {
+            $countdiet = count($partnerdiet);
+            
+            for ($i = 0; $i < $countdiet; $i++) {
+                $tail12 .= $partnerdiet[$i] . ",";
+            }
+            $length1     = strlen($tail12) - 1;
+            $partnerdiet = substr($tail12, 0, $length1);
+        }
+		if ($partnerdiet == "") {
+            $partnerdiet = "0";
+        }
+		
+		  
+        $partnerstatus = $this->input->post('pstatus');
+        $tail12        = "";
+        if ($partnerstatus != '') {
+            $countstatus = count($partnerstatus);
+            
+            for ($i = 0; $i < $countstatus; $i++) {
+                $tail12 .= $partnerstatus[$i] . ",";
+            }
+            $length1       = strlen($tail12) - 1;
+            $partnerstatus = substr($tail12, 0, $length1);
+        }
+		if ($partnerstatus == "") {
+            $partnerstatus = "0";
+        }
+        $data = array(
+			'PStatus' =>'1',
+			'PQualification' =>$this->input->post('Pqualification'),
+            'PJob' =>  $this->input->post('PEmployed'),
+			'POccupation' => $this->input->post('Poccupation'),
+            'PJobRequest' => $pjobreq,
+            'PIncome' => $this->input->post('PAnnual'),
+            'PFromAge' => $this->input->post('Pfromage'),
+            'PToAge' => $this->input->post('Ptoage'),
+            'PDiet' =>  $partnerdiet,
+			'PMaritalStatus' => $partnerstatus,
+			'ProAlignment' =>$userid,
+        );
+		
+		
+		if($userid!=""){
+			$this->Admin_model->updateuserprofile($data,$userid);
+			
+			$userprofil=$this->Admin_model->getprofiledetails_byid($userid);
+			
+			$Gender=$CastName=$Email=$Name="";
+			foreach($userprofil as $item){ 
+				$Name=$item->Name;
+				$Gender=$item->Gender;
+				$CastName=$item->CastName;
+				$Email=$item->Email;
+			}
+			
+			if($Gender=="M"){
+				$Gender="F";
+			}elseif($Gender=="F"){
+				$Gender="M";
+			}
+			
+			
+			$cart_list=$this->Admin_model->getprofile_bygender($Gender,$CastName);
+			if(count($cart_list)>0){
+				
+			
+			$config = Array(
+			'protocol' => 'smtp',
+			'smtp_host' => 'smtp.info@bharatvivaha.com',
+			'smtp_port' => 465,
+			'smtp_user' => 'info@bharatvivaha.com', // change it to yours
+			'smtp_pass' => 'Bharatvivaha@567', // change it to yours
+			'mailtype' => 'html',
+			'charset' => 'iso-8859-1',
+			'wordwrap' => TRUE
+			);
+
+			
+			//$Email="css.muthukumar@gmail.com";
+			$from_email = "info@bharatvivaha.com"; 
+			$this->load->library('email'); 
+			$this->email->from($from_email); 
+			$this->email->to($Email);
+			$this->email->subject('Bharat Vivaha Online Matrimony'); 
+			//$content = 
+			$content='<div style="font-family:Arial,sans-serif;background-color:#f9f9f9;color:#424242;">
+<table style="table-layout:fixed;width:90%;width:750px;margin:0 auto;background:#fff;font-size:14px;border:2px solid #e8e8e8;text-align:left;table-layout:fixed;border-spacing:0">
+			<thead>
+			<tr style="background-color:#11c0b4; color:#fff;">
+			<th colspan="5" style="padding:20px;text-align:center;font-weight:bold;font-size:1.2em" >Welcome to Bharat Vivaha Online Matrimony.</th>
+			</tr>
+			</thead>
+			<tbody>
+			</tbody></table>
+
+			<table style="table-layout:fixed;width:90%;width:750px;margin:0 auto;background:#fff;font-size:14px;border:2px solid #e8e8e8;text-align:left;table-layout:fixed;padding-bottom:67px;border-spacing:0;padding-left: 20px;padding-right: 20px;">
+			<thead>
+		
+			</thead>
+			<tbody>
+			<tr >
+			<td colspan="5" style="text-align: center;padding: 35px;">Hi  '.$Name.' </td>
+			';
+			$cart_list=$this->Admin_model->getprofile_bygender($Gender,$CastName);
+			if(count($cart_list)>0){
+			$content .='
+				</tr>
+				<tr >
+				<td ># </td>
+				<td >Image</td>
+				<td > Name </td>
+				<td >Register No </td>
+				<td >Age</td>
+				</tr>
+			';
+			}
+			$i=1;
+		
+			foreach($cart_list as  $item){
+			$Name=$item->Name;
+			$meid=$item->Id;
+			$Age=$item->Age;
+
+			$profile_image=$this->Admin_model->getprofileimageStatus_byid($meid);
+			$FilePath="";
+			if(isset($profile_image) && ($profile_image!="")){
+			foreach($profile_image as $row){
+			$rid=$row->Id;
+			$FilePath=$row->FilePath;
+			}}  
+
+			if($FilePath!=""){
+			$image=base_url()."assets/profileimages/".$FilePath;
+			}else{
+			$image=base_url()."assets/profileimages/defaultimage.jpg";
+			}
+
+
+			$MemberCode=$item->MemberCode;
+			$content .=
+			'
+			
+			<tr >
+			<td >'.$i++.'</td>
+			<td > <img src="'.$image.'" style="width:100px;">
+			</td>
+
+			<td >'.$Name.' </td>
+			<td >'.$MemberCode.' .</td>
+			<td >'.$Age.' .</td>
+			<td >'.$Age.' .</td>
+
+			</tr>';
+			}
+
+			$content .='
+			<tr>
+			<td colspan="5" >	
+		
+			</td>
+			</tr>
+
+			</tbody>
+			</table>
+			
+			<div class="yj6qo"></div><div class="adL">
+			</div>
+			</div>
+			';
+		
+			
+			$this->email->message($content); 
+			$this->email->send();
+		
+			}
+			
+			
+			$content="";
+			//new register mail to admin
+			
+			$config = Array(
+			'protocol' => 'smtp',
+			'smtp_host' => 'smtp.info@bharatvivaha.com',
+			'smtp_port' => 465,
+			'smtp_user' => 'info@bharatvivaha.com', // change it to yours
+			'smtp_pass' => 'Bharatvivaha@567', // change it to yours
+			'mailtype' => 'html',
+			'charset' => 'iso-8859-1',
+			'wordwrap' => TRUE
+			);
+			//$tomail="info@bharatvivaha.com";
+			$tomail="css.muthukumar@gmail.com";
+			$from_email = "info@bharatvivaha.com"; 
+			$this->load->library('email'); 
+			$this->email->from($from_email); 
+			$this->email->to($tomail);
+			$this->email->subject('New register'); 
+			//$content = 
+			$content='<div style="font-family:Arial,sans-serif;background-color:#f9f9f9;color:#424242;">
+<table style="table-layout:fixed;width:90%;width:800px;margin:0 auto;background:#fff;font-size:14px;border:2px solid #e8e8e8;text-align:left;table-layout:fixed;border-spacing:0">
+			<thead>
+			<tr style="background-color:#11c0b4; color:#fff;">
+			<th colspan="5" style="padding:20px;text-align:center;font-weight:bold;font-size:1.2em" >Bharat Vivaha Online Matrimony.</th>
+			</tr>
+			</thead>
+			<tbody>
+			</tbody></table>
+
+			<table style="table-layout:fixed;width:90%;width:800px;margin:0 auto;background:#fff;font-size:14px;border:2px solid #e8e8e8;text-align:left;table-layout:fixed;padding-bottom:67px;border-spacing:0;padding-left: 20px;padding-right: 20px;">
+			<thead>
+		
+			</thead>
+			<tbody>
+			<tr >
+			<td colspan="5" style="text-align: center;padding: 35px;">New register </td>
+			';
+			$cart_list=$this->Admin_model->getprofiledetails_byid($userid);
+			if(count($cart_list)>0){
+			$content .='
+				</tr>
+				<tr >
+				<td ># </td>
+				<td >Image</td>
+				<td > Name </td>
+				<td >Register No </td>
+				<td >Age</td>
+				<td >Gender</td>
+				</tr>
+			';
+			}
+			$i=1;
+		
+			foreach($cart_list as  $item){
+			$Name=$item->Name;
+			$meid=$item->Id;
+			$Age=$item->Age;
+
+			
+			$Gender=$item->Gender;
+				
+			
+			if($Gender=="M"){
+				$Gender="Male";
+			}elseif($Gender=="F"){
+				$Gender="Female";
+			}
+			
+			$profile_image=$this->Admin_model->getprofileimageStatus_byid($meid);
+			$FilePath="";
+			if(isset($profile_image) && ($profile_image!="")){
+			foreach($profile_image as $row){
+			$rid=$row->Id;
+			$FilePath=$row->FilePath;
+			}}  
+
+			if($FilePath!=""){
+			$image=base_url()."assets/profileimages/".$FilePath;
+			}else{
+			$image=base_url()."assets/profileimages/defaultimage.jpg";
+			}
+
+
+			$MemberCode=$item->MemberCode;
+			$content .=
+			'
+			
+			<tr >
+			<td >'.$i++.'</td>
+			<td > <img src="'.$image.'" style="width:100px;">
+			</td>
+
+			<td >'.$Name.' </td>
+			<td >'.$MemberCode.'</td>
+			<td >'.$Age.' </td>
+			<td >'.$Gender.' </td>
+
+
+			</tr>';
+			}
+
+			$content .='
+			<tr>
+			<td colspan="5" >	
+		
+			</td>
+			</tr>
+
+			</tbody>
+			</table>
+			<br>
+			
+			';
+
+			
+			$this->email->message($content); 
+			$this->email->send();
+			//echo $content;die;
+		}
+	
+		$this->session->set_flashdata('message', 'Registered Successfully');
+		redirect(base_url() . 'User/login');
+		
+    }
+	
+	
+	
+	
+	
+	// ----------------------------------------------------------------------------- 
+    public function login(){
+	
+		$data["member_list"] = "Management";
+		$data['groom_details']=$this->Admin_model->getGroomlist();	
+		$data['bride_details']=$this->Admin_model->getBridelist();
+		$this->data = $data;	
+		$this->template['registerform'] = $this->load->view('login', $this->data, true);
+		$this->template['topmenu'] = $this->load->view('home/top_menu', $this->data, true);
+		$this->template['footer'] = $this->load->view('home/footer', $this->data, true);
+		$this->load->view('home/index_mk', $this->template);
+    }
+	
+	// ----------------------------------------------------------------------------- 
+    public function loginsubmit()
+    {
+		$email = $this->input->post('email');
+		$password = md5($this->input->post('password'));
+		$result = $this->Admin_model->checkuserLogin($email,$password);
+		
+		if (!$result){
+			$this->session->set_flashdata('message', 'Email id or Password incorrect');
+			redirect(base_url() . 'User/login');
+		}else{
+			
+			$MemberCode="";
+			$sess_array = array();
+			foreach($result as $row){
+			$update=$row->Id;
+			$MemberCode=$row->MemberCode;
+			$sess_array = array(
+				'userid' => $row->Id,
+				'gender' => $row->Gender,
+				'memcode' => $row->MemberCode,
+			
+			);
+			$this->session->set_userdata('logged_in', $sess_array['userid']);
+			$this->session->set_userdata('gender', $sess_array['gender']);
+			$this->session->set_userdata('memcode', $sess_array['memcode']);
+			}
+			
+			$userid = $this->session->userdata('logged_in');
+			$userid=$this->chsslibrary->encoder($userid);
+			$MemberCode=$this->chsslibrary->encoder($MemberCode);
+			redirect(base_url() . 'userprofile/index/'.$userid.'/'.$MemberCode);
+		}
+    }
+	
+	
+	// ----------------------------------------------------------------------------- 
+    public function forgotuser_password(){
+	
+		$data["member_list"] = "Management";
+		
+		$data['groom_details']=$this->Admin_model->getGroomlist();	
+		$data['bride_details']=$this->Admin_model->getBridelist();
+		$this->data = $data;	
+		$this->template['registerform'] = $this->load->view('forgot_password', $this->data, true);
+		
+		$this->template['topmenu'] = $this->load->view('home/top_menu', $this->data, true);
+		$this->template['footer'] = $this->load->view('home/footer', $this->data, true);
+		$this->load->view('home/index_mk', $this->template);
+    }
+	
+	
+	// -----------------------------------------------------------------------------    
+    public function forgot_user_password_submit($id=null){
+        $data["member_list"] = "Management";
+		
+		$email=$this->input->post('email');
+		$result=$this->Admin_model->checkemail_Byuser($email);
+		if(count($result)>0){
+			foreach($result as $item){
+				$userid=$item->Id;
+				$Name=$item->Name;
+			}
+			$password=$this->chsslibrary->randomChar($length = 5);
+			$data = array
+			(
+			'Password' =>md5($password),
+	
+			);
+			$this->Admin_model->memberactive_ajax($data,$userid);
+				
+		
+			$config = Array(
+			'protocol' => 'smtp',
+			'smtp_host' => 'smtp.info@bharatvivaha.com',
+			'smtp_port' => 465,
+			'smtp_user' => 'info@bharatvivaha.com', // change it to yours
+			'smtp_pass' => 'Bharatvivaha@567', // change it to yours
+			'mailtype' => 'html',
+			'charset' => 'iso-8859-1',
+			'wordwrap' => TRUE
+			);
+			$from_email = "info@bharatvivaha.com"; 
+			$this->load->library('email'); 
+			$this->email->from($from_email); 
+			$this->email->to($email);
+			$this->email->subject('Matrimony'); 
+			$content = $this->chsslibrary->forgot_password_mail($email,$Name,$password);
+			$this->email->message($content); 
+			$this->email->send(); 
+			$this->session->set_flashdata('message', 'password sent to your email');
+			redirect(base_url() . 'User/login');
+		}else{
+			$this->session->set_flashdata('message', 'Email ID incorrect');
+			redirect(base_url() . 'User/forgotuser_password');
+		}
+	}
+	
+	// -----------------------------------------------------------------------------    
+    public function change_password($id=null){
+        $data["member_list"] = "Management";
+		$this->data = $data;
+		$this->template['leftmenu'] = $this->load->view('left_menu', $this->data, true);		
+		$this->template['menu'] = $this->load->view('menu', $this->data, true);
+		$this->template['loadjs'] = $this->load->view('admin/loadjs', $this->data, true);
+		$this->load->view('change_password', $this->template);
+  }
+	
+	
+	
+  // -----------------------------------------------------------------------------    
+    public function change_password_submit($id=null){
+        $data["member_list"] = "Management";
+		$userid = $this->session->userdata('logged_in');
+		$old = md5($this->input->post('currentpassword'));
+		$password = md5($this->input->post('newpassword'));
+		$retypepassword = md5($this->input->post('retypepassword'));
+		$result = $this->Admin_model->checkUserOldPassword($old,$userid);
+		
+		if($password!=$retypepassword){
+			$this->session->set_flashdata('message', 'password should be same');
+			redirect(base_url() . 'user/change_password');
+		}
+		
+		if(count($result)>0){
+			
+			$data = array
+			(
+				'Password' =>$password
+			);
+			
+			$this->Admin_model->memberactive_ajax($data,$userid);
+			$this->session->set_flashdata('message', 'Password changed successfully');
+			redirect(base_url() . 'user/change_password');
+		}else{
+			$this->session->set_flashdata('message', 'old password incorrect');
+			redirect(base_url() . 'user/change_password');
+		}
+	}
+	
+	
+	// ------------------------------------------------------------------
+    public function terms(){
+    $data["member_list"] = "Management";
+
+	$this->data = $data;
+	$this->template['topmenu'] = $this->load->view('home/top_menu', $this->data, true);
+	$this->template['footer'] = $this->load->view('home/footer', $this->data, true);
+    $this->load->view('home/terms', $this->template);
+    }
+	
+	
+	
+	// -------------------------------------------------    
+    public function getcastebyreligion_ajax($id=null){
+	$data["member_list"] = "Management";
+	$data["reliid"]=$this->Admin_model->getcasteby_religionajax($id);
+    print_r($data["reliid"]);die;
+	$this->data = $data;
+	
+	$this->load->view('ajax_caste_byreligion', $this->data);
+    } 
+	
+	
+	
+	
+	
+	
+	
+
+}
+
+?>
