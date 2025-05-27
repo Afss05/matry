@@ -209,7 +209,7 @@ class User extends CI_Controller
          'Email' =>$this->input->post('email'),
 		 'ContactNumber' => $this->input->post('contact_number'),
 		 'ReligionId' => $this->input->post('religion'),	   
-				'SubCaste' => $this->input->post('subcaste'),
+		 'SubCaste' => $this->input->post('subcaste'),
          'MotherTongue' => $this->input->post('r_mother'),
 		 'CastName' => $this->input->post('r_case'),
 		 'PStatus' =>'1',

@@ -81,7 +81,7 @@ body {
 }
 
 .top-section {
-    background-attachment: scroll;
+    background-attachment: fixed; /* Changed to fixed */
     background-image: url("../bg3.jpg") !important;
     background-position: center center;
     background-repeat: no-repeat;
@@ -89,10 +89,10 @@ body {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    /* padding: 100px; */
     padding: 50px;
     height: 500px !important;
 }
+
 
 .matrimony-tagline h1 {
     font-weight: 600;
@@ -116,6 +116,11 @@ body {
     text-decoration: none;
     border-radius: 8px;
     transition: background 0.3s ease;
+}
+
+label {
+    color: #333;
+    font-family: 'poppins', sans-serif !important;
 }
 
 .register-btn:hover {

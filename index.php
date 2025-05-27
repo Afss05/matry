@@ -61,7 +61,8 @@ if (!defined('ENVIRONMENT')) {
 
     if ($_SERVER['SERVER_NAME'] == 'localhost') {
         define('ENVIRONMENT', 'development');
-        define("BASEURL", "http://localhost/bharaa");
+        // define("BASEURL", "http://localhost/bharaa");
+        define("BASEURL", "http://localhost/matry");
     } elseif (strpos($_SERVER['SERVER_NAME'], 'bharatvivaha') !== false) {
         define('ENVIRONMENT', 'production');
         define("BASEURL", "https://bharatvivaha.com/");

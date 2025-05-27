@@ -349,6 +349,7 @@ session_cache_limiter("private_no_expire"); */
     </div>
 </section>
 
+<?php echo $footer; ?>
 
 </body>
 </html>
