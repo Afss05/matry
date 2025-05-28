@@ -25,7 +25,7 @@ date_default_timezone_set('Asia/Kolkata');
 */
 // $config['base_url'] = "https://www.bharatvivaha.com/";
 // $config['base_url'] = "http://192.168.1.7/bharaa";
-$config['base_url'] = "http://localhost/bharaa/";
+$config['base_url'] = "http://localhost/matry/";
 
 /*
 |--------------------------------------------------------------------------
