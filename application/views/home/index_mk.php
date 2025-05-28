@@ -176,6 +176,7 @@ session_cache_limiter("private_no_expire"); */
             </div>
         </div>
     </div>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100"><g fill="#FFEFD5"><path d="M0 0v100c166.7 0 166.7-66 333.3-66S500 77 666.7 77 833.3 28 1000 28V0H0Z" opacity=".5"></path><path d="M0 0v100c166.7 0 166.7-66 333.3-66S500 70 666.7 70 833.3 16 1000 16V0H0Z" opacity=".5"></path><path d="M0 0v100c166.7 0 166.7-66 333.3-66S500 63 666.7 63 833.3 4 1000 4V0H0Z"></path></g></svg></main>
 </section>
 
 <section >
@@ -263,8 +264,8 @@ session_cache_limiter("private_no_expire"); */
       </a>
     </div>
   </section>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100"><g fill="#FFEFD5"><path d="M0 0v100c166.7 0 166.7-66 333.3-66S500 77 666.7 77 833.3 28 1000 28V0H0Z" opacity=".5"></path><path d="M0 0v100c166.7 0 166.7-66 333.3-66S500 70 666.7 70 833.3 16 1000 16V0H0Z" opacity=".5"></path><path d="M0 0v100c166.7 0 166.7-66 333.3-66S500 63 666.7 63 833.3 4 1000 4V0H0Z"></path></g></svg></main>
 </main>
-
 
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
@@ -342,14 +343,432 @@ session_cache_limiter("private_no_expire"); */
 
                 <!-- Right Side Image -->
                 <div class="col-md-5 text-center">
-                    <img src="<?= base_url(); ?>main/wdbg.png" alt="WeddingInfo Promotion" class="img-fluid rounded custom-inset-shadow">
+                    <img src="<?= base_url(); ?>main/wedding.png" alt="WeddingInfo Promotion" class="img-fluid rounded custom-inset-shadow">
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<?php echo $footer; ?>
+<section>
+    <div class="container">
+        <div class="col-lg-12 row">
+            <h2 class="promo-heading mb-3" style="text-align: center;">Browse Matrimonial Profiles By</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-12 caste">
+                <h2 class="text-thm2 " style=";">Religion :</h2>
+                <ul class="list-inline"  style="">
+                    <?php 
+                        if(isset($religionlist) && ($religionlist!="")){
+                        foreach($religionlist as $relgiode){
+                        $id=$relgiode->Id;
+                        $Religion=$relgiode->Religion;
+                    ?>
+                    <li><a href="<?php echo base_url(); ?>searchindex?gender=&status=&fromage=&endage=&religion=<?php echo $id; ?>&caste=&location=&SearchByID=&mother="><?php echo $Religion; ?></a></li>
+                    <li>|</li>
+                    <?php } } ?>
+                </ul>
+            </div>
+
+            <!-- Regional -->
+
+            <div class="col-md-12 caste">
+                <h2 class="text-thm2 " style="">Regional  :</h2>
+                <p > 
+                    <ul class="list-inline" style="">
+                        <li><a href="<?php echo base_url(); ?>searchindex?gender=&status=&fromage=&endage=&religion=&caste=&location=&SearchByID=&mother=Tamil">Tamil Vivaha</a></li>
+                        <li>|</li>
+                        <li><a href="<?php echo base_url(); ?>searchindex?gender=&status=&fromage=&endage=&religion=&caste=&location=&SearchByID=&mother=Telugu">Telugu Vivaha</a></li>
+                        <li>|</li>
+                        <li><a href="<?php echo base_url(); ?>searchindex?gender=&status=&fromage=&endage=&religion=&caste=&location=&SearchByID=&mother=Malayalam">Malayalam Vivaha</a></li>
+                        <li>|</li>
+                        <li><a href="<?php echo base_url(); ?>searchindex?gender=&status=&fromage=&endage=&religion=&caste=&location=&SearchByID=&mother=Kannadam">Kannada Vivaha</a></li>
+                        <li>|</li>
+                        <li><a href="<?php echo base_url(); ?>searchindex?gender=&status=&fromage=&endage=&religion=&caste=&location=&SearchByID=&mother=Hindhi">Hindhi Vivaha</a></li>
+                        <li>|</li>
+                        <li><a href="<?php echo base_url(); ?>searchindex?gender=&status=&fromage=&endage=&religion=&caste=&location=&SearchByID=&mother=Gujarathi">Gujarathi Vivaha</a></li>
+                        <li>|</li>
+                        <li><a href="<?php echo base_url(); ?>searchindex?gender=&status=&fromage=&endage=&religion=&caste=&location=&SearchByID=&mother=Marathi">Marathi Vivaha</a></li>
+                        <li>|</li>
+                        <li><a href="<?php echo base_url(); ?>searchindex?gender=&status=&fromage=&endage=&religion=&caste=&location=&SearchByID=&mother=Punjabi">Punjabi Vivaha</a></li>
+                        <li>|</li>
+                        <li><a href="<?php echo base_url(); ?>searchindex?gender=&status=&fromage=&endage=&religion=&caste=&location=&SearchByID=&mother=Bengali">Bengali Vivaha</a></li>
+                        <li>|</li>
+                        <li><a href="<?php echo base_url(); ?>searchindex?gender=&status=&fromage=&endage=&religion=&caste=&location=&SearchByID=&mother=Parsi">Parsi Vivaha</a></li>
+                        <li>|</li>
+                        <li><a href="<?php echo base_url(); ?>searchindex?gender=&status=&fromage=&endage=&religion=&caste=&location=&SearchByID=&mother=Marwari">Marwari Vivaha</a></li>
+                        <li>|</li>
+                        <li><a href="<?php echo base_url(); ?>searchindex?gender=&status=&fromage=&endage=&religion=&caste=&location=&SearchByID=&mother=Assamee">Assamee Vivaha</a></li>
+                        <li>|</li>
+                        <li><a href="<?php echo base_url(); ?>searchindex?gender=&status=&fromage=&endage=&religion=&caste=&location=&SearchByID=&mother=English">English Vivaha</a></li>
+                    </ul>
+                </p>
+            </div>
+
+            <!-- Community -->
+
+            <div class="col-md-12 caste">
+                <h2 class="text-thm2 " style="">Community :</h2>
+                <ul class="list-inline"  style="">
+                    <?php 
+                        if(isset($caste_details) && ($caste_details!="")){
+                        foreach($caste_details as $castede){
+                        $castid=$castede->Id;
+                        $CasteName=$castede->CasteName;
+                        $people = array("Adi Dravidar", "Agarwal", "Aryavysya","Balija","Balija Naidu","Balija Reddy","Chettiar","CKP","Desikar","Devandra Kula Vellalar" ,"Devanga Chettiar","Ezhava","Gounder","Gramani","Garava","Intercaste","Brahmin - Iyer","Brahmin - Iyengar","Isai Vellalar","Kalar","Kamma","Kulalar","Kulal","Kongu Vellal Gounder","Mudaliyar","Maruthuvar","Maruthuvar","Nadar","Naicker","Nair","Pillai","Brahmin - Pandit","Reddy","Senai Thalaivar","Senguntha Mudaliyar","Devar/Thevar/Mukkulathor","Vanniyar","Vannia Kula Kshatriyar","Vellalar","Vishwakarma","Aryavysya","halua","maruthu","Pushkaram","Devangu chettiyar");
+                        if (in_array($CasteName, $people))
+                        {
+                    ?>
+                    <li><a href="<?php echo base_url(); ?>searchindex?gender=&status=&fromage=&endage=&religion=&caste=<?php echo $castid; ?>&location=&SearchByID=&mother="><?php echo $CasteName; ?> Vivaha</a></li>
+                    <li>|</li>
+                    <?php } } } ?>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+function getstar(rasiid){
+
+if(rasiid==''){
+return false;
+}
+var xmlhttp=new XMLHttpRequest();	
+xmlhttp.onreadystatechange = function() {
+if (this.readyState == 4 && this.status == 200) {
+//alert(this.responseText);
+document.getElementById("starid").innerHTML = this.responseText;
+}
+
+};
+xmlhttp.open("GET", "<?php echo base_url(); ?>ajax/getstarbyrasi_ajax/"+rasiid, true);
+xmlhttp.send();
+}
+</script>	
+
+<script>
+
+function dosham_change(el){
+if(el == '2'){ 
+	document.getElementById('doshamshow').style.display = 'block'; // Show el
+}else{
+	var items = document.getElementsByName('doshamdetails[]');
+	for (var i = 0; i < items.length; i++) {
+	if (items[i].type == 'checkbox')
+	items[i].checked = false;
+	}
+	document.getElementById('doshamshow').style.display = 'none'; // Hide el
+}
+}
+
+</script>
+
+
+
+<script>
+
+function getcaste1(rasiid){
+
+if(rasiid==''){
+return false;
+}
+
+//alert(rasiid);
+var xmlhttp=new XMLHttpRequest();	
+xmlhttp.onreadystatechange = function() {
+if (this.readyState == 4 && this.status == 200) {
+//alert(this.responseText);
+document.getElementById("r_case1").innerHTML = this.responseText;
+}
+
+};
+xmlhttp.open("GET", "<?php echo base_url(); ?>Ajax/getcastebyreligion_ajax/"+rasiid, true);
+xmlhttp.send();
+}
+function getcaste(rasiid){
+	
+if(rasiid==''){
+return false;
+}
+var xmlhttp=new XMLHttpRequest();	
+xmlhttp.onreadystatechange = function() {
+if (this.readyState == 4 && this.status == 200) {
+//alert(this.responseText);
+document.getElementById("r_case").innerHTML = this.responseText;
+}
+
+};
+xmlhttp.open("GET", "<?php echo base_url(); ?>ajax/getcastebyreligion_ajax/"+rasiid, true);
+xmlhttp.send();
+}
+</script>	
+
+  
+<script>    
+
+function checkemail(id){
+//alert(id);
+var xmlhttp=new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+if(this.readyState == 4 && this.status == 200) {
+//alert(this.responseText);
+if(this.responseText==1){
+alert("already registered email ")
+document.getElementById("email").value='';
+}
+}
+};        
+xmlhttp.open("GET", "<?php echo base_url(); ?>ajax/check_useremailbyajax/"+id, true);
+xmlhttp.send();
+}
+
+	
+function checkphone(id){
+		
+		if(document.register.contact_number.value!=""){
+    var mobile=document.register.contact_number.value;
+    /* var cont_code=101;
+    if(cont_code=='101'){
+	var digit = mobile.toString()[0];
+	if(digit=='0' || digit=='1' || digit=='2' || digit=='3' || digit=='4' || digit=='5'){
+	    alert("Sorry, Mobile number is not valid !!!");
+	    document.register.contact_number.value='';
+	    document.register.contact_number.focus();
+	    return false; 
+	}
+	if(Number(mobile.length)!='10'){
+	    alert("Sorry, Mobile number is not valid !!!");
+	    document.register.contact_number.value='';
+	    document.register.contact_number.focus();
+	    return false; 
+	}
+    } */
+    if(Number(mobile.length) < 6 || Number(mobile.length) > 20){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='111111' || Number(mobile)=='1111111' || Number(mobile)=='11111111' || Number(mobile)=='111111111' || Number(mobile)=='1111111111'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='222222' || Number(mobile)=='2222222' || Number(mobile)=='22222222' || Number(mobile)=='222222222' || Number(mobile)=='2222222222'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='333333' || Number(mobile)=='3333333' || Number(mobile)=='33333333' || Number(mobile)=='333333333' || Number(mobile)=='3333333333'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='444444' || Number(mobile)=='4444444' || Number(mobile)=='44444444' || Number(mobile)=='444444444' || Number(mobile)=='4444444444'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='555555' || Number(mobile)=='5555555' || Number(mobile)=='55555555' || Number(mobile)=='555555555' || Number(mobile)=='5555555555'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='666666' || Number(mobile)=='6666666' || Number(mobile)=='66666666' || Number(mobile)=='666666666' || Number(mobile)=='6666666666'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='777777' || Number(mobile)=='7777777' || Number(mobile)=='77777777' || Number(mobile)=='777777777' || Number(mobile)=='7777777777'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='888888' || Number(mobile)=='8888888' || Number(mobile)=='88888888' || Number(mobile)=='888888888' || Number(mobile)=='8888888888'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='999999' || Number(mobile)=='9999999' || Number(mobile)=='99999999' || Number(mobile)=='999999999' || Number(mobile)=='9999999999'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='000000' || Number(mobile)=='0000000' || Number(mobile)=='00000000' || Number(mobile)=='000000000' || Number(mobile)=='0000000000'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    }
+		
+		
+	
+	
+var xmlhttp=new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+if(this.readyState == 4 && this.status == 200) {
+	//alert(this.responseText);
+if(this.responseText==1){
+alert("already registered phone number ")
+document.getElementById("contact_number").value='';
+}
+}
+};        
+xmlhttp.open("GET", "<?php echo base_url(); ?>ajax/checkby_phonejax/"+id, true);
+xmlhttp.send();
+} 
+
+function checkphone_without(id,uid){
+	
+	if(document.register.contact_number.value!=""){
+    var mobile=document.register.contact_number.value;
+    var cont_code=101;
+   /*  if(cont_code=='101'){
+	var digit = mobile.toString()[0];
+	if(digit=='0' || digit=='1' || digit=='2' || digit=='3' || digit=='4' || digit=='5'){
+	    alert("Sorry, Mobile number is not valid !!!");
+	    document.register.contact_number.value='';
+	    document.register.contact_number.focus();
+	    return false; 
+	}
+	if(Number(mobile.length)!='10'){
+	    alert("Sorry, Mobile number is not valid !!!");
+	    document.register.contact_number.value='';
+	    document.register.contact_number.focus();
+	    return false; 
+	}
+    } */
+    if(Number(mobile.length) < 6 || Number(mobile.length) > 20){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='111111' || Number(mobile)=='1111111' || Number(mobile)=='11111111' || Number(mobile)=='111111111' || Number(mobile)=='1111111111'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='222222' || Number(mobile)=='2222222' || Number(mobile)=='22222222' || Number(mobile)=='222222222' || Number(mobile)=='2222222222'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='333333' || Number(mobile)=='3333333' || Number(mobile)=='33333333' || Number(mobile)=='333333333' || Number(mobile)=='3333333333'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='444444' || Number(mobile)=='4444444' || Number(mobile)=='44444444' || Number(mobile)=='444444444' || Number(mobile)=='4444444444'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='555555' || Number(mobile)=='5555555' || Number(mobile)=='55555555' || Number(mobile)=='555555555' || Number(mobile)=='5555555555'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='666666' || Number(mobile)=='6666666' || Number(mobile)=='66666666' || Number(mobile)=='666666666' || Number(mobile)=='6666666666'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='777777' || Number(mobile)=='7777777' || Number(mobile)=='77777777' || Number(mobile)=='777777777' || Number(mobile)=='7777777777'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='888888' || Number(mobile)=='8888888' || Number(mobile)=='88888888' || Number(mobile)=='888888888' || Number(mobile)=='8888888888'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='999999' || Number(mobile)=='9999999' || Number(mobile)=='99999999' || Number(mobile)=='999999999' || Number(mobile)=='9999999999'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    if(Number(mobile)=='000000' || Number(mobile)=='0000000' || Number(mobile)=='00000000' || Number(mobile)=='000000000' || Number(mobile)=='0000000000'){
+	alert("Sorry, Mobile number is not valid !!!");
+	document.register.contact_number.value='';
+	document.register.contact_number.focus();
+	return false;
+    }
+    }
+		
+		
+	
+	
+var xmlhttp=new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+if(this.readyState == 4 && this.status == 200) {
+	//alert(this.responseText);
+if(this.responseText==1){
+alert("already registered phone number ")
+document.getElementById("contact_number").value='';
+}
+}
+};        
+xmlhttp.open("GET", "<?php echo base_url(); ?>ajax/checkby_phonejax_withuser/"+id+"/"+uid, true);
+xmlhttp.send();
+} 
+
+
+</script>
+
+
+
+<!-- Wrapper End -->
+<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/bootsnav.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/parallax.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/scrollto.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jquery-scrolltofixed-min.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jquery.counterup.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/gallery.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/wow.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/slider.js"></script>
+<!--  <script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/video-player.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jflickrfeed.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jquery.barfiller.js"></script>
+<!-- 
+<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/timepicker.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/tweetie.js"></script>
+<!-- Custom script for all pages 
+<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/color-switcher.js"></script> --> 
+<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/script.js"></script>
+<script type='text/javascript'>
+// [].slice.call( document.querySelectorAll( '.photostack' ) ).forEach( function( el ) { new Photostack( el ); } );
+new Photostack( document.getElementById( 'photostack-3' ), {
+    callback : function( item ) {
+        //console.log(item)
+    }
+});
+</script>
+
 
 </body>
 </html>

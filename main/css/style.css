@@ -90,7 +90,7 @@ body {
     -o-background-size: cover;
     background-size: cover;
     padding: 50px;
-    height: 500px !important;
+    height: auto !important;
 }
 
 
@@ -177,7 +177,7 @@ label {
 
 
 .trust-brand-wrapper {
-    background-color: #fdf5f1;
+    background-color: #FFEFD5;
     padding: 20px 0;
 }
 
@@ -396,7 +396,8 @@ label {
 /* testimonial */
 
 .testimonial-section {
-  background: #fef8ee;
+  background: #FFEFD5;
+  /* background: #fef8ee; */
   padding: 40px 20px;
 }
 
@@ -516,6 +517,7 @@ label {
     background: linear-gradient(90deg, rgba(250, 105, 226, 1) 0%, rgba(217, 168, 255, 1) 50%);
 } */
 
+
 .promo-section {
     /* background-color: #fff0f6; */
     padding: 40px 20px;
@@ -527,6 +529,18 @@ label {
     color: #070707;
     font-weight: 700;
     font-size: 50px;
+}
+
+.caste h2{
+    font-family: 'Parisienne', cursive;
+    font-weight: 700;
+    font-size: 35px;
+}
+
+.caste ul {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 16px;
+    padding-left: 20px;
 }
 
 .promo-text {

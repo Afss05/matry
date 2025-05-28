@@ -108,16 +108,16 @@ label {
           <div class="col-xs-12 text-center">
             <h2 class="text-thm2 ff-engnmt ">Registration Free, fill the form below </h2>
             <div class="messages">
-<?php if($this->session->flashdata('message')){     
-?>    
-<div class="alert alert-success success">
-    <?php echo $this->session->flashdata('message') ?>                   
-</div>
-<?php } else if($this->session->flashdata('error')) {
-  echo '<div class="alert alert-danger danger">'.$this->session->flashdata('error').'</div>';	
-}	
-?>
-</div>
+              <?php if($this->session->flashdata('message')) { ?>    
+                <div class="alert alert-success success flash-message">
+                  <?php echo $this->session->flashdata('message'); ?>                   
+                </div>
+              <?php } else if($this->session->flashdata('error')) { ?>
+                <div class="alert alert-danger danger flash-message">
+                  <?php echo $this->session->flashdata('error'); ?>
+                </div>
+              <?php } ?>
+            </div>
           </div>
 
           <!-- Profile For -->
@@ -336,13 +336,15 @@ label {
 <form id="rsvp_form3" name="register" class="rsvp_form3 bgc-overlay-white7" action="<?php echo $action; ?>" method="post">
   <div class="col-xs-12 col-sm-12 col-md-12 text-center clearfix">
     <div class="messages">
-      <?php if($this->session->flashdata('message')){     
-      ?>    
-      <div class="alert alert-success success">
-        <?php echo $this->session->flashdata('message') ?>                   
-      </div>
-      <?php } ?>    
-
+      <?php if($this->session->flashdata('message')) { ?>    
+        <div class="alert alert-success success " id="flash-message">
+          <?php echo $this->session->flashdata('message'); ?>                   
+        </div>
+      <?php } else if($this->session->flashdata('error')) { ?>
+        <div class="alert alert-danger danger flash-message">
+          <?php echo $this->session->flashdata('error'); ?>
+        </div>
+      <?php } ?>
     </div>
   </div>
 
@@ -427,10 +429,12 @@ label {
         <!-- Gender -->
         <div class="col-md-6">
           <div class="form-group">
-            <label for="disability">Any Disability </label><br>
-            <label> <input  type="radio" required <?php if($Disability=="Normal"){ echo "checked"; } ?> value="Normal" id="Normal" name="disability"> Normal  </label>
-            <label> <input  type="radio" <?php if($Disability=="Physically challenged"){ echo "checked"; } ?>  value="Physically challenged" id="Physically" name="disability"> Physically challenged
-            </label>
+            <label for="disability">Any Disability</label>
+            <select name="disability" id="disability" class="form-control" required>
+                <option value="">-- Select --</option>
+                <option value="Normal" <?php if($Disability=="Normal"){ echo "selected"; } ?>>Normal</option>
+                <option value="Physically challenged" <?php if($Disability=="Physically challenged"){ echo "selected"; } ?>>Physically challenged</option>
+            </select>
           </div>
         </div>
 
@@ -522,7 +526,7 @@ label {
     <!-- step4 start -->
     <div id="step4" class="form-step">
       <div class="col-xs-12 text-center">
-        <h2 class="text-thm2 ff-engnmt">Personal Details</h2>
+        <h2 class="text-thm2 ff-engnmt">Qualification Details</h2>
       </div>
       <div class="col-md-6">
         <div class="form-group">
@@ -841,13 +845,15 @@ label {
 <div class="col-xs-12 col-sm-12 col-md-12 text-center clearfix">
 <h2 class="text-thm2 ff-engnmt">Partner Expectation Details  </h2>
 <div class="messages">
-<?php if($this->session->flashdata('message')){     
-?>    
-<div class="alert alert-success success">
-<?php echo $this->session->flashdata('message') ?>                   
-</div>
-<?php } ?>    
-
+  <?php if($this->session->flashdata('message')) { ?>    
+    <div class="alert alert-success success flash-message">
+      <?php echo $this->session->flashdata('message'); ?>                   
+    </div>
+  <?php } else if($this->session->flashdata('error')) { ?>
+    <div class="alert alert-danger danger flash-message">
+      <?php echo $this->session->flashdata('error'); ?>
+    </div>
+  <?php } ?>
 </div>
 </div>
 
@@ -1427,6 +1433,16 @@ $CasteName=$castede->CasteName;
 </div>
 </form>
 
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const flashMessages = document.querySelectorId("flash-message");
+    flashMessages.forEach(function(msg) {
+      setTimeout(() => {
+        msg.style.display = "none";
+      }, 3000); // 10 seconds
+    });
+  });
+</script>
 
 
 
