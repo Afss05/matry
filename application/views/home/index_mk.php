@@ -102,7 +102,7 @@ session_cache_limiter("private_no_expire"); */
         <div class="container">
             <div class="row">
                 <div class="col-md-12 headlines">
-                    <h2 style="">About Bharat Vivaha Matrimony</h2>
+                    <h2 style="color: #b2002d;">About Bharat Vivaha Matrimony</h2>
                     <p>Bharat Vivaha Matrimony is a trusted name in the world of matrimonial services, dedicated to helping individuals find their perfect life partners with ease and confidence. With over 6 years of experience, we’ve built a platform that blends traditional values with modern technology, ensuring a seamless and secure matchmaking experience for every user.
                         We proudly cater to diverse communities across India and abroad, offering 100% verified profiles, community-based matching, and personalized assistance. Whether you're looking for a partner within your community or across regions, Bharat Vivaha makes the search simple, safe, and effective.
                         Our commitment to privacy, transparency, and genuine connections has earned the trust of thousands of families. At Bharat Vivaha, it’s not just about matches — it’s about meaningful marriages.
@@ -117,7 +117,7 @@ session_cache_limiter("private_no_expire"); */
     <div class="container-fluid" style="padding: 0;">
         <div class="trust-brand-wrapper" height="">
             <div class="trust-head">
-                <h2 class="">Why choose us</h2>
+                <h2 style="color: #b2002d;">Why choose us</h2>
                 <p class="">Most Trusted and premium Matrimony Service in the World.</p>
             </div>
             <div class="container trust-brand">
@@ -347,7 +347,7 @@ session_cache_limiter("private_no_expire"); */
 <section>
     <div class="container">
         <div class="col-lg-12 row">
-            <h2 class="promo-heading mb-3" style="text-align: center;">Browse Matrimonial Profiles By</h2>
+            <h2 class="promo-heading mb-3" style="text-align: center; color: #b2002d;">Browse Matrimonial Profiles By</h2>
         </div>
         <div class="row">
             <div class="col-md-12 caste">
