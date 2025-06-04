@@ -224,15 +224,20 @@
 
    ul li a {
     font-family: Georgia, "Times New Roman", Times, serif;
-    font-size: 18px;
+    /* font-size: 18px; */
     font-weight: 400;
     color: black;
     text-decoration: none;
   }
-
+  
+  .navbar-nav li a:hover {
+    color: #d32f2f;
+    font-size: 18px !important;
+  }
+/* 
   ul li a:hover {
     color: #d32f2f;
-  }
+  } */
 
 
   /* Mobile-specific styling */
