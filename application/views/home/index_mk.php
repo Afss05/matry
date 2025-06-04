@@ -20,19 +20,10 @@ session_cache_limiter("private_no_expire"); */
     <meta name="robots" CONTENT="all,index,follow"> 
     <META NAME="revisit-after" CONTENT="3 days">
 <!-- css file -->
-<!--mk -->
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets_index/css/colors/default.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 
 
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets_index/css/bootstrap.min.css">
-<!-- <link rel="stylesheet" href="<?php echo base_url(); ?>assets_index/css/style.css"> -->
-<!-- Responsive stylesheet -->
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets_index/css/responsive.css">
-<!-- Title -->
-
-<!-- Favicon -->
-<link href="images/favicon.ico" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
-<link href="images/favicon.ico" sizes="128x128" rel="shortcut icon" />
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -65,6 +56,7 @@ session_cache_limiter("private_no_expire"); */
 
 </head>
 <body>
+   
 <?php echo $topmenu ?>
 
 <section class="top-section" data-stellar-background-ratio="0.3">
@@ -312,38 +304,40 @@ session_cache_limiter("private_no_expire"); */
         <div class="container my-5">
             <div class="row align-items-center promo-section">
                 <!-- Left Side Content -->
-                <div class="col-md-7 mb-4 mb-md-0">
-                    <h2 class="promo-heading mb-3">Plan Your Dream Wedding</h2>
-                    <p class="promo-text mb-4">
-                        Discover trusted wedding vendors, stunning venues, and expert services on 
-                        <strong style="color: black;">WeddingInfo.in</strong>. Now featured on BharatVivaha for your convenience!
-                    </p>
-                    <div class="elite-features promo-features">
-                        <div class="promo-features-item">
-                            <img src="<?php echo base_url(); ?>main/img/star.png" alt="Elite Profiles">
-                            <div>
-                                <p>Top-rated Wedding Professionals</p>
+                 <div class="row col-md-12" style="gap: 0px;">
+                    <div class="col-md-7 mb-4 mb-md-0">
+                        <h2 class="promo-heading mb-3">Plan Your Dream Wedding</h2>
+                        <p class="promo-text mb-4">
+                            Discover trusted wedding vendors, stunning venues, and expert services on 
+                            <strong style="color: black;">WeddingInfo.in</strong>. Now featured on BharatVivaha for your convenience!
+                        </p>
+                        <div class="elite-features promo-features">
+                            <div class="promo-features-item">
+                                <img src="<?php echo base_url(); ?>main/img/star.png" alt="Elite Profiles">
+                                <div>
+                                    <p>Top-rated Wedding Professionals</p>
+                                </div>
+                            </div>
+                            <div class="promo-features-item">
+                                <img src="<?php echo base_url(); ?>main/pan-service.png" alt="Elite Profiles">
+                                <div>
+                                    <p>Pan-India Services</p>
+                                </div>
+                            </div>
+                            <div class="promo-features-item">
+                                <img src="<?php echo base_url(); ?>main/EasyUse.png" alt="Elite Profiles">
+                                <div>
+                                    <p>Easy Vendor Access & Search</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="promo-features-item">
-                            <img src="<?php echo base_url(); ?>main/pan-service.png" alt="Elite Profiles">
-                            <div>
-                                <p>Pan-India Services</p>
-                            </div>
-                        </div>
-                        <div class="promo-features-item">
-                            <img src="<?php echo base_url(); ?>main/EasyUse.png" alt="Elite Profiles">
-                            <div>
-                                <p>Easy Vendor Access & Search</p>
-                            </div>
-                        </div>
+                        <a href="https://weddinginfo.in" target="_blank" class="btn promo-btn px-4 py-2">Visit WeddingInfo.in</a>
                     </div>
-                    <a href="https://weddinginfo.in" target="_blank" class="btn promo-btn px-4 py-2">Visit WeddingInfo.in</a>
-                </div>
 
-                <!-- Right Side Image -->
-                <div class="col-md-5 text-center">
-                    <img src="<?= base_url(); ?>main/wedding.png" alt="WeddingInfo Promotion" class="img-fluid rounded custom-inset-shadow">
+                    <!-- Right Side Image -->
+                    <div class="col-md-5 text-center">
+                        <img src="<?= base_url(); ?>main/wedding.png" alt="WeddingInfo Promotion" class="img-fluid rounded custom-inset-shadow">
+                    </div>
                 </div>
             </div>
         </div>
@@ -357,77 +351,101 @@ session_cache_limiter("private_no_expire"); */
         </div>
         <div class="row">
             <div class="col-md-12 caste">
-                <h2 class="text-thm2 " style=";">Religion :</h2>
-                <ul class="list-inline"  style="">
+                <h2 class="text-thm2">Religion :</h2>
+                <p style="margin: 0;">
                     <?php 
-                        if(isset($religionlist) && ($religionlist!="")){
-                        foreach($religionlist as $relgiode){
-                        $id=$relgiode->Id;
-                        $Religion=$relgiode->Religion;
+                    if (isset($religionlist) && !empty($religionlist)) {
+                        $total = count($religionlist);
+                        $i = 1;
+                        foreach ($religionlist as $relgiode) {
+                            $id = $relgiode->Id;
+                            $Religion = $relgiode->Religion;
                     ?>
-                    <li><a href="<?php echo base_url(); ?>searchindex?gender=&status=&fromage=&endage=&religion=<?php echo $id; ?>&caste=&location=&SearchByID=&mother="><?php echo $Religion; ?></a></li>
-                    <li>|</li>
-                    <?php } } ?>
-                </ul>
-            </div>
-
-            <!-- Regional -->
-
-            <div class="col-md-12 caste">
-                <h2 class="text-thm2 " style="">Regional  :</h2>
-                <p > 
-                    <ul class="list-inline" style="">
-                        <li><a href="<?php echo base_url(); ?>searchindex?gender=&status=&fromage=&endage=&religion=&caste=&location=&SearchByID=&mother=Tamil">Tamil Vivaha</a></li>
-                        <li>|</li>
-                        <li><a href="<?php echo base_url(); ?>searchindex?gender=&status=&fromage=&endage=&religion=&caste=&location=&SearchByID=&mother=Telugu">Telugu Vivaha</a></li>
-                        <li>|</li>
-                        <li><a href="<?php echo base_url(); ?>searchindex?gender=&status=&fromage=&endage=&religion=&caste=&location=&SearchByID=&mother=Malayalam">Malayalam Vivaha</a></li>
-                        <li>|</li>
-                        <li><a href="<?php echo base_url(); ?>searchindex?gender=&status=&fromage=&endage=&religion=&caste=&location=&SearchByID=&mother=Kannadam">Kannada Vivaha</a></li>
-                        <li>|</li>
-                        <li><a href="<?php echo base_url(); ?>searchindex?gender=&status=&fromage=&endage=&religion=&caste=&location=&SearchByID=&mother=Hindhi">Hindhi Vivaha</a></li>
-                        <li>|</li>
-                        <li><a href="<?php echo base_url(); ?>searchindex?gender=&status=&fromage=&endage=&religion=&caste=&location=&SearchByID=&mother=Gujarathi">Gujarathi Vivaha</a></li>
-                        <li>|</li>
-                        <li><a href="<?php echo base_url(); ?>searchindex?gender=&status=&fromage=&endage=&religion=&caste=&location=&SearchByID=&mother=Marathi">Marathi Vivaha</a></li>
-                        <li>|</li>
-                        <li><a href="<?php echo base_url(); ?>searchindex?gender=&status=&fromage=&endage=&religion=&caste=&location=&SearchByID=&mother=Punjabi">Punjabi Vivaha</a></li>
-                        <li>|</li>
-                        <li><a href="<?php echo base_url(); ?>searchindex?gender=&status=&fromage=&endage=&religion=&caste=&location=&SearchByID=&mother=Bengali">Bengali Vivaha</a></li>
-                        <li>|</li>
-                        <li><a href="<?php echo base_url(); ?>searchindex?gender=&status=&fromage=&endage=&religion=&caste=&location=&SearchByID=&mother=Parsi">Parsi Vivaha</a></li>
-                        <li>|</li>
-                        <li><a href="<?php echo base_url(); ?>searchindex?gender=&status=&fromage=&endage=&religion=&caste=&location=&SearchByID=&mother=Marwari">Marwari Vivaha</a></li>
-                        <li>|</li>
-                        <li><a href="<?php echo base_url(); ?>searchindex?gender=&status=&fromage=&endage=&religion=&caste=&location=&SearchByID=&mother=Assamee">Assamee Vivaha</a></li>
-                        <li>|</li>
-                        <li><a href="<?php echo base_url(); ?>searchindex?gender=&status=&fromage=&endage=&religion=&caste=&location=&SearchByID=&mother=English">English Vivaha</a></li>
-                    </ul>
+                        <a href="<?php echo base_url(); ?>searchindex?gender=&status=&fromage=&endage=&religion=<?php echo $id; ?>&caste=&location=&SearchByID=&mother=">
+                            <?php echo $Religion; ?>
+                        </a>
+                        <?php if ($i < $total) { echo ' | '; } ?>
+                    <?php 
+                            $i++;
+                        } 
+                    } 
+                    ?>
                 </p>
             </div>
 
+
+            <!-- Regional -->
+
+           <div class="col-md-12 caste mt-3">
+                <h2 class="text-thm2">Regional :</h2>
+                <p style="margin: 0; text-decoration: none;">
+                    <?php 
+                    $motherTongues = [
+                        'Tamil', 'Telugu', 'Malayalam', 'Kannadam', 'Hindhi',
+                        'Gujarathi', 'Marathi', 'Punjabi', 'Bengali',
+                        'Parsi', 'Marwari', 'Assamee', 'English'
+                    ];
+                    $total = count($motherTongues);
+                    $i = 1;
+                    foreach ($motherTongues as $lang) {
+                        echo '<a href="' . base_url() . 'searchindex?gender=&status=&fromage=&endage=&religion=&caste=&location=&SearchByID=&mother=' . $lang . '">' . $lang . ' Vivaha</a>';
+                        if ($i < $total) {
+                            echo ' | ';
+                        }
+                        $i++;
+                    }
+                    ?>
+                </p>
+            </div>
+
+
             <!-- Community -->
 
-            <div class="col-md-12 caste">
-                <h2 class="text-thm2 " style="">Community :</h2>
-                <ul class="list-inline"  style="">
+            <div class="col-md-12 caste mt-3">
+                <h2 class="text-thm2">Community :</h2>
+                <p style="margin: 0;">
                     <?php 
-                        if(isset($caste_details) && ($caste_details!="")){
-                        foreach($caste_details as $castede){
-                        $castid=$castede->Id;
-                        $CasteName=$castede->CasteName;
-                        $people = array("Adi Dravidar", "Agarwal", "Aryavysya","Balija","Balija Naidu","Balija Reddy","Chettiar","CKP","Desikar","Devandra Kula Vellalar" ,"Devanga Chettiar","Ezhava","Gounder","Gramani","Garava","Intercaste","Brahmin - Iyer","Brahmin - Iyengar","Isai Vellalar","Kalar","Kamma","Kulalar","Kulal","Kongu Vellal Gounder","Mudaliyar","Maruthuvar","Maruthuvar","Nadar","Naicker","Nair","Pillai","Brahmin - Pandit","Reddy","Senai Thalaivar","Senguntha Mudaliyar","Devar/Thevar/Mukkulathor","Vanniyar","Vannia Kula Kshatriyar","Vellalar","Vishwakarma","Aryavysya","halua","maruthu","Pushkaram","Devangu chettiyar");
-                        if (in_array($CasteName, $people))
-                        {
+                    if (isset($caste_details) && !empty($caste_details)) {
+                        $people = array(
+                            "Adi Dravidar", "Agarwal", "Aryavysya","Balija","Balija Naidu","Balija Reddy",
+                            "Chettiar","CKP","Desikar","Devandra Kula Vellalar","Devanga Chettiar","Ezhava",
+                            "Gounder","Gramani","Garava","Intercaste","Brahmin - Iyer","Brahmin - Iyengar",
+                            "Isai Vellalar","Kalar","Kamma","Kulalar","Kulal","Kongu Vellal Gounder",
+                            "Mudaliyar","Maruthuvar","Nadar","Naicker","Nair","Pillai","Brahmin - Pandit",
+                            "Reddy","Senai Thalaivar","Senguntha Mudaliyar","Devar/Thevar/Mukkulathor",
+                            "Vanniyar","Vannia Kula Kshatriyar","Vellalar","Vishwakarma","halua","maruthu",
+                            "Pushkaram","Devangu chettiyar"
+                        );
+
+                        // Filter valid caste names
+                        $filtered_castes = array_filter($caste_details, function($castede) use ($people) {
+                            return in_array($castede->CasteName, $people);
+                        });
+
+                        $total = count($filtered_castes);
+                        $i = 1;
+
+                        foreach ($filtered_castes as $castede) {
+                            $castid = $castede->Id;
+                            $CasteName = $castede->CasteName;
+                            echo '<a href="' . base_url() . 'searchindex?gender=&status=&fromage=&endage=&religion=&caste=' . $castid . '&location=&SearchByID=&mother=">' . $CasteName . ' Vivaha</a>';
+                            if ($i < $total) {
+                                echo ' | ';
+                            }
+                            $i++;
+                        }
+                    }
                     ?>
-                    <li><a href="<?php echo base_url(); ?>searchindex?gender=&status=&fromage=&endage=&religion=&caste=<?php echo $castid; ?>&location=&SearchByID=&mother="><?php echo $CasteName; ?> Vivaha</a></li>
-                    <li>|</li>
-                    <?php } } } ?>
-                </ul>
+                </p>
             </div>
+
         </div>
     </div>
 </section>
+
+ <br>
+
+<?php echo $footer; ?>
 
 <script>
 function getstar(rasiid){
@@ -740,26 +758,6 @@ xmlhttp.send();
 
 
 
-<!-- Wrapper End -->
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jquery-1.12.4.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/bootsnav.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/parallax.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/scrollto.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jquery-scrolltofixed-min.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jquery.counterup.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/gallery.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/wow.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/slider.js"></script>
-<!--  <script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/video-player.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jflickrfeed.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jquery.barfiller.js"></script>
-<!-- 
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/timepicker.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/tweetie.js"></script>
-<!-- Custom script for all pages 
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/color-switcher.js"></script> --> 
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/script.js"></script>
 <script type='text/javascript'>
 // [].slice.call( document.querySelectorAll( '.photostack' ) ).forEach( function( el ) { new Photostack( el ); } );
 new Photostack( document.getElementById( 'photostack-3' ), {
