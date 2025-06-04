@@ -617,7 +617,7 @@ label {
   background: transparent;
   border-radius: 10px;
   padding: 20px;
-  box-shadow: inset 0 0 15px rgba(255, 105, 180, 0.5); /* Inset pink shadow */
+  box-shadow: inset 0 0 15px rgba(255, 105, 180, 0.5); /* Inset pink shadow 
 } */
 
 .rsvp_form3 {
@@ -635,6 +635,13 @@ label {
 
 .shake {
   animation: shake 0.3s;
+}
+
+
+.caste p a{
+    text-decoration: none;
+    color: black;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 
