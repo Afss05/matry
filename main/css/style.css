@@ -197,9 +197,9 @@ label {
     font-size: 50px;
     margin-bottom: 20px;
     font-weight: 600;
-    background: linear-gradient(to right, #f1e313, #ff1919); /* Pink to Red */
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    /* background: linear-gradient(to right, #f1e313, #ff1919); */
+    /* -webkit-background-clip: text; */
+    /* -webkit-text-fill-color: transparent; */
 }
 
 .trust-head p{
@@ -644,6 +644,10 @@ label {
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
+.caste h2 {
+    color: #b2002d;
+}
+
 
 /* .bgc-overlay-white75:before {
   background-color: rgba(255, 255, 255, 0.75);
@@ -654,3 +658,6 @@ label {
   right: 0;
   top: 0; 
 } */
+
+
+color: #b2002d;
