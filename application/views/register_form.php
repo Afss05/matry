@@ -99,703 +99,499 @@ label {
 
 </style>
 
+<style>
+  .custom-input, .custom-select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+  }
+
+  .custom-input:focus, .custom-select:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  label {
+    font-weight: 500;
+    margin-bottom: 5px;
+    display: block;
+  }
+</style>
+
+
 <?php if($active=="") { ?>
     <form id="rsvp_form3" name="register" class=" bgc-overlay-white7" action="<?php echo $action; ?>" method="post" >
       <div class="row">
         
         <!-- STEP 1 START -->
-        <div id="step1" class="form-step">
-          <div class="col-xs-12 text-center">
-            <h2 class="text-thm2 ff-engnmt ">Registration Free, fill the form below </h2>
-            <div class="messages">
-              <?php if($this->session->flashdata('message')) { ?>    
-                <div class="alert alert-success success flash-message">
-                  <?php echo $this->session->flashdata('message'); ?>                   
+        <div class="container">
+          <div id="step1" class="form-step">
+            <div class="row">
+              <div class="col-xs-12 text-center">
+                <h2 class="text-thm2 ff-engnmt">Registration Free, fill the form below</h2>
+                <div class="messages">
+                  <?php if($this->session->flashdata('message')) { ?>    
+                    <div class="alert alert-success success flash-message">
+                      <?php echo $this->session->flashdata('message'); ?>                   
+                    </div>
+                  <?php } else if($this->session->flashdata('error')) { ?>
+                    <div class="alert alert-danger danger flash-message">
+                      <?php echo $this->session->flashdata('error'); ?>
+                    </div>
+                  <?php } ?>
                 </div>
-              <?php } else if($this->session->flashdata('error')) { ?>
-                <div class="alert alert-danger danger flash-message">
-                  <?php echo $this->session->flashdata('error'); ?>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="profilefor">Profile for</label>
+                  <select required name="profilefor" id="profilefor" class="custom-select">
+                    <option value="">Select</option>
+                    <option value="Myself">Myself</option>
+                    <option value="Son">Son</option>
+                    <option value="Daughter">Daughter</option>
+                    <option value="Brother">Brother</option>
+                    <option value="Sister">Sister</option>
+                    <option value="Relative">Relative</option>
+                    <option value="Friend">Friend</option>
+                  </select>
                 </div>
-              <?php } ?>
-            </div>
-          </div>
+              </div>
 
-          <!-- Profile For -->
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="profilefor">Profile for</label>
-              <select class="form-control" required name="profilefor" id="profilefor">
-                <option value="">Select </option>
-                <option value="Myself">Myself</option>
-                <option value="Son">Son</option>
-                <option value="Daughter">Daughter</option>
-                <option value="Brother">Brother</option>
-                <option value="Sister">Sister</option>
-                <option value="Relative">Relative</option>
-                <option value="Friend">Friend</option>
-              </select>
-            </div>
-          </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="registername">Name <small style="color: red;">*</small></label>
+                  <input id="registername" required name="registername" class="custom-input" placeholder="Enter Name">
+                </div>
+              </div>
 
-          <!-- Name -->
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="registername">Name <small style="color: red;">*</small></label>
-              <input id="registername" required name="registername" class="form-control" placeholder="Enter Name">
-            </div>
-          </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="gender">Gender</label>
+                  <select required name="gender" id="gender" class="custom-select">
+                    <option value="">Select Gender</option>
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                  </select>
+                </div>
+              </div>
 
-                    <!-- Gender -->
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="gender">Gender</label>
-              <select class="form-control" required name="gender" id="gender">
-                <option value="">Select Gender</option>
-                <option value="M">Male</option>
-                <option value="F">Female</option>
-              </select>
-            </div>
-          </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input id="email" type="email" onblur="checkemail(this.value)" maxlength="120"
+                    required name="email" class="custom-input" placeholder="Enter Email">
+                </div>
+              </div>
 
-          <!-- Contact & Email -->
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="contact_number">Mobile No</label>
-              <input id="contact_number" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"  onblur="checkphone(this.value)"  maxlength="20" required name="contact_number" class="form-control" placeholder="Enter Mobile Number">
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input id="email"  type="email" onblur="checkemail(this.value)"  maxlength="120" required name="email" class="form-control" placeholder="Enter Email">
-            </div>
-          </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="contact_number">Mobile No</label>
+                  <input id="contact_number"
+                    oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
+                    onblur="checkphone(this.value)" maxlength="20"
+                    required name="contact_number" class="custom-input" placeholder="Enter Mobile Number">
+                </div>
+              </div>
 
-          <!-- Password -->
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input id="password" name="password" type="password" maxlength="12" required class="form-control" placeholder="Enter Password">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input id="password" name="password" type="password" maxlength="12" required
+                    class="custom-input" placeholder="Enter Password">
+                </div>
+              </div>
             </div>
-          </div>
-
-          <!-- Next Button -->
-          <div class="col-md-12 text-center">
-            <button type="button" class="btn btn-primary" id="nextBtn">Next</button>
+            <!-- Button -->
+            <div class="row">
+              <div class="col-md-12 text-center">
+                <button type="button" class="btn btn-primary" id="nextBtn">Next</button>
+              </div>
+            </div>
           </div>
         </div>
         <!-- STEP 1 END -->
 
         <!-- STEP 2 START -->
         <div id="step2" class="form-step" style="display: none;">
-          <div class="col-xs-12 text-center">
-            <h2 class="text-thm2 ff-engnmt">Religion Details </h2>
-          </div>
-          <!-- Religion -->
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="religion">Religion</label>
-              <select class="form-control" required name="religion" onchange="getcaste1(this.value);" id="religion">
-                <option value="">Select</option>
-                <?php foreach($religionlist as $relgiode){ ?>
-                  <option value="<?php echo $relgiode->Id; ?>"><?php echo $relgiode->Religion; ?></option>
-                <?php } ?>
-              </select>
+          <div class="container">
+            <div class="row">
+              <div class="col-xs-12 text-center">
+                <h2 class="text-thm2 ff-engnmt">Religion Details</h2>
+              </div>
             </div>
-          </div>
 
-          <!-- Caste -->
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="r_case1">Caste</label>
-              <select class="form-control" id="r_case1" name="r_case">
-                <option value="">Select</option>
-                <?php foreach($caste_details as $castede){ ?>
-                  <option value="<?php echo $castede->Id; ?>"><?php echo $castede->CasteName; ?></option>
-                <?php } ?>
-              </select>
+            <div class="row">
+              <!-- Religion -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="religion">Religion</label>
+                  <select class="form-control" required name="religion" onchange="getcaste1(this.value);" id="religion">
+                    <option value="">Select</option>
+                    <?php foreach($religionlist as $relgiode){ ?>
+                      <option value="<?php echo $relgiode->Id; ?>"><?php echo $relgiode->Religion; ?></option>
+                    <?php } ?>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Caste -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="r_case1">Caste</label>
+                  <select class="form-control" id="r_case1" name="r_case">
+                    <option value="">Select</option>
+                    <?php foreach($caste_details as $castede){ ?>
+                      <option value="<?php echo $castede->Id; ?>"><?php echo $castede->CasteName; ?></option>
+                    <?php } ?>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Mother Tongue -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="r_mother">Mother Tongue</label>
+                  <select class="form-control" required name="r_mother" id="r_mother">
+                    <option value="">Mother Tongue</option>
+                    <option>Tamil</option><option>Telugu</option><option>Malayalam</option>
+                    <option>Kannadam</option><option>Hindhi</option><option>Gujarathi</option>
+                    <option>Marathi</option><option>Punjabi</option><option>Marwari</option>
+                    <option>Bengali</option><option>Parsi</option><option>Assamee</option>
+                    <option>Sourashtra</option><option>English</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Gotra -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="Gothram">Gotra</label>
+                  <input id="Gothram" required name="Gothram" class="form-control" placeholder="Enter Gothram">
+                </div>
+              </div>
+
+              <!-- DOB -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="DOB">DOB</label><br>
+                  <div class="row">
+                    <div class="col-xs-4">
+                      <select class="form-control" name="day" required>
+                        <option value="">Day</option>
+                        <?php for($i=1; $i<=31; $i++){ ?>
+                          <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                        <?php } ?>
+                      </select>
+                    </div>
+                    <div class="col-xs-4">
+                      <select class="form-control" name="month" required>
+                        <option value="">Month</option>
+                        <?php
+                          $months = ["01"=>"Jan","02"=>"Feb","03"=>"Mar","04"=>"Apr","05"=>"May","06"=>"Jun","07"=>"Jul","08"=>"Aug","09"=>"Sep","10"=>"Oct","11"=>"Nov","12"=>"Dec"];
+                          foreach($months as $num => $name) echo "<option value='$num'>$name</option>";
+                        ?>
+                      </select>
+                    </div>
+                    <div class="col-xs-4">
+                      <select class="form-control" name="dobyear" required>
+                        <option value="">Year</option>
+                        <?php
+                          $curr_year = $this->chsslibrary->call_dateYear();
+                          for($i=$curr_year-70; $i<=$curr_year-18; $i++){
+                            echo "<option value='$i'>$i</option>";
+                          }
+                        ?>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Subcaste -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="subcaste">SubCaste</label>
+                  <input type="text" id="subcaste" name="subcaste" class="form-control" placeholder="Enter subcaste" required>
+                </div>
+              </div>
+
+              <!-- Terms -->
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>
+                    <input type="checkbox" name="terms" value="1" required>
+                    <a href="<?php echo base_url(); ?>user/terms" target="_blank"> I agree to the Terms & Conditions and Privacy Policy </a>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Buttons -->
+              <div class="col-md-12 text-center">
+                <button type="button" class="btn btn-danger" id="backBtn">Back</button>
+                <button type="submit" class="btn btn-success">Register</button>
+              </div>
             </div>
-          </div>
-
-          <!-- Mother Tongue -->
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="r_mother">Mother Tongue</label>
-              <select class="form-control" required name="r_mother" id="r_mother">
-                <option value="">Mother Tongue</option>
-                <option>Tamil</option><option>Telugu</option><option>Malayalam</option>
-                <option>Kannadam</option><option>Hindhi</option><option>Gujarathi</option>
-                <option>Marathi</option><option>Punjabi</option><option>Marwari</option>
-                <option>Bengali</option><option>Parsi</option><option>Assamee</option>
-                <option>Sourashtra</option><option>English</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- Gotra -->
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="Gothram">Gotra</label>
-              <input id="Gothram" required name="Gothram" class="form-control" placeholder="Enter Gothram">
-            </div>
-          </div>
-
-          
-          <!-- DOB -->
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="DOB">DOB</label><br>
-              <select class="mk_select" style="width:30%;" name="day" required>
-                <option value="">Day</option>
-                <?php for($i=1; $i<=31; $i++){ ?>
-                  <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                <?php } ?>
-              </select>
-              
-              <select class="mk_select" style="width:30%;" name="month" required>
-                <option value="">Month</option>
-                <?php
-                  $months = ["01"=>"Jan","02"=>"Feb","03"=>"Mar","04"=>"Apr","05"=>"May","06"=>"Jun","07"=>"Jul","08"=>"Aug","09"=>"Sep","10"=>"Oct","11"=>"Nov","12"=>"Dec"];
-                  foreach($months as $num => $name) echo "<option value='$num'>$name</option>";
-                  ?>
-              </select>
-              
-              <select class="mk_select" style="width:32%;" name="dobyear" required>
-                <option value="">Year</option>
-                <?php
-                  $curr_year = $this->chsslibrary->call_dateYear();
-                  for($i=$curr_year-70; $i<=$curr_year-18; $i++){
-                    echo "<option value='$i'>$i</option>";
-                  }
-                  ?>
-              </select>
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="subcaste">SubCaste</label>
-              <input type="text" id="subcaste" name="subcaste" class="form-control" placeholder="Enter subcaste" required>
-            </div>
-          </div>
-          
-          <!-- Terms -->
-          <div class="col-md-12">
-            <div class="form-group">
-              <input type="checkbox" name="terms" value="1" required>
-              <a href="<?php echo base_url(); ?>user/terms"> I agree to the Terms & Conditions and Privacy Policy </a>
-            </div>
-          </div>
-
-
-          <!-- Submit -->
-          <div class="col-md-12 text-center">
-            <button type="button" class="btn btn-danger" id="backBtn">Back</button>
-            <button type="submit" class="btn btn-success">Register</button>
           </div>
         </div>
         <!-- STEP 2 END -->
 
       </div>
-    </form>     
+    </form> 
 
+    <script>
+      document.getElementById("nextBtn").addEventListener("click", function () {
+        let isValid = true;
 
-<script>
-  document.getElementById("nextBtn").addEventListener("click", function () {
-    let isValid = true;
+        const step1Fields = document.querySelectorAll('#step1 input[required], #step1 select[required]');
+        step1Fields.forEach(function (field) {
+          if (!field.value.trim()) {
+            isValid = false;
+            field.style.border = "1px solid red";
+            field.classList.add("shake");
+            setTimeout(() => {
+              field.classList.remove("shake");
+            }, 300);
+          } else {
+            field.style.border = "";
+            field.classList.remove("shake");
+          }
+        });
 
-    const step1Fields = document.querySelectorAll('#step1 input[required], #step1 select[required]');
-    step1Fields.forEach(function (field) {
-      if (!field.value.trim()) {
-        isValid = false;
-        field.style.border = "1px solid red";
-        field.classList.add("shake");
-        setTimeout(() => {
-          field.classList.remove("shake");
-        }, 300);
-      } else {
-        field.style.border = "";
-        field.classList.remove("shake");
-      }
-    });
+        if (isValid) {
+          document.getElementById("step1").style.display = "none";
+          document.getElementById("step2").style.display = "block";
+        }
+      });
 
-    if (isValid) {
-      document.getElementById("step1").style.display = "none";
-      document.getElementById("step2").style.display = "block";
-    }
-  });
+      // Back button handler
+      document.getElementById("backBtn").addEventListener("click", function () {
+        document.getElementById("step2").style.display = "none";
+        document.getElementById("step1").style.display = "block";
+      });
+    </script>
 
-  // Back button handler
-  document.getElementById("backBtn").addEventListener("click", function () {
-    document.getElementById("step2").style.display = "none";
-    document.getElementById("step1").style.display = "block";
-  });
-</script>
-
-<?php } elseif($active=="1") { ?>
-<form id="rsvp_form3" name="register" class="rsvp_form3 bgc-overlay-white7" action="<?php echo $action; ?>" method="post">
-  <div class="col-xs-12 col-sm-12 col-md-12 text-center clearfix">
-    <div class="messages">
-      <?php if($this->session->flashdata('message')) { ?>    
-        <div class="alert alert-success success " id="flash-message">
-          <?php echo $this->session->flashdata('message'); ?>                   
+    <?php } elseif($active=="1") { ?>
+    <form id="rsvp_form3" name="register" class="rsvp_form3 bgc-overlay-white7" action="<?php echo $action; ?>" method="post">
+      <div class="col-xs-12 col-sm-12 col-md-12 text-center clearfix">
+        <div class="messages">
+          <?php if($this->session->flashdata('message')) { ?>    
+            <div class="alert alert-success success " id="flash-message">
+              <?php echo $this->session->flashdata('message'); ?>                   
+            </div>
+          <?php } else if($this->session->flashdata('error')) { ?>
+            <div class="alert alert-danger danger flash-message">
+              <?php echo $this->session->flashdata('error'); ?>
+            </div>
+          <?php } ?>
         </div>
-      <?php } else if($this->session->flashdata('error')) { ?>
-        <div class="alert alert-danger danger flash-message">
-          <?php echo $this->session->flashdata('error'); ?>
-        </div>
-      <?php } ?>
-    </div>
-  </div>
+      </div>
 
-  <div class="row">
-    <!-- STEP 1 START -->
-      <div id="step3" class="form-step">
-        <div class="col-xs-12 text-center">
-          <h2 class="text-thm2 ff-engnmt">Personal Details</h2>
-        </div>
+      <div class="row">
+        <!-- Step-3 start -->
+        <div id="step3" class="form-step">
+          <div class="container">
+            <div class="row">
+              <div class="col-xs-12 text-center">
+                <h2 class="text-thm2 ff-engnmt">Personal Details</h2>
+              </div>
+            </div>
 
-        <!-- Profile For -->
-        <div class="col-md-6">
-          <?php 
-            $MaritalStatus="";
-            if($item->MaritalStatus!="" && $item->MaritalStatus!="0"){
-            $MaritalStatus=$item->MaritalStatus;
-            } 
-          ?>
-          <div class="form-group">
-            <label for="maritalstatus">Marital Status</label>
-            <select class="form-control"  required id="maritalstatus" name="maritalstatus">
-              <option value="">Select</option>
-              <option value="1" <?php if($MaritalStatus=="1"){ echo "selected"; }?>   >Unmarried</option>
-              <option value="2" <?php if($MaritalStatus=="2"){ echo "selected"; }?>  >Married</option>
-              <option value="3" <?php if($MaritalStatus=="3"){ echo "selected"; }?>  >Widow/Widower</option>
-              <option value="4" <?php if($MaritalStatus=="4"){ echo "selected"; }?>  >Divorce</option>
-            </select>
+            <div class="row">
+              <!-- Marital Status -->
+              <div class="col-md-6">
+                <?php $MaritalStatus = ($item->MaritalStatus != "" && $item->MaritalStatus != "0") ? $item->MaritalStatus : ""; ?>
+                <div class="form-group">
+                  <label for="maritalstatus">Marital Status</label>
+                  <select class="form-control" required id="maritalstatus" name="maritalstatus">
+                    <option value="">Select</option>
+                    <option value="1" <?php if($MaritalStatus=="1"){ echo "selected"; }?>>Unmarried</option>
+                    <option value="2" <?php if($MaritalStatus=="2"){ echo "selected"; }?>>Married</option>
+                    <option value="3" <?php if($MaritalStatus=="3"){ echo "selected"; }?>>Widow/Widower</option>
+                    <option value="4" <?php if($MaritalStatus=="4"){ echo "selected"; }?>>Divorce</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Height -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="height">Height</label>
+                  <select class="form-control" required name="height" id="height">
+                    <option value="">Select</option>
+                    <?php if($Height!=""){ echo "<option value='$Height' selected>$Height</option>"; } ?>
+                    <?php 
+                      $heights = ["4ft - 121cm","4ft 1in - 124cm","4ft2in-127cm","4ft3in - 129cm","4ft4in - 132cm",
+                                  "4ft5in - 134cm","4ft6in - 137cm","4ft7in - 139cm","4ft8in - 142cm","4ft9in - 144cm",
+                                  "4ft10in - 147cm","4ft11in - 149cm","5ft - 152cm","5ft1in - 154cm","5ft2in - 157cm",
+                                  "5ft3in - 160cm","5ft4in - 162cm","5ft5in - 165cm","5ft6in - 167cm","5ft7in - 170cm",
+                                  "5ft8in - 172cm","5ft9in - 175cm","5ft10in - 177cm","5ft11in - 180cm","6ft - 182cm",
+                                  "6ft1in - 185cm","6ft2in - 187cm","6ft3in - 190cm","6ft4in - 193cm","6ft5in - 195cm",
+                                  "6ft6in - 198cm","6ft7in - 200cm","6ft8in - 203cm","6ft9in - 205cm","6ft10in - 208cm",
+                                  "6ft11in - 210cm","7ft - 213cm"];
+                      foreach($heights as $h) {
+                        echo "<option value='$h'>$h</option>";
+                      }
+                    ?>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Disability -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="disability">Any Disability</label>
+                  <select name="disability" id="disability" class="form-control" required>
+                    <option value="">-- Select --</option>
+                    <option value="Normal" <?php if($Disability=="Normal"){ echo "selected"; } ?>>Normal</option>
+                    <option value="Physically challenged" <?php if($Disability=="Physically challenged"){ echo "selected"; } ?>>Physically challenged</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Alternative Contact Number -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="alter_contact_number">Alternative Number</label>
+                  <input id="alter_contact_number" maxlength="20" value="<?php if($AlternativeNumber!="" && $AlternativeNumber!="0" ){ echo $AlternativeNumber; } ?>" required name="alter_contact_number" class="form-control" placeholder="Alternative Contact Number">
+                </div>
+              </div>
+
+              <!-- Rasi -->
+              <div class="col-md-6">
+                <?php $Rasi = ($item->Rasi != "" && $item->Rasi != "0") ? $item->Rasi : ""; ?>
+                <div class="form-group">
+                  <label for="rasi">Rasi</label>
+                  <select class="form-control" onchange="getstar(this.value);" id="rasi" name="rasi">
+                    <option value="">Select</option>
+                    <?php if(isset($rasi_details)){
+                      foreach($rasi_details as $castede){
+                        echo "<option value='{$castede->Id}' ".(($Rasi==$castede->Id)?"selected":"").">{$castede->RasiName}</option>";
+                      }
+                    } ?>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Star -->
+              <div class="col-md-6">
+                <?php $Star = ($item->Star != "" && $item->Star != "0") ? $item->Star : ""; ?>
+                <div class="form-group">
+                  <label for="starid">Star</label>
+                  <select class="form-control" id="starid" name="star">
+                    <option value="">Select</option>
+                    <?php if(isset($Star_details)){
+                      foreach($Star_details as $starde){
+                        echo "<option value='{$starde->Id}' ".(($Star==$starde->Id)?"selected":"").">{$starde->StarName}</option>";
+                      }
+                    } ?>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Profile Image -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="profile_image">Profile Image</label>
+                  <input type="file" multiple onchange="ValidateSize(this)" name="profile_image[]" id="image-upload" class="form-control-file">
+                </div>
+              </div>
+
+              <!-- Horoscope Image -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="horos_image">Horoscope Image</label>
+                  <input type="file" onchange="ValidateSize1(this)" name="horos_image[]" id="horos_image" class="form-control-file">
+                </div>
+              </div>
+
+              <!-- Next Button -->
+              <div class="col-md-12 text-center">
+                <button type="button" class="btn btn-primary" id="nextBtn3">Next</button>
+              </div>
+            </div>
           </div>
         </div>
+        <!-- Step-3 end -->
 
-        <!-- Name -->
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="height">Height </label>
-            <select class="form-control" required name="height" id="height">
-              <option value="">select</option>
-              <?php 
-                if($Height!=""){ ?>
-                <option value="<?php echo $Height; ?>" selected><?php echo $Height; ?></option>
-                <?php } ?>
-                <option value="4ft - 121cm">4ft - 121cm</option>
-                    <option value="4ft 1in - 124cm">4ft 1in - 124cm</option>
-                    <option value="4ft2in-127cm">4ft2in-127cm</option>
-                    <option value="4ft3in - 129cm">4ft3in - 129cm</option>
-                    <option value="4ft4in - 132cm">4ft4in - 132cm</option>
-                    <option value="4ft5in - 134cm">4ft5in - 134cm</option>
-                    <option value="4ft6in - 137cm">4ft6in - 137cm</option>
-                    <option value="4ft7in - 139cm">4ft7in - 139cm</option>
-                    <option value="4ft8in - 142cm">4ft8in - 142cm</option>
-                    <option value="4ft9in - 144cm">4ft9in - 144cm</option>
-                    <option value="4ft10in - 147cm">4ft10in - 147cm</option>
-                    <option value="4ft11in - 149cm">4ft11in - 149cm</option>
-                    <option value="5ft - 152cm">5ft - 152cm</option>
-                    <option value="5ft1in - 154cm">5ft1in - 154cm</option>
-                    <option value="5ft2in - 157cm">5ft2in - 157cm</option>
-                    <option value="5ft3in - 160cm">5ft3in - 160cm</option>
-                    <option value="5ft4in - 162cm">5ft4in - 162cm</option>
-                    <option value="5ft5in - 165cm">5ft5in - 165cm</option>
-                    <option value="5ft6in - 167cm">5ft6in - 167cm</option>
-                    <option value="5ft7in - 170cm">5ft7in - 170cm</option>
-                    <option value="5ft8in - 172cm">5ft8in - 172cm</option>
-                    <option value="5ft9in - 175cm">5ft9in - 175cm</option>
-                    <option value="5ft10in - 177cm">5ft10in - 177cm</option>
-                    <option value="5ft11in - 180cm">5ft11in - 180cm</option>
-                    <option value="6ft - 182cm">6ft - 182cm</option>
-                    <option value="6ft1in - 185cm">6ft1in - 185cm</option>
-                    <option value="6ft2in - 187cm">6ft2in - 187cm</option>
-                    <option value="6ft3in - 190cm">6ft3in - 190cm</option>
-                    <option value="6ft4in - 193cm">6ft4in - 193cm</option>
-                    <option value="6ft5in - 195cm">6ft5in - 195cm</option>
-                    <option value="6ft6in - 198cm">6ft6in - 198cm</option>
-                    <option value="6ft7in - 200cm">6ft7in - 200cm</option>
-                    <option value="6ft8in - 203cm">6ft8in - 203cm</option>
-                    <option value="6ft9in - 205cm">6ft9in - 205cm</option>
-                    <option value="6ft10in - 208cm">6ft10in - 208cm</option>
-                    <option value="6ft11in - 210cm">6ft11in - 210cm</option>
-                    <option value="7ft - 213cm">7ft - 213cm</option>
-            </select>
+
+        <div id="step4" class="form-step">
+          <div class="col-xs-12 text-center">
+            <h2 class="text-thm2 ff-engnmt">Qualification Details</h2>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="qualification">Qualification</label>
+              <input id="qualification" required value="<?php echo stripslashes($Qualification); ?>" name="qualification" class="form-control" placeholder="Enter Qualification">
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <?php $Userjob = ($item->UserEmployed!="" && $item->UserEmployed!="0") ? $item->UserEmployed : ""; ?>
+            <div class="form-group">
+              <label for="YourEmployed">Employed in</label>
+              <select class="form-control" required id="YourEmployed" name="YourEmployed">
+                <option value="">Select</option>
+                <option value="1" <?php if($Userjob=="1"){ echo "selected"; } ?>>Private Sector</option>
+                <option value="2" <?php if($Userjob=="2"){ echo "selected"; } ?>>Government / Public Sector</option>
+                <option value="3" <?php if($Userjob=="3"){ echo "selected"; } ?>>Defense / Civil Services</option>
+                <option value="4" <?php if($Userjob=="4"){ echo "selected"; } ?>>Business / Self-Employed</option>
+                <option value="5" <?php if($Userjob=="5"){ echo "selected"; } ?>>Not Working</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <?php $Occupation = ($item->Occupation != "" && $item->Occupation != "0") ? $item->Occupation : ""; ?>
+            <div class="form-group">
+              <label for="occupation">Employee</label>
+              <input id="occupation" required value="<?php echo stripslashes($Occupation); ?>" name="occupation" class="form-control" placeholder="Enter Employee">
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <?php $UserPlaceOfJob = ($item->UserPlaceOfJob != "" && $item->UserPlaceOfJob != "0") ? $item->UserPlaceOfJob : ""; ?>
+            <div class="form-group">
+              <label>Job Location</label>
+              <input name="joblocation" required id="joblocation" maxlength="120" value="<?php echo stripslashes($UserPlaceOfJob); ?>" type="text" placeholder="Location" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <?php $MonthlyIncome = ($item->MonthlyIncome != "" && $item->MonthlyIncome != "0") ? $item->MonthlyIncome : ""; ?>
+            <div class="form-group">
+              <label for="YourAnnual">Annual Income</label>
+              <select class="form-control" required id="YourAnnual" name="YourAnnual">
+                <option value="">Select</option>
+                <?php 
+                  $incomes = [
+                    "3" => "0 - 1 Lakh","4" => "1 - 2 Lakhs","5" => "2 - 3 Lakhs","6" => "3 - 4 Lakhs",
+                    "7" => "4 - 5 Lakhs","8" => "5 - 6 Lakhs","9" => "6 - 7 Lakhs","10" => "7 - 8 Lakhs",
+                    "11" => "8 - 9 Lakhs","12" => "9 - 10 Lakhs","13" => "10 - 12 Lakhs","14" => "12 - 14 Lakhs",
+                    "15" => "14 - 16 Lakhs","16" => "16 - 18 Lakhs","17" => "18 - 20 Lakhs","18" => "20 - 25 Lakhs"
+                  ];
+                  foreach($incomes as $key => $value) {
+                    echo "<option value='$key' ".(($MonthlyIncome==$key)?"selected":"").">$value</option>";
+                  }
+                ?>
+              </select>
+            </div>
           </div>
         </div>
-
-        <!-- Gender -->
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="disability">Any Disability</label>
-            <select name="disability" id="disability" class="form-control" required>
-                <option value="">-- Select --</option>
-                <option value="Normal" <?php if($Disability=="Normal"){ echo "selected"; } ?>>Normal</option>
-                <option value="Physically challenged" <?php if($Disability=="Physically challenged"){ echo "selected"; } ?>>Physically challenged</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Contact & Email -->
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="alter_contact_number">Alternative Contact Number </label>
-            <input id="alter_contact_number" maxlength="20" value="<?php if($AlternativeNumber!="" && $AlternativeNumber!="0" ){ echo $AlternativeNumber; } ?>"   required name="alter_contact_number" class="form-control" placeholder="Alternative Contact Number">
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <?php 
-            $Rasi="";
-            if($item->Rasi!="" && $item->Rasi!="0"){
-            $Rasi=$item->Rasi;
-            }
-          ?>
-          <div class="form-group">
-            <label for="rasi">Rasi </label>
-            <select class="form-control" onchange="getstar(this.value);" id="rasi" name="rasi">
-            <option value="">Select</option>
-            <?php 
-            if(isset($rasi_details) && ($rasi_details!="")){
-            foreach($rasi_details as $castede){
-            $rasid=$castede->Id;
-            $RasiName=$castede->RasiName;
-
-            ?>
-            <option value="<?php echo $rasid; ?>" <?php  if($Rasi==$rasid ){ echo "selected"; }  ?> > <?php echo $RasiName; ?> </option>
-            <?php 
-            }}
-            ?>
-            </select>
-
-          </div>
-        </div>
-
-        <!-- Password -->
-        <div class="col-md-6">
-          <?php 
-            $Star="";
-            if($item->Star!="" && $item->Star!="0"){
-            $Star=$item->Star;
-            }
-          ?>
-          <div class="form-group">
-            <label for="starid">Star </label>
-            <select class="form-control"  id="starid" name="star">
-            <option value="">Select</option>
-            <?php 
-            $starid="";
-            if(isset($Star_details) && ($Star_details!="")){
-            foreach($Star_details as $starde){
-            $starid=$starde->Id;
-            $StarName=$starde->StarName;
-
-            ?>
-            <option value="<?php echo $starid; ?>" <?php if($Star==$starid ){  echo "selected"; }  ?> > <?php echo $StarName; ?></option>
-            <?php 
-            } }
-            ?>
-            </select>
-
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="profile_image">Profile Image </label>
-            <input type="file"  multiple="" onchange="ValidateSize(this)"  name="profile_image[]" id="image-upload" >
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="profile_image">Horoscope Image </label>
-            <input type="file"  onchange="ValidateSize1(this)" name="horos_image[]" id="horos_image" >
-          </div>
-        </div>
-
-        <!-- Next Button -->
-        <div class="col-md-12 text-center">
-          <button type="button" class="btn btn-primary" id="nextBtn3">Next</button>
-        </div>
       </div>
-    <!-- STEP 1 END -->
+    </form>
 
-    <!-- step4 start -->
-    <div id="step4" class="form-step">
-      <div class="col-xs-12 text-center">
-        <h2 class="text-thm2 ff-engnmt">Qualification Details</h2>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="qualification">Qualification   </label>
-          <input id="qualification" required value="<?php echo stripslashes($Qualification);  ?>"  name="qualification" class="form-control" placeholder="Enter Qualification">
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="YourEmployed">Employed in  </label>
-
-          <?php 
-          $Userjob="";
-          if($item->UserEmployed!="" && $item->UserEmployed!="0"){
-          $Userjob=$item->UserEmployed;
-          } ?>
-
-          <select class="form-control" required id="YourEmployed" name="YourEmployed">
-            <option value="">Select</option>
-            <option value="1" <?php if($Userjob=="6"){ echo "selected"; } ?>  >Any</option>
-            <option value="1" <?php if($Userjob=="1"){ echo "selected"; } ?>  >Private Sector</option>
-            <option value="2" <?php if($Userjob=="2"){ echo "selected"; } ?> >Government / Public Sector</option>
-            <option value="3"<?php if($Userjob=="3"){ echo "selected"; } ?>  >Defense / Civil Services</option>
-            <option value="4"  <?php if($Userjob=="4"){ echo "selected"; } ?> >Business / Self-Employed</option>
-            <option value="5" <?php if($Userjob=="5"){ echo "selected"; } ?> >Not Working</option>
-          </select>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <?php 
-          $Occupation="";
-          if($item->Occupation!="" && $item->Occupation!="0"){
-          $Occupation=$item->Occupation;
-          }
-        ?>
-        <div class="form-group">
-          <label for="occupation">Employee   </label>
-          <input id="occupation" required value="<?php echo stripslashes($Occupation); ?>" name="occupation" class="form-control" placeholder="Enter Employee">
-        </div>
-      </div>
-      <div class="col-md-6">
-        <?php
-          $UserPlaceOfJob="";
-          if($item->UserPlaceOfJob!="" && $item->UserPlaceOfJob!="0"){
-          $UserPlaceOfJob=$item->UserPlaceOfJob;
-          }
-        ?>
-        <div class="form-group">
-          <label>Job Location</label> 
-          <input name="joblocation" required id="joblocation" maxlength="120" value="<?php echo stripslashes($UserPlaceOfJob); ?>" type="text" placeholder="Location" class="form-control">
-        </div>
-      </div>
-      <div class="col-md-6">
-        <?php  
-          $MonthlyIncome="";
-          if($item->MonthlyIncome!="" && $item->MonthlyIncome!="0"){
-          $MonthlyIncome=$item->MonthlyIncome;
-          } 
-        ?>
-        <div class="form-group">
-          <label for="YourAnnual">Annual Income  </label>
-          <select class="form-control" required id="YourAnnual" name="YourAnnual">
-            <option value="">Select</option>
-            <option value="3" <?php if($MonthlyIncome=="3"){ echo "selected"; }   ?> >0 - 1 Lakh</option>
-            <option value="4" <?php if($MonthlyIncome=="4"){ echo "selected"; }   ?>>1 - 2 Lakhs</option>
-            <option value="5" <?php if($MonthlyIncome=="5"){ echo "selected"; }   ?> >2 - 3 Lakhs</option>
-            <option value="6" <?php if($MonthlyIncome=="6"){ echo "selected"; }   ?>>3 - 4 Lakhs</option>
-            <option value="7" <?php if($MonthlyIncome=="7"){ echo "selected"; }   ?> >4 - 5 Lakhs</option>
-            <option value="8" <?php if($MonthlyIncome=="8"){ echo "selected"; }   ?>>5 - 6 Lakhs</option>
-            <option value="9" <?php if($MonthlyIncome=="9"){ echo "selected"; }   ?> >6 - 7 Lakhs</option>
-            <option value="10" <?php if($MonthlyIncome=="10"){ echo "selected"; }   ?>>7 - 8 Lakhs</option>
-            <option value="11" <?php if($MonthlyIncome=="11"){ echo "selected"; }   ?>>8 - 9 Lakhs</option>
-            <option value="12" <?php if($MonthlyIncome=="12"){ echo "selected"; }   ?> >9 - 10 Lakhs</option>
-            <option value="13" <?php if($MonthlyIncome=="13"){ echo "selected"; }   ?>>10 - 12 Lakhs</option>
-            <option value="14" <?php if($MonthlyIncome=="14"){ echo "selected"; }   ?> >12 - 14 Lakhs</option>
-            <option value="15" <?php if($MonthlyIncome=="15"){ echo "selected"; }   ?>>14 - 16 Lakhs</option>
-            <option value="16" <?php if($MonthlyIncome=="16"){ echo "selected"; }   ?>>16 - 18 Lakhs</option>
-            <option value="17" <?php if($MonthlyIncome=="17"){ echo "selected"; }   ?>>18 - 20 Lakhs</option>
-            <option value="18" <?php if($MonthlyIncome=="18"){ echo "selected"; }   ?>>20 - 25 Lakhs</option>
-            <option value="19" <?php if($MonthlyIncome=="19"){ echo "selected"; }   ?> >25 - 30 Lakhs</option>
-            <option value="20" <?php if($MonthlyIncome=="20"){ echo "selected"; }   ?>>30 - 35 Lakhs</option>
-            <option value="21" <?php if($MonthlyIncome=="21"){ echo "selected"; }   ?>>35 - 40 Lakhs</option>
-            <option value="22" <?php if($MonthlyIncome=="22"){ echo "selected"; }   ?>>40 - 45 Lakhs</option>
-            <option value="23" <?php if($MonthlyIncome=="23"){ echo "selected"; }   ?>>45 - 50 Lakhs</option>
-            <option value="24" <?php if($MonthlyIncome=="24"){ echo "selected"; }   ?>>50 - 60 Lakhs</option>
-            <option value="25" <?php if($MonthlyIncome=="25"){ echo "selected"; }   ?>>60 - 70 Lakhs</option>
-            <option value="26" <?php if($MonthlyIncome=="26"){ echo "selected"; }   ?>>70 - 80 Lakhs</option>
-            <option value="27" <?php if($MonthlyIncome=="27"){ echo "selected"; }   ?>>80 - 90 Lakhs</option>
-            <option value="28" <?php if($MonthlyIncome=="28"){ echo "selected"; }   ?>>90 Lakhs - 1 Crore</option>
-            <option value="29" <?php if($MonthlyIncome=="29"){ echo "selected"; }   ?>>1 Crore & Above</option>
-          </select>
-        </div>
-      </div>
-      <div class="col-md-6"></div>
-
-      <!-- Submit -->
-      <div class="col-md-12 text-center">
-        <button type="button" class="btn btn-danger" id="backBtn4">Back</button>
-        <button type="button" class="btn btn-primary" id="nextBtn4">Next</button>
-      </div>
-    </div>
-    <!-- step4 end -->
-
-    <!-- step5 start -->
-    <div id="step5" class="form-step">
-      <div class="col-xs-12 text-center">
-        <h2 class="text-thm2 ff-engnmt">Family Details</h2>
-      </div>
-
-      <div class="col-md-6">
-        <?php 
-          $FatherName="";
-          if($item->FatherName!="" && $item->FatherName!="0"){
-          $FatherName=$item->FatherName;
-          }
-        ?>
-        <div class="form-group">
-          <label for="father_name">Father's Name   </label>
-          <input id="father_name"  required value="<?php echo  stripslashes($FatherName); ?>"  name="father_name" class="form-control" placeholder="Enter Father's Name">
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="FatherJob">Father's Occupation   </label>
-          <input id="FatherJob"  required name="FatherJob" class="form-control" placeholder="Enter FatherJob">
-        </div>
-      </div>
-      <div class="col-md-6">
-        <?php 
-          $MotherName="";
-          if($item->MotherName!="" && $item->MotherName!="0"){
-          $MotherName=$item->MotherName;
-          }
-        ?>
-        <div class="form-group">
-          <label for="mother_name">Mother's Name   </label>
-          <input id="mother_name"  required value="<?php echo  stripslashes($MotherName); ?>"  name="mother_name" class="form-control" placeholder="Enter Mother's Name">
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="MotherJob">Mother's Occupation   </label>
-          <input id="MotherJob"  required  name="MotherJob" class="form-control" placeholder="Enter MotherJob">
-        </div>
-      </div>
-      <div class="col-md-6">
-        <?php 
-          $NoOfBrothers="";
-          if($item->NoOfBrothers!="" && $item->NoOfBrothers!="0"){
-          $NoOfBrothers=$item->NoOfBrothers;
-          }
-        ?>
-        <div class="form-group">
-          <label for="brothers">No Of Brothers  </label>
-          <select class="form-control" required  id="brothers" name="brothers">
-            <option value="">Select</option>
-            <option value="1"  <?php if($NoOfBrothers=="1"){ echo "selected"; } ?>  >1</option>
-            <option value="2"  <?php if($NoOfBrothers=="2"){ echo "selected"; } ?>  >2</option>
-            <option value="3"  <?php if($NoOfBrothers=="3"){ echo "selected"; } ?> >3</option>
-            <option value="4"  <?php if($NoOfBrothers=="4"){ echo "selected"; } ?> >4</option>
-            <option value="Nil"  <?php if($NoOfBrothers=="Nil"){ echo "selected"; } ?> >Nil</option>
-          </select>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <?php 
-          $NoOfSisters="";
-          if($item->NoOfSisters!="" && $item->NoOfSisters!="0"){
-          $NoOfSisters=$item->NoOfSisters;
-          }
-        ?>
-        <div class="form-group">
-          <label for="sister">No Of Sister </label>
-          <select class="form-control" required id="sister" name="sister">
-          <option value="">Select</option>
-          <option value="1"  <?php if($NoOfSisters=="1"){ echo "selected"; } ?>  >1</option>
-          <option value="2"  <?php if($NoOfSisters=="2"){ echo "selected"; } ?>  >2</option>
-          <option value="3"  <?php if($NoOfSisters=="3"){ echo "selected"; } ?> >3</option>
-          <option value="4"  <?php if($NoOfSisters=="4"){ echo "selected"; } ?> >4</option>
-          <option value="Nil"  <?php if($NoOfSisters=="Nil"){ echo "selected"; } ?> >Nil</option>
-          </select>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="state">State</label>
-            <?php 
-              $StateId="";
-              if($item->StateId!="" && $item->StateId!="0"){
-              $StateId=$item->StateId;
-              }
-            ?>
-          <select required class="form-control"  id="state" name="state">
-            <option value="">Select</option>
-            <?php 
-            foreach($state_details as $stateitem1){
-            ?>
-            <option value="<?php echo $stateitem1->Id; ?>" <?php if($StateId==$stateitem1->Id ) { echo "selected"; } ?> ><?php echo $stateitem1->StateName; ?></option>
-            <?php } ?>
-          </select>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <?php 
-          $CityId="";
-          if($item->CityId!="" && $item->CityId!="0"){
-          $CityId=$item->CityId;
-          }  
-        ?>
-        <div class="form-group">
-          <label for="city">City</label>
-
-          <select required class="form-control"  id="city" name="city">
-            <option value="">Select</option>
-            <?php 
-            foreach($city_details as $cityde){
-            ?>
-            <option value="<?php echo $cityde->Id; ?>"  <?php if($CityId==$cityde->Id ) { echo "selected"; } ?> ><?php echo $cityde->CityName; ?></option>
-            <?php } ?>
-          </select>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <?php
-          $PermenantAddress=$PresentAddress="";
-          if($item->PermenantAddress!="" && $item->PermenantAddress!="0"){
-          $PermenantAddress=$item->PermenantAddress;
-          }
-
-          if($item->PresentAddress!="" && $item->PresentAddress!="0"){
-          $PresentAddress=$item->PresentAddress;
-          }
-        ?>
-        <div class="form-group">
-          <label for="city">Present Address</label>
-          <textarea required name="present_address" placeholder="Present Address" class="form-control" rows="2" id="about"><?php echo stripslashes($PresentAddress); ?></textarea>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="FamilyStatus">Family Status</label>
-          <select class="form-control" required name="FamilyStatus" id="FamilyStatus">
-            <option value="">Select Status</option>
-            <option value="middle"  >Middle</option>
-            <option value="upper"  >Upper</option>		
-            <option value="affluent"  >Affluent</option>		
-          </select>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="AboutMe">Other Details</label>
-          <textarea required name="AboutMe" placeholder="other-details" class="form-control" rows="2" id="other-details"></textarea>
-        </div>
-      </div>
-      <div class="col-md-6"></div>
-
-      <!-- Submit -->
-      <div class="col-md-12 text-center">
-        <input name="update" value="<?php echo $userdbid; ?>" type="hidden">
-        <!-- <button class="btn btn-lg ulockd-btn-thm2 bdrs20" type="submit" formaction="<?php echo base_url(); ?>user/register_step1_form" >Go Back</button> -->
-        <button type="submit" class="btn btn-success">Continue</button>
-      </div>
-    </div>
-    <!-- step5 end -->
-
-  </div>
-
-</form>
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
