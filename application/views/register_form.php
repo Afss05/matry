@@ -236,7 +236,7 @@ label {
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="religion">Religion</label>
-                  <select class="form-control" required name="religion" onchange="getcaste1(this.value);" id="religion">
+                  <select class="custom-select" required name="religion" onchange="getcaste1(this.value);" id="religion">
                     <option value="">Select</option>
                     <?php foreach($religionlist as $relgiode){ ?>
                       <option value="<?php echo $relgiode->Id; ?>"><?php echo $relgiode->Religion; ?></option>
@@ -249,7 +249,7 @@ label {
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="r_case1">Caste</label>
-                  <select class="form-control" id="r_case1" name="r_case">
+                  <select class="custom-select" id="r_case1" name="r_case">
                     <option value="">Select</option>
                     <?php foreach($caste_details as $castede){ ?>
                       <option value="<?php echo $castede->Id; ?>"><?php echo $castede->CasteName; ?></option>
@@ -262,7 +262,7 @@ label {
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="r_mother">Mother Tongue</label>
-                  <select class="form-control" required name="r_mother" id="r_mother">
+                  <select class="custom-select" required name="r_mother" id="r_mother">
                     <option value="">Mother Tongue</option>
                     <option>Tamil</option><option>Telugu</option><option>Malayalam</option>
                     <option>Kannadam</option><option>Hindhi</option><option>Gujarathi</option>
@@ -277,25 +277,25 @@ label {
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="Gothram">Gotra</label>
-                  <input id="Gothram" required name="Gothram" class="form-control" placeholder="Enter Gothram">
+                  <input id="Gothram" required name="Gothram" class="custom-select" placeholder="Enter Gothram">
                 </div>
               </div>
 
               <!-- DOB -->
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="DOB">DOB</label><br>
-                  <div class="row">
-                    <div class="col-xs-4">
-                      <select class="form-control" name="day" required>
+                  <label for="DOB">DOB</label>
+                  <div class="row" style="padding: 0px;">
+                    <div class="col-4">
+                      <select class="custom-select" name="day" required>
                         <option value="">Day</option>
                         <?php for($i=1; $i<=31; $i++){ ?>
                           <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
                         <?php } ?>
                       </select>
                     </div>
-                    <div class="col-xs-4">
-                      <select class="form-control" name="month" required>
+                    <div class="col-4">
+                      <select class="custom-select" name="month" required>
                         <option value="">Month</option>
                         <?php
                           $months = ["01"=>"Jan","02"=>"Feb","03"=>"Mar","04"=>"Apr","05"=>"May","06"=>"Jun","07"=>"Jul","08"=>"Aug","09"=>"Sep","10"=>"Oct","11"=>"Nov","12"=>"Dec"];
@@ -303,8 +303,8 @@ label {
                         ?>
                       </select>
                     </div>
-                    <div class="col-xs-4">
-                      <select class="form-control" name="dobyear" required>
+                    <div class="col-4">
+                      <select class="custom-select" name="dobyear" required>
                         <option value="">Year</option>
                         <?php
                           $curr_year = $this->chsslibrary->call_dateYear();
@@ -322,7 +322,7 @@ label {
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="subcaste">SubCaste</label>
-                  <input type="text" id="subcaste" name="subcaste" class="form-control" placeholder="Enter subcaste" required>
+                  <input type="text" id="subcaste" name="subcaste" class="custom-select" placeholder="Enter subcaste" required>
                 </div>
               </div>
 
@@ -413,7 +413,7 @@ label {
                 <?php $MaritalStatus = ($item->MaritalStatus != "" && $item->MaritalStatus != "0") ? $item->MaritalStatus : ""; ?>
                 <div class="form-group">
                   <label for="maritalstatus">Marital Status</label>
-                  <select class="form-control" required id="maritalstatus" name="maritalstatus">
+                  <select class="custom-select" required id="maritalstatus" name="maritalstatus">
                     <option value="">Select</option>
                     <option value="1" <?php if($MaritalStatus=="1"){ echo "selected"; }?>>Unmarried</option>
                     <option value="2" <?php if($MaritalStatus=="2"){ echo "selected"; }?>>Married</option>
@@ -427,7 +427,7 @@ label {
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="height">Height</label>
-                  <select class="form-control" required name="height" id="height">
+                  <select class="custom-select" required name="height" id="height">
                     <option value="">Select</option>
                     <?php if($Height!=""){ echo "<option value='$Height' selected>$Height</option>"; } ?>
                     <?php 
@@ -451,7 +451,7 @@ label {
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="disability">Any Disability</label>
-                  <select name="disability" id="disability" class="form-control" required>
+                  <select name="disability" id="disability" class="custom-select" required>
                     <option value="">-- Select --</option>
                     <option value="Normal" <?php if($Disability=="Normal"){ echo "selected"; } ?>>Normal</option>
                     <option value="Physically challenged" <?php if($Disability=="Physically challenged"){ echo "selected"; } ?>>Physically challenged</option>
@@ -463,7 +463,7 @@ label {
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="alter_contact_number">Alternative Number</label>
-                  <input id="alter_contact_number" maxlength="20" value="<?php if($AlternativeNumber!="" && $AlternativeNumber!="0" ){ echo $AlternativeNumber; } ?>" required name="alter_contact_number" class="form-control" placeholder="Alternative Contact Number">
+                  <input id="alter_contact_number" maxlength="20" value="<?php if($AlternativeNumber!="" && $AlternativeNumber!="0" ){ echo $AlternativeNumber; } ?>" required name="alter_contact_number" class="custom-select" placeholder="Alternative Contact Number">
                 </div>
               </div>
 
@@ -472,7 +472,7 @@ label {
                 <?php $Rasi = ($item->Rasi != "" && $item->Rasi != "0") ? $item->Rasi : ""; ?>
                 <div class="form-group">
                   <label for="rasi">Rasi</label>
-                  <select class="form-control" onchange="getstar(this.value);" id="rasi" name="rasi">
+                  <select class="custom-select" onchange="getstar(this.value);" id="rasi" name="rasi">
                     <option value="">Select</option>
                     <?php if(isset($rasi_details)){
                       foreach($rasi_details as $castede){
@@ -488,7 +488,7 @@ label {
                 <?php $Star = ($item->Star != "" && $item->Star != "0") ? $item->Star : ""; ?>
                 <div class="form-group">
                   <label for="starid">Star</label>
-                  <select class="form-control" id="starid" name="star">
+                  <select class="custom-select" id="starid" name="star">
                     <option value="">Select</option>
                     <?php if(isset($Star_details)){
                       foreach($Star_details as $starde){
@@ -533,7 +533,7 @@ label {
           <div class="col-md-6">
             <div class="form-group">
               <label for="qualification">Qualification</label>
-              <input id="qualification" required value="<?php echo stripslashes($Qualification); ?>" name="qualification" class="form-control" placeholder="Enter Qualification">
+              <input id="qualification" required value="<?php echo stripslashes($Qualification); ?>" name="qualification" class="custom-select" placeholder="Enter Qualification">
             </div>
           </div>
 
@@ -541,7 +541,7 @@ label {
             <?php $Userjob = ($item->UserEmployed!="" && $item->UserEmployed!="0") ? $item->UserEmployed : ""; ?>
             <div class="form-group">
               <label for="YourEmployed">Employed in</label>
-              <select class="form-control" required id="YourEmployed" name="YourEmployed">
+              <select class="custom-select" required id="YourEmployed" name="YourEmployed">
                 <option value="">Select</option>
                 <option value="1" <?php if($Userjob=="1"){ echo "selected"; } ?>>Private Sector</option>
                 <option value="2" <?php if($Userjob=="2"){ echo "selected"; } ?>>Government / Public Sector</option>
@@ -556,7 +556,7 @@ label {
             <?php $Occupation = ($item->Occupation != "" && $item->Occupation != "0") ? $item->Occupation : ""; ?>
             <div class="form-group">
               <label for="occupation">Employee</label>
-              <input id="occupation" required value="<?php echo stripslashes($Occupation); ?>" name="occupation" class="form-control" placeholder="Enter Employee">
+              <input id="occupation" required value="<?php echo stripslashes($Occupation); ?>" name="occupation" class="custom-select" placeholder="Enter Employee">
             </div>
           </div>
 
@@ -564,7 +564,7 @@ label {
             <?php $UserPlaceOfJob = ($item->UserPlaceOfJob != "" && $item->UserPlaceOfJob != "0") ? $item->UserPlaceOfJob : ""; ?>
             <div class="form-group">
               <label>Job Location</label>
-              <input name="joblocation" required id="joblocation" maxlength="120" value="<?php echo stripslashes($UserPlaceOfJob); ?>" type="text" placeholder="Location" class="form-control">
+              <input name="joblocation" required id="joblocation" maxlength="120" value="<?php echo stripslashes($UserPlaceOfJob); ?>" type="text" placeholder="Location" class="custom-select">
             </div>
           </div>
 
@@ -572,7 +572,7 @@ label {
             <?php $MonthlyIncome = ($item->MonthlyIncome != "" && $item->MonthlyIncome != "0") ? $item->MonthlyIncome : ""; ?>
             <div class="form-group">
               <label for="YourAnnual">Annual Income</label>
-              <select class="form-control" required id="YourAnnual" name="YourAnnual">
+              <select class="custom-select" required id="YourAnnual" name="YourAnnual">
                 <option value="">Select</option>
                 <?php 
                   $incomes = [
@@ -667,7 +667,7 @@ $PQualification=$item->PQualification;
 <div class="form-group">
 <label for="Pqualification">Qualification  </label>
 <input id="Pqualification"  value="<?php echo 
-$PQualification; ?>"  required name="Pqualification" class="form-control" placeholder="Enter Qualification">
+$PQualification; ?>"  required name="Pqualification" class="custom-select" placeholder="Enter Qualification">
 </div>
 </div>
 
@@ -683,7 +683,7 @@ $PJob=$item->PJob;
 <div class="col-xxs-12 col-xs-6 col-sm-6 col-md-6 clearfix">
 <div class="form-group">
 <label for="PEmployed">Employed in   </label>
-<select class="form-control"  required id="PEmployed" name="PEmployed">
+<select class="custom-select"  required id="PEmployed" name="PEmployed">
 <option value="">Select</option>
 <option value="6" <?php if($PJob=="6"){ echo "selected"; } ?> >Any </option>
 <option value="1" <?php if($PJob=="1"){ echo "selected"; } ?> >Private Sector</option>
@@ -708,7 +708,7 @@ $POccupation=$item->POccupation;
 <div class="col-xxs-12 col-xs-6 col-sm-6 col-md-6 clearfix">
 <div class="form-group">
 <label for="Poccupation">Occupation   </label>
-<input id="Poccupation" required value="<?php echo $POccupation; ?>"  name="Poccupation" class="form-control" placeholder="Enter Occupation ">
+<input id="Poccupation" required value="<?php echo $POccupation; ?>"  name="Poccupation" class="custom-select" placeholder="Enter Occupation ">
 </div>
 </div>
 
@@ -727,7 +727,7 @@ $PIncome=$item->PIncome;
 <div class="col-xxs-12 col-xs-6 col-sm-6 col-md-6 clearfix">
 <div class="form-group">
 <label for="PAnnual">Annual Income   </label>
-<select class="form-control"  required id="PAnnual" name="PAnnual">
+<select class="custom-select"  required id="PAnnual" name="PAnnual">
 <option value="">Select</option>
 
 <option value="3" <?php if($PIncome=="3"){ echo "selected"; }   ?> >0 - 1 Lakh</option>
@@ -767,7 +767,7 @@ $PIncome=$item->PIncome;
 <div class="form-group">
 <label for="p_caste">Caste</label>
 
-<select class="form-control"  required id="p_caste" name="p_caste">
+<select class="custom-select"  required id="p_caste" name="p_caste">
 <option value="">Select</option>
 
 <?php 
