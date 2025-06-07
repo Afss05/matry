@@ -75,31 +75,54 @@ class Searchindex extends CI_Controller
 	} */
 	$config = array();
     if(isset($_GET['gender'])||isset($_GET['status'])||isset($_GET['fromage'])&&isset($_GET['endage'])||isset($_GET['religion'])||isset($_GET['caste'])||isset($_GET['SearchByID'])||isset($_GET['caste'])||isset($_GET['location'])||isset($_GET['caste'])||isset($_GET['mother'])) {
-		$config["base_url"] = base_url('searchindex/?gender=' . $_GET['gender'].'&status=' . $_GET['status'].'&fromage=' . $_GET['fromage'].'&endage=' . $_GET['endage'].'&religion=' . $_GET['religion'].'&caste=' . $_GET['caste'].'&SearchByID=' . $_GET['SearchByID'].'&location=' . $_GET['location'].'&mother=' . $_GET['mother']  );
+		$config["base_url"] = base_url('searchindex/?gender=' . $_GET['gender'].'&status=' . $_GET['status'].'&fromage=' . $_GET['fromage'].'&endage=' . $_GET['endage'].'&religion=' . $_GET['religion'].'&caste=' . $_GET['caste'].'&SearchByID=' . $_GET['SearchByID'].'&location=' . $_GET['location'].'&mother=' . $_GET['mother'] );
 	}
 	else{            
 	$config["base_url"] = base_url('searchindex/');
 	}
 
 	$config["total_rows"] = $totalRecords;
-	$config["per_page"] = $limit;
-	$config['use_page_numbers'] = TRUE;
-	$config['page_query_string'] = TRUE;
-	$config['enable_query_strings'] = TRUE;
-	$config['num_links'] = 2;
-	$config['cur_tag_open'] = '&nbsp;<li class="active"><a>';
-	$config['cur_tag_close'] = '</a></li>';
-	$config['next_link'] = 'Next';
-	$config['prev_link'] = 'Previous';
-	$this->pagination->initialize($config);
-	$str_links = $this->pagination->create_links();
-	$links = explode('&nbsp;', $str_links);
+$config["per_page"] = $limit;
+$config['use_page_numbers'] = TRUE;
+$config['page_query_string'] = TRUE;
+$config['enable_query_strings'] = TRUE;
+$config['num_links'] = 2;
 
-	$offset = 0;
-	if (!empty($_GET['per_page'])) {
-	$pageNo = $_GET['per_page'];
-	$offset = ($pageNo - 1) * $limit;
-	} 
+$config['full_tag_open'] = '<ul class="custom-pagination">';
+$config['full_tag_close'] = '</ul>';
+
+$config['first_link'] = '<<';
+$config['first_tag_open'] = '<li>';
+$config['first_tag_close'] = '</li>';
+
+$config['last_link'] = '>>';
+$config['last_tag_open'] = '<li>';
+$config['last_tag_close'] = '</li>';
+
+$config['next_link'] = '>';
+$config['next_tag_open'] = '<li>';
+$config['next_tag_close'] = '</li>';
+
+$config['prev_link'] = '< ';
+$config['prev_tag_open'] = '<li>';
+$config['prev_tag_close'] = '</li>';
+
+$config['cur_tag_open'] = '<li class="active"><strong>';
+$config['cur_tag_close'] = '</strong></li>';
+
+$config['num_tag_open'] = '<li>';
+$config['num_tag_close'] = '</li>';
+
+$this->pagination->initialize($config);
+$str_links = $this->pagination->create_links();
+$links = explode('&nbsp;', $str_links);
+
+$offset = 0;
+if (!empty($_GET['per_page'])) {
+    $pageNo = $_GET['per_page'];
+    $offset = ($pageNo - 1) * $limit;
+}
+
 	
 	$data['profile_details'] = $this->Searchindex_model->getprofile_searchreport($limit,$offset,$userReligionId,$usercaste);
 	
