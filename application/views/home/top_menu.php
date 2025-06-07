@@ -91,12 +91,18 @@
         </li>-->
 
         <?php }elseif($userid!=""){ ?>
+          <li class="dropdown">
+              <a href="<?php echo base_url(); ?>user/price" >Plan</a>
+            </li>
+          <li >
+              <a href="<?php echo base_url(); ?>user/review" >Review</a>
+            </li>
         <li class="dropdown">
           <a href="<?php echo base_url(); ?>userprofile/index/<?php  echo  $this->chsslibrary->encoder($userid); ?>/<?php  echo  $this->chsslibrary->encoder($memcode); ?>">My Profile</a>
         </li>
-        <li class="dropdown">
+        <!-- <li class="dropdown">
           <a href="<?php echo base_url(); ?>searchindex/wishlist">Wish List</a>
-        </li>
+        </li> -->
         <li class="dropdown">
           <a href="<?php echo base_url(); ?>user/logout">Logout</a>
         </li>
