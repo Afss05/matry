@@ -535,6 +535,7 @@ label {
     font-family: 'Parisienne', cursive;
     font-weight: 700;
     font-size: 35px;
+    color: #b2002d;
 }
 
 .caste ul {
@@ -644,11 +645,6 @@ label {
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-.caste h2 {
-    color: #b2002d;
-}
-
-
 /* .bgc-overlay-white75:before {
   background-color: rgba(255, 255, 255, 0.75);
   bottom: 0;
@@ -660,4 +656,38 @@ label {
 } */
 
 
-color: #b2002d;
+/* plan */
+
+.custom-pagination {
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.custom-pagination li {
+    display: inline;
+}
+
+.custom-pagination li a {
+    text-decoration: none;
+    padding: 5px 10px;
+    color: #000;
+    font-weight: normal;
+}
+
+.custom-pagination li.active strong {
+    font-weight: bold;
+    color: #fff;
+    background-color: #b2002d; /* Highlight color for active page */
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.search h2{
+    font-family: 'Parisienne', cursive;
+    color: #b2002d;
+}
