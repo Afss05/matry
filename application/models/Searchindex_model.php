@@ -68,6 +68,11 @@ class Searchindex_model extends CI_Model
 			}
 		}
 		
+		// ADD Star filter here
+        if (!empty($_REQUEST['star'])) {
+            $star = trim($_REQUEST['star']);
+            $tail .= " and (Star='$star')";
+        }
 		
 		
 		if (!empty($_REQUEST['SearchByID'])) {
@@ -165,6 +170,13 @@ class Searchindex_model extends CI_Model
 			$tail .= " and (ReligionId='$religion')";
 			}
 		}
+
+
+		// ADD Star filter here
+        if (!empty($_REQUEST['star'])) {
+            $star = trim($_REQUEST['star']);
+            $tail .= " and (Star='$star')";
+        }
 		
 		
 		
