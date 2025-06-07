@@ -905,8 +905,8 @@ class User extends CI_Controller
 	// ----------------------------------------------------------------------------- 
     public function loginsubmit()
     {
-		$contact = $this->input->post('ContactNumber');
-		// $email = $this->input->post('email');
+		// $contact = $this->input->post('ContactNumber');
+		$email = $this->input->post('email');
 		$password = md5($this->input->post('password'));
 		$result = $this->Admin_model->checkuserLogin($email,$password);
 		
