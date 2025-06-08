@@ -256,15 +256,14 @@ body{
                   if ($userid != "") {
                       if (count($subscribedplan) > 0) {
                   ?>
-
+                  <!-- If Subscribed Plan Exists -->
                   <div class="container search">
                       <h2 class="mb-4 fw-bold text-center">Subscribed Plan Details</h2>
                       <div class="row g-4">
-
                           <?php
                           $i = 0;
                           $countTototal = 0;
-                          $yetviews = $this->Admin_model->getprofile_paidviewcount($userid);  
+                          $yetviews = $this->Admin_model->getprofile_paidviewcount($userid);
                           foreach ($yetviews as $views) {
                               $countTototal = $views->totviewprofil;
                           }
@@ -274,11 +273,9 @@ body{
                               $PaymentType = $plan->PaymentType;
                               $PaymentTypename = $this->chsslibrary->getFieldVal(TBL__PREFIX2."payment_master", "PaymentType", "Id=".$PaymentType);
                           ?>
-
                           <div class="col-md-12">
                               <div class="card shadow-sm rounded-4 h-100">
-                                  
-                                  <!-- Plan Title with background -->
+                                  <!-- Plan Title -->
                                   <div class="card-header bg-light text-center fw-bold fs-5 rounded-top-4">
                                       <?php echo $PaymentTypename; ?> Plan
                                   </div>
@@ -288,47 +285,57 @@ body{
                                       <img src="<?php echo base_url(); ?>main/plan.png" alt="Plan Icon" class="img-fluid" style="max-width: 100px;">
                                   </div>
 
-                                  <!-- Details -->
+                                  <!-- Plan Details -->
                                   <div class="card-body">
-                                    <ul class="list-group list-group-flush text-start small">
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            <span><i class="bi bi-currency-rupee"></i> <strong>Amount</strong></span>
-                                            <span class="fw-semibold text-success">₹<?php echo $plan->MAmount; ?></span>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            <span><i class="bi bi-calendar-event"></i> <strong>Subscribed Date</strong></span>
-                                            <span><?php echo $plan->Dates; ?></span>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            <span><i class="bi bi-hourglass-split"></i> <strong>Validity</strong></span>
-                                            <span><?php echo $plan->MPaidedValidy; ?> Days</span>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            <span><i class="bi bi-eye"></i> <strong>Profile Views Left</strong></span>
-                                            <span class="text-primary fw-semibold"><?php echo $plan->MProfileCounts; ?></span>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            <span><i class="bi bi-bar-chart-line"></i> <strong>Total Viewed</strong></span>
-                                            <span><?php echo $countTototal; ?></span>
-                                        </li>
-                                    </ul>
+                                      <ul class="list-group list-group-flush text-start small">
+                                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                                              <span><i class="bi bi-currency-rupee"></i> <strong>Amount</strong></span>
+                                              <span class="fw-semibold text-success">₹<?php echo $plan->MAmount; ?></span>
+                                          </li>
+                                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                                              <span><i class="bi bi-calendar-event"></i> <strong>Subscribed Date</strong></span>
+                                              <span><?php echo $plan->Dates; ?></span>
+                                          </li>
+                                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                                              <span><i class="bi bi-hourglass-split"></i> <strong>Validity</strong></span>
+                                              <span><?php echo $plan->MPaidedValidy; ?> Days</span>
+                                          </li>
+                                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                                              <span><i class="bi bi-eye"></i> <strong>Profile Views Left</strong></span>
+                                              <span class="text-primary fw-semibold"><?php echo $plan->MProfileCounts; ?></span>
+                                          </li>
+                                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                                              <span><i class="bi bi-bar-chart-line"></i> <strong>Total Viewed</strong></span>
+                                              <span><?php echo $countTototal; ?></span>
+                                          </li>
+                                      </ul>
                                   </div>
-                                  <!-- Upgrade Button -->
-                                  <!-- <div class="card-footer bg-white border-0 text-center">
-                                      <a href="<?= base_url('upgrade-plan'); ?>" class="btn btn-dark rounded-pill px-4 fw-semibold">UPGRADE NOW</a>
-                                  </div> -->
 
+                                  <!-- Optional Upgrade Button -->
+                                  <!--
+                                  <div class="card-footer bg-white border-0 text-center">
+                                      <a href="<?= base_url('upgrade-plan'); ?>" class="btn btn-dark rounded-pill px-4 fw-semibold">UPGRADE NOW</a>
+                                  </div>
+                                  -->
                               </div>
                           </div>
-
                           <?php } ?>
-
                       </div>
                   </div>
 
-                  <?php 
+                  <?php
+                      } else {
+                  ?>
+                  <!-- If No Subscribed Plan -->
+                  <div class="text-center py-5">
+                      <img src="<?php echo base_url(); ?>main/plan.png" alt="Upgrade Now" class="img-fluid" style="max-width: 120px;">
+                      <h4 class="mt-4 fw-bold text-danger">You don’t have an active plan</h4>
+                      <p class="text-muted">Upgrade now to unlock full features and view profiles.</p>
+                      <a href="<?= base_url('upgrade-plan'); ?>" class="btn btn-primary rounded-pill px-4 fw-semibold">Upgrade Plan</a>
+                  </div>
+                  <?php
                       }
-                  } 
+                  }
                   ?>
                 </div>
               </div>
