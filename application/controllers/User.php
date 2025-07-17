@@ -56,8 +56,8 @@ class User extends CI_Controller
 		$data["member_list"] = "Management";
 		$data['userid']="";
 		$this->data = $data;
-		// $this->template['topmenu'] = $this->load->view('home/top_menu', $this->data, true);
-		$this->template['submenu'] = $this->load->view('home/sub_menu', $this->data, true);
+		$this->template['topmenu'] = $this->load->view('home/top_menu', $this->data, true);
+		// $this->template['submenu'] = $this->load->view('home/sub_menu', $this->data, true);
 		$this->template['footer'] = $this->load->view('home/footer', $this->data, true);
 		$this->load->view('home/investors_view', $this->template);
 

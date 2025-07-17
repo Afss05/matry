@@ -1,11 +1,3 @@
-<?php 
-
-/* header("Cache-Control: no cache");
-session_cache_limiter("private_no_expire"); */
-
-?>
-
-
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -19,223 +11,108 @@ session_cache_limiter("private_no_expire"); */
     <meta name="keywords" content="Best matrimony services in chennai, Top 10 matrimony services in chennai, best matrimony websites in chennai, Best matrimony services in tamilnadu, Top 10 matrimony services in tamilnadu, Bharat vivaha matrimony in chennai, Tamil Matrimony services in chennai, Telugu Matrimony services in chennai">
     <meta name="robots" CONTENT="all,index,follow"> 
     <META NAME="revisit-after" CONTENT="3 days">
-<!-- css file -->
-<!--mk -->
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets_index/css/colors/default.css">
+    <!-- css file -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="<?php echo base_url(); ?>main/css/style.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 
 
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets_index/css/bootstrap.min.css">
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets_index/css/style.css">
-<!-- Responsive stylesheet -->
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets_index/css/responsive.css">
-<!-- Title -->
-
-<!-- Favicon -->
-<link href="images/favicon.ico" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
-<link href="images/favicon.ico" sizes="128x128" rel="shortcut icon" />
-
-<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-	<!-- google font link -->
-
-	<link href="https://fonts.googleapis.com/css2?family=Rouge+Script&family=Ruthie&display=swap" rel="stylesheet">
-	
-	<link href="https://fonts.googleapis.com/css2?family=Miss+Fajardose&family=Rouge+Script&family=Ruthie&display=swap" rel="stylesheet">
-	<style>
-
-nav.navbar.bootsnav ul.nav li a.active, nav.navbar.bootsnav ul.nav li a:hover, nav.navbar.bootsnav ul.nav li a:focus {
-    color: red !important;
-	font-size: 15px;
-	font-weight: 600px;
-}
-.invest-tile h2 {
-	font-family: serif;
-	font-size: 40px;
-	/* color: red; */
-}
-
-.owner_name p{
-	font-size: 18px;
-}
-
-.top_menu {
-	margin-top: 20px;
-	display: flex;
-	align-item: center;
-	justify-content: center;
-	height: 350px;
-	border-radius: 20px;
-	padding: 5px;
-}
-
-.thank_content p {
-	font-size: 18px;
-	font-weight:500;
-	text-align: justify;
-}
-
-.pdf_menu {
-	display: flex;
-	align-item: center;
-	justify-content: center;
-	margin-top: 10px;
-}
-
-.pdf_menu a{
-	border: 1px solid grey;
-	padding: 20px;
-	font-size: 18px;
-	border-radius: 20px;
-}
-
-/* Responsive styles */
-@media (max-width: 768px) {
-	.top_menu {
-		height: 300px;
-	}
-	.container h4 {
-		font-size: 20px !important;
-	}
-	.pdf_menu a{
-		border: 1px solid grey;
-		padding: 5px;
-		font-size: 15px;
-		border-radius: 20px;
-	}
-}
-
-</style>
-
-
-
-<!--  end  css include-->
-
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z27K0YNC7D"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-Z27K0YNC7D');
-</script>
 </head>
 <body>
-<div class="wrapper">
- 
-    <header class="header-nav transparent">
-		<div class="container">
-		    <!-- Start Navigation -->
-		    <nav class="navbar navbar-default navbar-fixed  no-background bootsnav">
-		        <div class="container">
-		            <!-- Start Header Navigation -->
-		            <div class="navbar-header">
-		                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
-		                    <i class="fa fa-bars"></i>
-		                </button>
-		                <a class="navbar-brand ulockd-main-logo2" href="<?php echo base_url(); ?>">
-		                    <img src="<?php echo base_url(); ?>assets_index/images/header-logo2_back.png" class="logo logo-display hidden-md" alt="header-logo.png" style="height:90px;">
-		                    <img src="<?php echo base_url(); ?>assets_index/images/header-logo2_back.png" class="logo logo-scrolled" alt="" style="height:90px;">
-		                </a>
-		            </div>
-		            <!-- End Header Navigation -->
+    <?php echo $topmenu; ?>
 
-		            <!-- Collect the nav links, forms, and other content for toggling -->
-					<?php echo $submenu; ?>
-				 </div>
-		    </nav>
-		    <!-- End Navigation -->
-		</div>
-	</header>
+  <!-- Our Pricing Table -->
+<section class="ulockd-pricing py-5">
+  <div class="container">
+    
+    <!-- Profile Image and Title -->
+    <div class="row justify-content-center text-center mb-4">
+      <div class="col-md-4 col-sm-6 col-10">
+        <img class="img-fluid rounded shadow" 
+             src="<?php echo base_url(); ?>assets_index/images/about/ravi.jpg" 
+             alt="Chairman Image" 
+             style="max-height: 300px; object-fit: cover;">
+      </div>
+      <div class="col-12 mt-3">
+        <h4 class="fw-bold text-uppercase">Chairman & Managing Director</h4>
+      </div>
+    </div>
 
+    <!-- Chairman's Message -->
+    <div class="row justify-content-center">
+      <div class="col-lg-10 col-md-12">
+        <div class="p-4 bg-light rounded shadow-sm">
+          <p class="text-center fw-semibold fst-italic mb-4">
+            “First I thank our Customers and Partners for their continued support in our great journey.”
+          </p>
 
-	<!-- Our Pricing Table -->
-	<section class="ulockd-pricing">
-		
-		<div class="container">
-			<div class="row">
-				<div class="top_menu">
-					<img class="rounded" src="<?php echo base_url(); ?>assets_index/images/about/ravi.jpg" alt="" srcset="" style="box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);">
-				</div> 				
-				<h4 class="text-center"><strong>CHAIRMAN & MANAGING DIRECTOR</strong></h4>
-				<div class="col-lg-12 ">
-					<div class="invest-tile">
-						<div class="invers_content">
-							<div class="container">
-								<div class="row">
-									
-									<div class="owner_name">
-										<p class="text-center">“ First I thank to Customers and Partners for their continue support  our great journey ” </p>
-									</div>
-									<div class="thank_contents ">
-									</div><br>
-									<div class="thank_content">
-										<p>Our company is a pioneer in matchmaking, we have all kinds of profiles
-											in All Communities and Regions.
-											we as successfully completed 6 years, since we sustain in the market
-											because we are good in customer satisfaction,  we also got good  ratings
-											from most of the satisfied customers,
-											our customer service takes personal care by the individual,
-											our motive is to  satisfied the customer with the best life partner as per
-											your requirement Bharatvivaha is Brand running the  all over india for online.</p>
+          <p>
+            Our company is a pioneer in matchmaking, with profiles from all communities and regions.
+            We've successfully completed 6 years in the market, sustained by excellent customer satisfaction.
+            We’ve earned strong ratings from many happy clients, and our customer service provides
+            personalized attention.
+          </p>
 
-											<p>Our brand value is high.
-											Our focus All Region & Religion customers
-											more then Registration
-											Exclusive offer will be promoted to thousand of customers in our database which will give you high chances to conversation
-											Only place to get exclusive wedding leads.
-											Which give to you potential customers
-											First of all, we are the first to bring in a scratch card option in marriage industry because we have to give the customer better service so that we can bring in lakhs of customers and give them the best service.
-											In this process for all over India.
-										</p>
-									</div>
-										
-									<!-- </div> -->
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+          <p>
+            Our motive is to help customers find the best life partners based on their preferences.
+            <strong>BharatVivaha</strong> is a growing brand throughout India offering online matchmaking services.
+          </p>
 
-			<div class="pdf_menu">
-				<a href="<?php echo base_url(); ?>assets_index/Bharatvivaha Business Proposal.pdf">Bharatvivaha Business Proposal
-				<img class="rounded" src="<?php echo base_url(); ?>assets_index/images/pdf.png" alt="" srcset="" width="auto" height="50px"></a>
-			</div> 
+          <!-- Features with Icons -->
+        <ul class="list-unstyled ps-3">
+            <li class="mb-2 d-flex align-items-start">
+                <i class="bi bi-patch-check-fill text-primary me-2 fs-5"></i>
+                <span>Our brand value is high.</span>
+            </li>
+            <li class="mb-2 d-flex align-items-start">
+                <i class="bi bi-people-fill text-success me-2 fs-5"></i>
+                <span>We focus on all regions and religions.</span>
+            </li>
+            <li class="mb-2 d-flex align-items-start">
+                <i class="bi bi-person-lines-fill text-info me-2 fs-5"></i>
+                <span>Thousands of registrations and growing.</span>
+            </li>
+            <li class="mb-2 d-flex align-items-start">
+                <i class="bi bi-megaphone-fill text-warning me-2 fs-5"></i>
+                <span>Exclusive offers are promoted to our large database.</span>
+            </li>
+            <li class="mb-2 d-flex align-items-start">
+                <i class="bi bi-stars text-danger me-2 fs-5"></i>
+                <span>Only platform offering scratch card option in the matchmaking industry.</span>
+            </li>
+            <li class="mb-2 d-flex align-items-start">
+                <i class="bi bi-globe-asia-australia text-secondary me-2 fs-5"></i>
+                <span>All-India expansion in process.</span>
+            </li>
+        </ul>
 
-		</div>
-	</section>
+        </div>
+      </div>
+    </div>
+
+    <!-- Business Proposal Link -->
+    <div class="row justify-content-center mt-5">
+      <div class="col-auto text-center">
+        <a href="<?php echo base_url(); ?>assets_index/Bharatvivaha Business Proposal.pdf" 
+           class="btn btn-outline-primary d-flex align-items-center gap-2 px-4 py-2 shadow">
+          <img class="rounded" 
+               src="<?php echo base_url(); ?>assets_index/images/pdf.png" 
+               alt="PDF Icon" 
+               width="30" height="40">
+          <span>Bharatvivaha Business Proposal</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
 
 
 
 	<!-- Our Footer -->
 	<?php echo $footer; ?>
-</div>
-<!-- Wrapper End -->
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jquery-1.12.4.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/bootsnav.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/parallax.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/scrollto.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jquery-scrolltofixed-min.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jquery.counterup.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/gallery.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/wow.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/slider.js"></script>
 
-<!--
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/video-player.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jflickrfeed.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jquery.barfiller.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/timepicker.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/tweetie.js"></script>
-<!-- Custom script for all pages 
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/color-switcher.js"></script> -->  
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/script.js"></script>
 </body>
 </html>
