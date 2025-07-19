@@ -62,7 +62,7 @@
     </div>
   </div>
 
-  <div class="footer-bottom" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: 600;">
+  <div class="footer-bottom" style="font-family: 'Charm', cursive; font-weight: 600;">
     &copy; 2025 BharatVivaha.in | All Rights Reserved.
   </div>
 </footer>
@@ -94,7 +94,7 @@
     margin-bottom: 15px;
     font-weight: 600;
     /* font-size: 22px; */
-    font-family: 'Parisienne', cursive;
+    font-family: 'Charm', cursive !important;
   }
 
   .footer-column ul {

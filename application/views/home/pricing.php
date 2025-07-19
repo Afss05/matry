@@ -23,6 +23,8 @@
      <!-- Bootstrap Icons CDN (add in <head> if not already included) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 
+<link href="https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
     <style>
         .card{
             background: #fa73e3;
@@ -35,7 +37,7 @@
     <?php echo $topmenu; ?>
 
     <section>
-        <div class="price-head" style="font-family: 'Poppins', sans-serif;">
+        <div class="price-head" style="font-family: 'Charm', cursive; font-weight: 600;">
             <div class="pricing-content text-center  pt-5">
                 <p class="section-label">PRICING</p>
                 <h2 class="section-title">Get Started<br>Pick your Plan Now</h2>
@@ -100,7 +102,7 @@
             <div class="col-md-4">
                 <div class="card text-center rounded-4 p-4 <?php echo $highlight; ?>">
                     <?php echo $badge; ?>
-                    <h4 class="fw-bold mt-3"><?php echo ucfirst($PaymentType); ?></h4>
+                    <h4 class="fw-bold mt-3" style="font-family: 'charm', cursive;"><?php echo ucfirst($PaymentType); ?></h4>
                     <!-- <p class="text-muted">Printer took a type and scrambled</p> -->
 
                     <div class="my-3">

@@ -144,7 +144,8 @@ label {
     margin-bottom: 20px;
     color: #333;
     font-weight: 600;
-    font-family: 'Parisienne', cursive !important;
+    /* font-family: 'Parisienne', cursive !important; */
+    font-family: "Charm", cursive !important;
 }
 
 .headlines p{
@@ -193,7 +194,7 @@ label {
     color: rgb(131, 96, 96);
 }
 .trust-head h2 {
-    font-family: 'Parisienne', cursive !important;
+    font-family: 'charm', cursive !important;
     font-size: 50px;
     margin-bottom: 20px;
     font-weight: 600;
@@ -292,7 +293,7 @@ label {
 
 .elite-header h2 {
     font-size: 60px;
-    font-family: 'Parisienne', cursive !important;
+    font-family: 'charm', cursive !important;
     font-weight: 700;
     margin: 0;
     color: #000;
@@ -406,7 +407,7 @@ label {
     text-align: center;
     font-weight: 600;
     color: #b2002d;
-    font-family: 'Parisienne', cursive;
+    font-family: 'charm', cursive !important;
     /* font-family: Rouge Script; */
 }
 
@@ -525,14 +526,14 @@ label {
     /* box-shadow: 0 0 10px rgba(0,0,0,0.05); */
 }
 .promo-heading {
-    font-family: 'Parisienne', cursive;
+    font-family: 'charm', cursive !important;
     color: #070707;
     font-weight: 700;
     font-size: 50px;
 }
 
 .caste h2{
-    font-family: 'Parisienne', cursive;
+    font-family: 'charm', cursive !important;
     font-weight: 700;
     font-size: 35px;
     color: #b2002d;
@@ -688,7 +689,7 @@ label {
 }
 
 .search h2{
-    font-family: 'Parisienne', cursive;
+    font-family: 'charm', cursive !important;
     color: #b2002d;
 }
 
@@ -699,7 +700,7 @@ label {
 }
 
 .pricing-content h2 {
-    font-family: 'Parisienne', cursive;
+    font-family: 'charm', cursive !important;
     color: #b2002d;
     font-weight: 600;
     font-size: 50px;
