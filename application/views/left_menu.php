@@ -1,5 +1,5 @@
 <!-- Navbar Toggle for Mobile -->
-<nav class="navbar navbar-light bg-white shadow-sm d-md-none">
+<nav class="navbar navbar-light bg-white  d-md-none">
   <div class="container-fluid">
     <button class="navbar-toggler" type="button" id="toggleSidebarMobile">
       <span class="navbar-toggler-icon"></span>
@@ -23,37 +23,37 @@
   <ul class="nav flex-column">
     <li class="nav-item mb-2">
       <a href="<?= base_url(); ?>userprofile/index/<?= $this->chsslibrary->encoder($userid); ?>/<?= $this->chsslibrary->encoder($memcode); ?>" 
-         class="nav-link d-flex align-items-center <?= ($currentPage == 'userprofile' && $this->uri->segment(2) == 'index') ? 'active' : '' ?>">
+         class="nav-link fw-bold d-flex align-items-center <?= ($currentPage == 'userprofile' && $this->uri->segment(2) == 'index') ? 'active' : '' ?>">
          <i class="fa fa-user-circle me-2 text-primary"></i> My Profile
       </a>
     </li>
     <li class="nav-item mb-2">
       <a href="<?= base_url(); ?>userprofile/edit_profile/<?= $this->chsslibrary->encoder($userid); ?>" 
-         class="nav-link d-flex align-items-center <?= ($currentPage == 'userprofile' && $this->uri->segment(2) == 'edit_profile') ? 'active' : '' ?>">
+         class="nav-link fw-bold d-flex align-items-center <?= ($currentPage == 'userprofile' && $this->uri->segment(2) == 'edit_profile') ? 'active' : '' ?>">
          <i class="fa fa-edit me-2 text-success"></i> Edit Profile
       </a>
     </li>
     <li class="nav-item mb-2">
       <a href="<?= base_url(); ?>user/price" 
-         class="nav-link d-flex align-items-center <?= ($currentPage == 'user' && $this->uri->segment(2) == 'price') ? 'active' : '' ?>">
+         class="nav-link fw-bold d-flex align-items-center <?= ($currentPage == 'user' && $this->uri->segment(2) == 'price') ? 'active' : '' ?>">
          <i class="fa fa-gift me-2 text-warning"></i> Plan
       </a>
     </li>
     <li class="nav-item mb-2">
       <a href="<?= base_url(); ?>searchindex" 
-         class="nav-link d-flex align-items-center <?= ($currentPage == 'searchindex' && $this->uri->segment(2) == '') ? 'active' : '' ?>">
+         class="nav-link fw-bold d-flex align-items-center <?= ($currentPage == 'searchindex' && $this->uri->segment(2) == '') ? 'active' : '' ?>">
          <i class="fa fa-search me-2 text-info"></i> Search Profile
       </a>
     </li>
     <li class="nav-item mb-2">
       <a href="<?= base_url(); ?>searchindex/wishlist" 
-         class="nav-link d-flex align-items-center <?= ($currentPage == 'searchindex' && $this->uri->segment(2) == 'wishlist') ? 'active' : '' ?>">
+         class="nav-link fw-bold d-flex align-items-center <?= ($currentPage == 'searchindex' && $this->uri->segment(2) == 'wishlist') ? 'active' : '' ?>">
          <i class="fa fa-heart me-2 text-danger"></i> Wish List
       </a>
     </li>
     <li class="nav-item mb-2">
       <a href="<?= base_url(); ?>user/change_password" 
-         class="nav-link d-flex align-items-center <?= ($currentPage == 'user' && $this->uri->segment(2) == 'change_password') ? 'active' : '' ?>">
+         class="nav-link fw-bold d-flex align-items-center <?= ($currentPage == 'user' && $this->uri->segment(2) == 'change_password') ? 'active' : '' ?>">
          <i class="fa fa-lock me-2 text-dark"></i> Change Password
       </a>
     </li>
@@ -61,7 +61,7 @@
 </aside>
 
 <!-- Main Content -->
-<div id="main-content" class="content-wrapper p-3 topbar shadow" style="background-color: #f8f9fa;">
+<div id="main-content" class="content-wrapper p-3 " style="">
   <button id="toggleSidebarDesktop" class="btn btn-primary mb-3 d-none d-md-inline-block">
     <i class="fa-solid fa-bars"></i>
   </button>
@@ -71,10 +71,7 @@
 <!-- Responsive Sidebar CSS -->
 <style>
 
-.topbar {
-  background-color: #f8f9fa;
-  padding: 10px;
-}
+
 
 .sidebar {
   width: 240px;
@@ -84,10 +81,13 @@
   left: 0;
   transition: all 0.3s ease;
   z-index: 1050;
+  font-family: 'charm', sans-serif;
+
 }
 #main-content {
   transition: all 0.3s ease;
   margin-left: 240px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 @media (max-width: 768px) {
   .sidebar {
@@ -102,6 +102,10 @@
   }
   #main-content {
     margin-left: 0;
+    box-shadow: none;
+  }
+  .navbar-toggler {
+    margin-left: 250px;
   }
 }
 .sidebar .nav-link {

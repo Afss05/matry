@@ -70,7 +70,7 @@ $horurl=base_url()."userprofile/user_horsphoto_delete/".$this->chsslibrary->enco
 			</div>
 
 			<div class="wrapper wrapper-content " id="mydata" style="overflow: scroll; height: 500px; background: transparent;">
-			<!-- <div class="wrapper wrapper-content" id="mydata" style="display: none;"> -->
+				<!-- <div class="wrapper wrapper-content" id="mydata" style="display: none;"> -->
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="ibox ">
@@ -144,7 +144,7 @@ $horurl=base_url()."userprofile/user_horsphoto_delete/".$this->chsslibrary->enco
 												<tr>
 													<td>Reg.No</td>
 													<td>
-														<?php echo $item->MemberCode; ?>
+														<?php echo $item->Email; ?>
 													</td>
 												</tr>
 
