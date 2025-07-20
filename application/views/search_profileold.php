@@ -13,367 +13,78 @@ $id=$item->Id;
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- css file -->
+
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets_index/css/colors/default.css">
+
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets_index/css/bootstrap.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets_index/css/style.css">
+<!-- Responsive stylesheet -->
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets_index/css/responsive.css">
 <!-- Title -->
 <title></title>
 <!-- Favicon -->
 <link href="images/favicon.ico" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
 <link href="images/favicon.ico" sizes="128x128" rel="shortcut icon" />
 
-<!-- css file -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
-
-
-<link href="https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-
-
-<link rel="stylesheet" href="<?php echo base_url(); ?>main/css/style.css">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 	
+<link href="https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 	
 	
 
 </head>
 <body>
-	<?php echo $topmenu ?>
-<div class="wrapper" style="background: #FEFBF0;">
+<div class="wrapper">
 	<!-- <div id="preloader" class="preloader">
 		<div id="pre" class="preloader_container"><div class="preloader_disabler btn btn-default">Disable Preloader</div></div>
-	</div> -->
-
-
-	<style>
-	.profile-fixed-left {
-		position: sticky;
-		top: 80px;
-	}
-	.card-body h5, h4 {
-		font-family: 'charm', cursive;
-	}
-	body {
-		font-family: 'Poppins', sans-serif;
-	}
-	@media (max-width: 768px) {
-		.profile-fixed-left {
-			position: static !important;
-			margin-bottom: 20px;
-		}
-	}
-	@media (max-width: 991px) {
-		.profile-fixed-left {
-			position: static;
-			top: auto;
-			margin-bottom: 20px;
-		}
-	}
-	/* .profile-scroll-right {
-		max-height: calc(100vh - 120px);
-		overflow-y: auto;
-		padding-right: 10px;
-	} */
-	</style>
-	<div class="container py-4">
-		<div class="row">
-			<!-- Left Side (Fixed) -->
-			<div class="col-lg-4 col-md-4 profile-fixed-left d-flex flex-column align-items-center"
-				style="position: fixed; top: 200px; left: 20px; z-index: 1030;">
-
-				<!-- Profile Image Box -->
-				<div class="card mb-3 shadow-sm" style="width: 400px; height: 400px; overflow: hidden;">
-					<?php
-						$profileImg = isset($profile_image[0]->FilePath)
-							? base_url() . 'assets/profileimages/' . $profile_image[0]->FilePath
-							: base_url() . 'assets/profileimages/defaultimage.jpg';
-					?>
-					<img src="<?php echo $profileImg; ?>" alt="Profile Image"
-						class="img-fluid h-100 w-100 object-fit-cover rounded">
-				</div>
-
-				<!-- Horoscope Box -->
-				<!-- <div class="card shadow-sm text-center" style="width: 200px; height: 200px;">
-					<div class="card-body d-flex flex-column justify-content-center align-items-center h-100">
-						<h6 class="mb-2">
-							<i class="fa fa-star text-warning"></i> Horoscope
-						</h6>
-						<?php if (!empty($horoscope_details)) {
-							foreach ($horoscope_details as $row) {
-								echo '<img src="' . base_url() . 'assets/profileimages/' . $row->FilePath . '" alt="Horoscope"
-									class="img-fluid rounded mb-2" style="max-height: 120px;">';
-							}
-						} else {
-							echo '<span class="text-muted">No Horoscope Uploaded</span>';
-						} ?>
-					</div>
-				</div> -->
-			</div>
-
-			<!-- Right Side (Scrollable) -->
-			<div class="col-lg-8 col-md-8 offset-lg-4 offset-md-4 profile-scroll-right" >
-				<div class="profile-scroll-right">
-					<div class=" border-bottom pb-5">
-						<div class="card-body">
-							<!-- Name and Status -->
-							<div class="d-flex align-items-center flex-wrap gap-2 mb-3" style="font-family: 'charm', cursive;">
-								<h2 class="mb-0 flex-grow-1 text-dark fw-bold" ><?php echo htmlspecialchars($item->Name); ?></h2>
-								
-								<!-- Viewers -->
-								<span class="badge bg-warning text-dark px-3 py-2 rounded-pill">
-									<i class="fa fa-eye"></i> 100 viewers
-								</span>
-
-								<!-- Online/Verified Status -->
-								<?php
-									$verified = isset($item->Verified) && $item->Verified == '1';
-									$badgeClass = $verified ? 'bg-success' : 'bg-danger';
-									$badgeText = $verified ? 'verified' : 'Not verified';
-								?>
-								<span class="badge <?php echo $badgeClass; ?> text-white px-3 py-2 rounded-pill">
-									<i class="fa fa-check-circle"></i> <?php echo $badgeText; ?>
-								</span>
-							</div>
-
-							<!-- Info Grid Boxes -->
-							<div class="d-flex justify-content-between text-center flex-wrap gap-3 mb-4">
-								<!-- City -->
-								<div class="border rounded p-3 flex-fill" style="min-width:120px;">
-									<img src="<?php echo base_url(); ?>main/pro-city.png" width="32" class="mb-2" alt="City Icon">
-									<h6 class="fw-bold mb-0 text-uppercase"><?php echo $this->chsslibrary->getFieldVal(TBL__PREFIX2."citymaster", "CityName", "Id=".$item->CityId); ?></h6>
-									<small class="text-muted">CITY</small>
-								</div>
-								<!-- Age -->
-								<div class="border rounded p-3 flex-fill" style="min-width:120px;">
-									<img src="<?php echo base_url(); ?>main/pro-age.png" width="32" class="mb-2" alt="Age Icon">
-									<h6 class="fw-bold mb-0"><?php echo $item->Age; ?></h6>
-									<small class="text-muted">AGE</small>
-								</div>
-								<!-- Height -->
-								<div class="border rounded p-3 flex-fill" style="min-width:120px;">
-									<img src="<?php echo base_url(); ?>main/height.png" width="32" class="mb-2" alt="Height Icon">
-									<h6 class="fw-bold mb-0"><?php echo $item->Height; ?></h6>
-									<small class="text-muted">HEIGHT</small>
-								</div>
-								<!-- Job -->
-								<div class="border rounded p-3 flex-fill" style="min-width:120px;">
-									<img src="<?php echo base_url(); ?>main/job.png" width="32" class="mb-2" alt="Job Icon">
-									<h6 class="fw-bold mb-0 text-uppercase"><?php echo $item->Occupation; ?></h6>
-									<small class="text-muted">JOB</small>
-								</div>
-							</div>
-
-							<!-- About Me Section -->
-							<div>
-								<h5 class="text-uppercase fw-bold mb-2 text-dark"><i class="fa fa-user-circle text-primary me-2"></i>About</h5>
-								<p class="mb-0 text-muted">
-									<?php
-									echo !empty($item->AboutMe)
-										? nl2br(htmlspecialchars($item->AboutMe))
-										: '<span class="text-muted">No description provided.</span>';
-									?>
-								</p>
-							</div>
-						</div>
-					</div>
-
-					<!-- Religion Details -->
-					<div class="border-bottom pb-5 mt-3">
-						<div class="card-body">
-							<h4 class="mb-3 fw-bold"><i class="fa fa-heart text-danger"></i> Religion Details</h4>
-							<div class="row g-3 mt-2">
-								<div class="col-md-3"><strong><i class="fa-solid fa-greater-than"></i> Religion:</strong></div>
-								<div class="col-md-3"><?php echo $this->chsslibrary->getFieldVal(TBL__PREFIX2."religion", "Religion", "Id=".$item->ReligionId); ?></div>
-								<div class="col-md-3"><strong><i class="fa-solid fa-greater-than"></i> Caste:</strong></div>
-								<div class="col-md-3"><?php echo $this->chsslibrary->getFieldVal(TBL__PREFIX2."caste", "CasteName", "Id=".$item->CastName); ?></div>
-								<div class="col-md-3"><strong><i class="fa-solid fa-greater-than"></i> Mother Tongue:</strong></div>
-								<div class="col-md-3"><?php echo $item->MotherTongue; ?></div>
-								<div class="col-md-3"><strong><i class="fa-solid fa-greater-than"></i> Subcaste:</strong></div>
-								<div class="col-md-3"><?php echo $item->SubCaste; ?></div>
-								<div class="col-md-3"><strong><i class="fa-solid fa-greater-than"></i> Dosham:</strong></div>
-								<div class="col-md-3">
-									<?php
-										if($item->HDossam=="1"){ echo "No"; }
-										elseif($item->HDossam=="2"){ echo "Yes"; }
-										elseif($item->HDossam=="3"){ echo "Don't know"; }
-										else { echo "-"; }
-									?>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Professional Details -->
-					<div class="border-bottom pb-5 mt-3">
-						<div class="card-body">
-							<h4 class="mb-3 fw-bold"><i class="fa fa-graduation-cap text-success"></i> Professional Details</h4>
-							<div class="row g-3 mt-2">
-								<div class="col-md-3"><strong><i class="fa-solid fa-greater-than"></i> Qualification:</strong></div>
-								<div class="col-md-3"><?php echo $item->Qualification; ?></div>
-								<div class="col-md-3"><strong><i class="fa-solid fa-greater-than"></i> Employed In:</strong></div>
-								<div class="col-md-3">
-									<?php
-										$emp = $item->UserEmployed;
-										echo ($emp=="1"?"Private Company":($emp=="2"?"Government/Public":($emp=="3"?"Defense/Civil":($emp=="4"?"Business/Self":"Not Working"))));
-									?>
-								</div>
-								<div class="col-md-3"><strong><i class="fa-solid fa-greater-than"></i> Employee:</strong></div>
-								<div class="col-md-3"><?php echo $item->Occupation; ?></div>
-								<div class="col-md-3"><strong><i class="fa-solid fa-greater-than"></i> Job Location:</strong></div>
-								<div class="col-md-3"><?php echo $item->UserPlaceOfJob; ?></div>
-								<div class="col-md-3"><strong><i class="fa-solid fa-greater-than"></i> Annual Income:</strong></div>
-								<div class="col-md-3">
-									<?php
-										$inc = $item->MonthlyIncome;
-										$incomeArr = [
-											"3"=>"0 - 1 Lakhs","4"=>"1 - 2 Lakhs","5"=>"2 - 3 Lakhs","6"=>"3 - 4 Lakhs","7"=>"4 - 5 Lakhs",
-											"8"=>"5 - 6 Lakhs","9"=>"6 - 7 Lakhs","10"=>"7 - 8 Lakhs","11"=>"8 - 9 Lakhs","12"=>"9 - 10 Lakhs",
-											"13"=>"10 - 12 Lakhs","14"=>"12 - 14 Lakhs","15"=>"14 - 16 Lakhs","16"=>"16 - 18 Lakhs","17"=>"18 - 20 Lakhs",
-											"18"=>"20 - 25 Lakhs","19"=>"25 - 30 Lakhs","20"=>"30 - 35 Lakhs","21"=>"35 - 40 Lakhs","22"=>"40 - 45 Lakhs",
-											"23"=>"45 - 50 Lakhs","24"=>"50 - 60 Lakhs","25"=>"60 - 70 Lakhs","26"=>"70 - 80 Lakhs","27"=>"80 - 90 Lakhs",
-											"28"=>"90 Lakhs - 1 Crore","29"=>"1 Crore & Above"
-										];
-										echo isset($incomeArr[$inc]) ? $incomeArr[$inc] : "-";
-									?>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Contact Info -->
-					<div class="border-bottom pb-5 mt-3">
-						<div class="card-body">
-							<h4 class="fw-bold text-uppercase mb-4 text-dark">Contact Info</h4>
-
-							<!-- Phone -->
-							<div class="d-flex align-items-start mb-3">
-								<div class="me-3">
-									<div class="border rounded-circle d-flex align-items-center justify-content-center" style="width:40px; height:40px;">
-										<i class="fa fa-mobile text-primary"></i>
-									</div>
-								</div>
-								<div>
-									<strong>Phone:</strong> <?php echo htmlspecialchars($item->ContactNumber); ?>
-								</div>
-							</div>
-
-							<!-- Alt Phone -->
-							<div class="d-flex align-items-start mb-3">
-								<div class="me-3">
-									<div class="border rounded-circle d-flex align-items-center justify-content-center" style="width:40px; height:40px;">
-										<i class="fa fa-phone-alt text-secondary"></i>
-									</div>
-								</div>
-								<div>
-									<strong>Alt Phone:</strong> <?php echo htmlspecialchars($item->AlternativeNumber); ?>
-								</div>
-							</div>
-
-							<!-- Email -->
-							<div class="d-flex align-items-start mb-3">
-								<div class="me-3">
-									<div class="border rounded-circle d-flex align-items-center justify-content-center" style="width:40px; height:40px;">
-										<i class="fa fa-envelope text-success"></i>
-									</div>
-								</div>
-								<div>
-									<strong>Email:</strong> <?php echo htmlspecialchars($item->Email); ?>
-								</div>
-							</div>
-
-							<!-- Address -->
-							<div class="d-flex align-items-start">
-								<div class="me-3">
-									<div class="border rounded-circle d-flex align-items-center justify-content-center" style="width:40px; height:40px;">
-										<i class="fa fa-map-marker text-danger"></i>
-									</div>
-								</div>
-								<div>
-									<strong>Address:</strong> <?php echo htmlspecialchars($item->PresentAddress); ?>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Personal Info -->
-					<div class="border-bottom pb-5 mt-3">
-						<div class="card-body">
-							<h4 class="mb-3 fw-bold"><i class="fa fa-info-circle text-secondary"></i> Personal Info</h4>
-							<div class="row row-cols-1 row-cols-md-2 mt-3">
-								<!-- Left Column -->
-								<div class="d-flex flex-column gap-3 mt-2">
-									<div><i class="fa fa-angle-right me-2 text-dark"></i><strong>Name:</strong> <?php echo htmlspecialchars($item->ProfileFor); ?></div>
-									<div><i class="fa fa-angle-right me-2 text-dark"></i><strong>Gender:</strong> <?php echo ($item->Gender == "M" ? "Male" : "Female"); ?></div>
-									<div><i class="fa fa-angle-right me-2 text-dark"></i><strong>Date of Birth:</strong> <?php echo $this->chsslibrary->returnindian_date($item->DOB); ?></div>
-									<div><i class="fa fa-angle-right me-2 text-dark"></i><strong>Marital Status:</strong> 
-										<?php
-											$ms = $item->MaritalStatus;
-											echo ($ms == "1" ? "Unmarried" : ($ms == "2" ? "Married" : ($ms == "3" ? "Widow/Widower" : ($ms == "4" ? "Divorce" : "-"))));
-										?>
-									</div>
-									<div><i class="fa fa-angle-right me-2 text-dark"></i><strong>Disability:</strong> <?php echo htmlspecialchars($item->Disability); ?></div>
-									<div><i class="fa fa-angle-right me-2 text-dark"></i><strong>Rasi:</strong> <?php echo $this->chsslibrary->getFieldVal(TBL__PREFIX2."rasi", "RasiName", "Id=".$item->Rasi); ?></div>
-									<div><i class="fa fa-angle-right me-2 text-dark"></i><strong>Star:</strong> <?php echo $this->chsslibrary->getFieldVal(TBL__PREFIX2."star", "StarName", "Id=".$item->Star); ?></div>
-									<div><i class="fa fa-angle-right me-2 text-dark"></i><strong>State:</strong> <?php echo $this->chsslibrary->getFieldVal(TBL__PREFIX2."statemaster", "StateName", "Id=".$item->StateId); ?></div>
-									<div><i class="fa fa-angle-right me-2 text-dark"></i><strong>City:</strong> <?php echo $this->chsslibrary->getFieldVal(TBL__PREFIX2."citymaster", "CityName", "Id=".$item->CityId); ?></div>
-								</div>
-
-								<!-- Right Column -->
-								<div class="d-flex flex-column gap-3 mt-2">
-									<div><i class="fa fa-angle-right me-2 text-dark"></i><strong>Father Name:</strong> <?php echo htmlspecialchars($item->FatherName); ?></div>
-									<div><i class="fa fa-angle-right me-2 text-dark"></i><strong>Mother Name:</strong> <?php echo htmlspecialchars($item->MotherName); ?></div>
-									<div><i class="fa fa-angle-right me-2 text-dark"></i><strong>No. of Brothers:</strong> <?php echo htmlspecialchars($item->NoOfBrothers); ?></div>
-									<div><i class="fa fa-angle-right me-2 text-dark"></i><strong>No. of Sisters:</strong> <?php echo htmlspecialchars($item->NoOfSisters); ?></div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Partner Expectation -->
-					<div class="border-bottom pb-5 mt-3">
-						<div class="card-body">
-							<h4 class="mb-3 fw-bold"><i class="fa fa-users text-warning"></i> Partner Expectation</h4>
-							<div class="row row-cols-1 row-cols-md-2 g-3 mt-3">
-								<div class="d-flex flex-column gap-3 mt-2">
-									<div><i class="fa fa-angle-right me-2 text-dark"></i><strong>Qualification:</strong> <?php echo htmlspecialchars($item->PQualification); ?></div>
-									<div><i class="fa fa-angle-right me-2 text-dark"></i><strong>Employed In:</strong> 
-										<?php
-											$pjob = $item->PJob;
-											echo ($pjob == "1" ? "Private Company" : ($pjob == "2" ? "Government/Public" : ($pjob == "3" ? "Defense/Civil" : ($pjob == "4" ? "Business/Self" : "Not Working"))));
-										?>
-									</div>
-									<div><i class="fa fa-angle-right me-2 text-dark"></i><strong>Occupation:</strong> <?php echo htmlspecialchars($item->POccupation); ?></div>
-									<div><i class="fa fa-angle-right me-2 text-dark"></i><strong>Income:</strong> 
-										<?php
-											$pinc = $item->PIncome;
-											echo isset($incomeArr[$pinc]) ? $incomeArr[$pinc] : "-";
-										?>
-									</div>
-									<div><i class="fa fa-angle-right me-2 text-dark"></i><strong>Caste:</strong> 
-										<?php echo $this->chsslibrary->getFieldVal(TBL__PREFIX2."caste", "CasteName", "Id=".$item->PCaste); ?>
-									</div>
-								</div>
-								<div class="d-flex flex-column gap-3 mt-2">
-									<div><i class="fa fa-angle-right me-2 text-dark"></i><strong>Marital Status:</strong> 
-										<?php echo str_replace("Doesnt", "Doesn't", $item->PMaritalStatus); ?>
-									</div>
-									<div><i class="fa fa-angle-right me-2 text-dark"></i><strong>Age:</strong> <?php echo $item->PFromAge . ' - ' . $item->PToAge; ?></div>
-									<div><i class="fa fa-angle-right me-2 text-dark"></i><strong>Job Request:</strong> <?php echo htmlspecialchars($item->PJobRequest); ?></div>
-									<div><i class="fa fa-angle-right me-2 text-dark"></i><strong>Diet:</strong> 
-										<?php echo str_replace("Doesnt", "Doesn't", $item->PDiet); ?>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>
-	
+	 Header Styles -->
 
+	<header class="header-nav transparent">
+		<div class="container">
+		    <!-- Start Navigation -->
+		    <nav class="navbar navbar-default navbar-fixed  no-background bootsnav">
+		        <div class="container">
+		            <!-- Start Header Navigation -->
+		            <div class="navbar-header">
+		                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+		                    <i class="fa fa-bars"></i>
+		                </button>
+		                <a class="navbar-brand ulockd-main-logo2" href="<?php echo base_url(); ?>">
+		                    <img src="<?php echo base_url(); ?>assets_index/images/header-logo2.png" class="logo logo-display hidden-md" alt="header-logo.png">
+		                    <img src="<?php echo base_url(); ?>assets_index/images/header-logo2.png" class="logo logo-scrolled" alt="">
+		                </a>
+		            </div>
+		            <!-- End Header Navigation -->
+
+		            <!-- Collect the nav links, forms, and other content for toggling -->
+					<?php echo $topmenu; ?>
+				 </div>
+		    </nav>
+		    <!-- End Navigation -->
+		</div>
+	</header>
+	
+	
 	<!-- Our Shop -->
 	<section class="ulockd-shop">
 		<div class="container">
 			
 			<div class="row">
 				<div class="col-md-12 ">
-    
+				
+<?php if($this->session->flashdata('message')){     
+?>    
+<div class="alert alert-success success">
+<?php echo $this->session->flashdata('message') ?>                   
+</div>
+<?php } ?>    
 
 
 				
@@ -416,6 +127,10 @@ color: #0782ec;
 <td >Name</td>
 <td ><?php echo $item->Name; ?></td>
 </tr>
+<tr>
+<td > Profile Status</td>
+<td ><?php echo (($item->verified_status=='1'))?'Verified':'Not Verified'; ?></td>
+</tr>
 <?php  
 
 
@@ -445,13 +160,6 @@ $alredyinsert=$this->Admin_model->checkinsert_memberid_viewid($userid,$view_id);
 <td>Email</td>
 
 <?php 
-
-//print_r($subscribedplan);
-if(count($subscribedplan)>0){?>
-<td><?php echo $item->Email; ?></td>
-
-<?php }else{ ?>
-<?php 
 if(count($alredyinsert)>0){ ?>
 
 <td><?php echo $item->Email; ?></td>
@@ -463,10 +171,6 @@ if(count($alredyinsert)>0){ ?>
 <td  ><span id="email"><img src="<?php echo base_url(); ?>assets/profileimages/view-contact-number.gif" /> &nbsp;| &nbsp;<a href="javascript:void(0);"  onclick="showMobile(<?php echo $item->Id; ?>)"  style="color: #ff0066;"><i class="fa fa-lock"></i></a></span></td>
 
 <?php }   ?>
-
-<?php }?>
-
-
 
 
 
@@ -493,8 +197,18 @@ echo $this->chsslibrary->returnindian_date($item->DOB);
 </tr>
 <tr>
 <td >Age</td>
-<td ><?php if($item->Age!="" && $item->Age!="0"){
-echo $item->Age; }?></td>
+<td >
+<!-- <?php if($item->Age!="" && $item->Age!="0"){
+echo $item->Age; }?> -->
+<?php
+if ($item->DOB !== "" && $item->DOB !== "0") {
+	$dob = new DateTime($item->DOB);
+	$currentDate = new DateTime();
+	$age = $dob->diff($currentDate)->y;
+	echo $age;
+}
+?>
+</td>
 </tr>
 
 
@@ -697,14 +411,11 @@ if($MonthlyIncome=="29"){ echo "1 Crore & Above"; }
 <tr>
 <td >Email</td>
 
-<?php if(count($subscribedplan)>0){?>
-<td><?php echo $item->Email; ?></td>
 
-<?php }else{?>
 <?php 
 if(count($alredyinsert)>0){ ?>
 
-
+<td><?php echo $item->Email; ?></td>
 
 <?php }elseif($MProfileCounts=="") { ?>
 <td onclick="alert('Be a paid member to view contact details.');"><span><img src="<?php echo base_url(); ?>assets/profileimages/view-contact-number.gif" /> &nbsp;| &nbsp;<a href="javascript:void(0);" style="color: #ff0066;"><i class="fa fa-lock"></i></a></span></td>
@@ -714,10 +425,6 @@ if(count($alredyinsert)>0){ ?>
 
 <?php }   ?>
 
-<?php }?>
-
-
-
 </tr>
 
 
@@ -725,13 +432,7 @@ if(count($alredyinsert)>0){ ?>
 <tr>
 <td >Contact Number </td>
 
-<?php if(count($subscribedplan)>0){?>
-<td><?php if($item->ContactNumber!="" && $item->ContactNumber!="0"){
 
-echo $item->ContactNumber;
-}?></td>
-
-<?php }else{?>
 <?php
 if(count($alredyinsert)>0){
 ?>
@@ -749,10 +450,6 @@ echo $item->ContactNumber;
 
 <?php }   ?>
 
-<?php }?>
-
-
-
 
 
 </tr>
@@ -760,14 +457,6 @@ echo $item->ContactNumber;
 <tr>
 <td >Alternative Contact Number </td>
 
-<?php if(count($subscribedplan)>0){?>
-<td>
-<?php if($item->AlternativeNumber!="" && $item->AlternativeNumber!="0"){
-echo $item->AlternativeNumber;
-}?>
-</td>
-
-<?php }else{?>
 <?php 
 if(count($alredyinsert)>0){
 ?>
@@ -786,7 +475,10 @@ echo $item->AlternativeNumber;
 
 <?php }   ?>
 
-<?php }?>
+
+
+
+
 
 
 
@@ -819,17 +511,16 @@ echo $statid=$this->chsslibrary->getFieldVal(TBL__PREFIX2."citymaster", "CityNam
 
 <tr>
 <td >Present Address</td>
-<?php if(count($subscribedplan)>0){?>
+
+
+
+<?php 
+if(count($alredyinsert)>0){ ?>
 <td >
 <?php if($item->PresentAddress!="" && $item->PresentAddress!="0"){
 echo $item->PresentAddress;
 }?>
 </td>
-
-<?php }else{?>
-<?php 
-if(count($alredyinsert)>0){ ?>
-
 <?php }elseif($MProfileCounts=="") { ?>
 <td onclick="alert('Be a paid member to view contact details.');"><span><img src="<?php echo base_url(); ?>assets/profileimages/view-contact-number.gif" /> &nbsp;| &nbsp;<a href="javascript:void(0);" style="color: #ff0066;"><i class="fa fa-lock"></i></a></span></td>
 <?php }else{  ?>
@@ -838,7 +529,13 @@ if(count($alredyinsert)>0){ ?>
 
 <?php }   ?>
 
-<?php }?>
+
+
+
+
+
+
+
 
 
 
@@ -973,13 +670,7 @@ $FilePath=$row->FilePath;
   </div>
 </div>
 
-<?php if(count($subscribedplan)>0){?>
 
-
-<?php }else{?>
-
-
-<?php }?>
 
 <?php 
 if(count($alredyinsert)>0){
