@@ -54,12 +54,12 @@ body {
 </head>
 <body>
 
-    <div id="main-content" class="content-wrapper mb-4" >
+    <div id="main-content" class="content-wrapper" >
         <div class="div responsive-margin" style="background-color: #fff;">
             <?php echo $leftmenu; ?>
         </div>
 
-            <div class="wrapper wrapper-content mb-2" id="mydata" >
+            <div class="wrapper wrapper-content " id="mydata" >
 				<!-- <div class="wrapper wrapper-content" id="mydata" style="display: none;"> -->
 				<div class="row">
                     <div class="col-lg-12" style="">
@@ -68,7 +68,7 @@ body {
                                 <div class="card shadow-sm border-0 profile-card">
                                     <div class="row g-0 align-items-center">
                                         <!-- Left Side -->
-                                        <div class="col-md-5 d-flex align-items-center p-4 flex-wrap">
+                                        <div class="col-md-5 d-flex align-items-center p-4 flex-wrap" >
                                             <img src="<?php echo base_url(); ?>assets_index/images/about/bride.jpg" 
                                                 alt="Profile Photo" 
                                                 class="me-3 img-fluid rounded-circle" 
