@@ -1,6 +1,6 @@
 <!-- Navbar Toggle for Mobile -->
 <nav class="navbar navbar-light bg-white  d-md-none">
-  <div class="container-fluid">
+  <div class="container-fluid pt-2">
     <button class="navbar-toggler" type="button" id="toggleSidebarMobile">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -61,8 +61,8 @@
 </aside>
 
 <!-- Main Content -->
-<div id="main-content" class="content-wrapper p-3 " style="">
-  <button id="toggleSidebarDesktop" class="btn btn-primary mb-3 d-none d-md-inline-block">
+<div id="main-content" class="content-wrapper shadow-sm p-3 " style="">
+  <button id="toggleSidebarDesktop" class="btn btn-primary  d-none d-md-inline-block">
     <i class="fa-solid fa-bars"></i>
   </button>
 
@@ -87,7 +87,7 @@
 #main-content {
   transition: all 0.3s ease;
   margin-left: 240px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 0 10px rgba(255, 0, 0, 0.1); */
 }
 @media (max-width: 768px) {
   .sidebar {
