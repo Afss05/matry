@@ -36,7 +36,7 @@ $id=$item->Id;
 	
 
 </head>
-<body>
+<body >
 	<?php echo $topmenu ?>
 	<div class="wrapper" style="background: #FEFBF0;">
 		<!-- <div id="preloader" class="preloader">
@@ -75,7 +75,7 @@ $id=$item->Id;
 				margin-top: -200px;
 			}
 		</style>
-		<div class="container py-4">
+		<div class="container py-4" id="mobile">
 			<div class="row">
 				<!-- Left Side (Fixed) -->
 				<div class="col-lg-4 col-md-4 profile-fixed-left d-flex flex-column align-items-center"
@@ -280,155 +280,153 @@ $id=$item->Id;
 								<h4 class="fw-bold text-uppercase mb-4 text-dark">Contact Info</h4>
 
 								<style>
-    .blurred-text {
-        filter: blur(4px);
-        display: inline-block;
-        cursor: pointer;
-        color: #666;
-    }
-</style>
+									.blurred-text {
+										filter: blur(4px);
+										display: inline-block;
+										cursor: pointer;
+										color: #666;
+									}
+								</style>
 
-<!-- Phone -->
-<div class="d-flex align-items-start mb-3">
-	<div class="me-3">
-		<div class="border rounded-circle d-flex align-items-center justify-content-center" style="width:40px; height:40px;">
-			<i class="fa fa-mobile text-primary"></i>
-		</div>
-	</div>
-	<div>
-		<strong>Phone:</strong> 
-		<?php if(count($alredyinsert) > 0): ?>
-			<?php 
-			if($item->ContactNumber != "" && $item->ContactNumber != "0") {
-				echo htmlspecialchars($item->ContactNumber);
-			}
-			?>
-		<?php elseif($MProfileCounts == ""): ?>
-			<span onclick="alert('Be a paid member to view contact details.');" style="cursor: pointer;">
-				<img src="<?php echo base_url(); ?>assets/profileimages/view-contact-number.gif" alt="View Contact" style="cursor: pointer; filter: blur(5px);" />
-				&nbsp;| &nbsp;
-				<a href="javascript:void(0);" style="color: #ff0066;">
-					<i class="fa fa-lock"></i>
-				</a>
-			</span>
-		<?php else: ?>
-			<span id="email">
-				<img src="<?php echo base_url(); ?>assets/profileimages/view-contact-number.gif" alt="View Contact" style="cursor: pointer; filter: blur(5px);" />
-				&nbsp;| &nbsp;
-				<a href="javascript:void(0);" onclick="showMobile(<?php echo $item->Id; ?>)" style="color: #ff0066;">
-					<i class="fa fa-lock"></i>
-				</a>
-			</span>
-		<?php endif; ?>
-	</div>
-</div>
+								<!-- Phone -->
+								<div class="d-flex align-items-start mb-3">
+									<div class="me-3">
+										<div class="border rounded-circle d-flex align-items-center justify-content-center" style="width:40px; height:40px;">
+											<i class="fa fa-mobile text-primary"></i>
+										</div>
+									</div>
+									<div>
+										<strong>Phone:</strong> 
+										<?php if(count($alredyinsert) > 0): ?>
+											<?php 
+											if($item->ContactNumber != "" && $item->ContactNumber != "0") {
+												echo htmlspecialchars($item->ContactNumber);
+											}
+											?>
+										<?php elseif($MProfileCounts == ""): ?>
+											<span onclick="alert('Be a paid member to view contact details.');" style="cursor: pointer;">
+												<img src="<?php echo base_url(); ?>assets/profileimages/view-contact-number.gif" alt="View Contact" style="cursor: pointer; filter: blur(5px);" />
+												&nbsp;| &nbsp;
+												<a href="javascript:void(0);" style="color: #ff0066;">
+													<i class="fa fa-lock"></i>
+												</a>
+											</span>
+										<?php else: ?>
+											<span id="email">
+												<img src="<?php echo base_url(); ?>assets/profileimages/view-contact-number.gif" alt="View Contact" style="cursor: pointer; filter: blur(5px);" />
+												&nbsp;| &nbsp;
+												<a href="javascript:void(0);" onclick="showMobile(<?php echo $item->Id; ?>)" style="color: #ff0066;">
+													<i class="fa fa-lock"></i>
+												</a>
+											</span>
+										<?php endif; ?>
+									</div>
+								</div>
 
-<!-- Alt Phone -->
-<div class="d-flex align-items-start mb-3">
-	<div class="me-3">
-		<div class="border rounded-circle d-flex align-items-center justify-content-center" style="width:40px; height:40px;">
-			<i class="fa fa-phone-alt text-secondary"></i>
-		</div>
-	</div>
-	<div>
-		<strong>Alt Phone:</strong> 
-		<?php if(count($alredyinsert) > 0): ?>
-			<?php 
-			if($item->AlternativeNumber != "" && $item->AlternativeNumber != "0") {
-				echo htmlspecialchars($item->AlternativeNumber);
-			}
-			?>
-		<?php elseif($MProfileCounts == ""): ?>
-			<span onclick="alert('Be a paid member to view contact details.');" style="cursor: pointer;">
-				<img src="<?php echo base_url(); ?>assets/profileimages/view-contact-number.gif" alt="View Contact" style="cursor: pointer; filter: blur(5px);" />
-				&nbsp;| &nbsp;
-				<a href="javascript:void(0);" style="color: #ff0066;">
-					<i class="fa fa-lock"></i>
-				</a>
-			</span>
-		<?php else: ?>
-			<span id="email">
-				<img src="<?php echo base_url(); ?>assets/profileimages/view-contact-number.gif" alt="View Contact" style="cursor: pointer; filter: blur(5px);" />
-				&nbsp;| &nbsp;
-				<a href="javascript:void(0);" onclick="showAltPhone(<?php echo $item->Id; ?>)" style="color: #ff0066;">
-					<i class="fa fa-lock"></i>
-				</a>
-			</span>
-		<?php endif; ?>
-	</div>
-</div>
+								<!-- Alt Phone -->
+								<div class="d-flex align-items-start mb-3">
+									<div class="me-3">
+										<div class="border rounded-circle d-flex align-items-center justify-content-center" style="width:40px; height:40px;">
+											<i class="fa fa-phone-alt text-secondary"></i>
+										</div>
+									</div>
+									<div>
+										<strong>Alt Phone:</strong> 
+										<?php if(count($alredyinsert) > 0): ?>
+											<?php 
+											if($item->AlternativeNumber != "" && $item->AlternativeNumber != "0") {
+												echo htmlspecialchars($item->AlternativeNumber);
+											}
+											?>
+										<?php elseif($MProfileCounts == ""): ?>
+											<span onclick="alert('Be a paid member to view contact details.');" style="cursor: pointer;">
+												<img src="<?php echo base_url(); ?>assets/profileimages/view-contact-number.gif" alt="View Contact" style="cursor: pointer; filter: blur(5px);" />
+												&nbsp;| &nbsp;
+												<a href="javascript:void(0);" style="color: #ff0066;">
+													<i class="fa fa-lock"></i>
+												</a>
+											</span>
+										<?php else: ?>
+											<span id="email">
+												<img src="<?php echo base_url(); ?>assets/profileimages/view-contact-number.gif" alt="View Contact" style="cursor: pointer; filter: blur(5px);" />
+												&nbsp;| &nbsp;
+												<a href="javascript:void(0);" onclick="showAltPhone(<?php echo $item->Id; ?>)" style="color: #ff0066;">
+													<i class="fa fa-lock"></i>
+												</a>
+											</span>
+										<?php endif; ?>
+									</div>
+								</div>
 
-<!-- Email -->
-<div class="d-flex align-items-start mb-3">
-	<div class="me-3">
-		<div class="border rounded-circle d-flex align-items-center justify-content-center" style="width:40px; height:40px;">
-			<i class="fa fa-envelope text-success"></i>
-		</div>
-	</div>
-	<div>
-		<strong>Email:</strong> 
-		<?php if(count($alredyinsert) > 0): ?>
-			<?php 
-			if(!empty($item->Email)) {
-				echo htmlspecialchars($item->Email);
-			}
-			?>
-		<?php elseif($MProfileCounts == ""): ?>
-			<span onclick="alert('Be a paid member to view email.');" style="cursor: pointer;">
-				<img src="<?php echo base_url(); ?>assets/profileimages/view-contact-number.gif" alt="View Email" style="cursor: pointer; filter: blur(5px);" />
-				&nbsp;| &nbsp;
-				<a href="javascript:void(0);" style="color: #ff0066;">
-					<i class="fa fa-lock"></i>
-				</a>
-			</span>
-		<?php else: ?>
-			<span id="email-view">
-				<img src="<?php echo base_url(); ?>assets/profileimages/view-contact-number.gif" alt="View Email" style="cursor: pointer; filter: blur(5px);" />
-				&nbsp;| &nbsp;
-				<a href="javascript:void(0);" onclick="showEmail(<?php echo $item->Id; ?>)" style="color: #ff0066;">
-					<i class="fa fa-lock"></i>
-				</a>
-			</span>
-		<?php endif; ?>
-	</div>
-</div>
+								<!-- Email -->
+								<div class="d-flex align-items-start mb-3">
+									<div class="me-3">
+										<div class="border rounded-circle d-flex align-items-center justify-content-center" style="width:40px; height:40px;">
+											<i class="fa fa-envelope text-success"></i>
+										</div>
+									</div>
+									<div>
+										<strong>Email:</strong> 
+										<?php if(count($alredyinsert) > 0): ?>
+											<?php 
+											if(!empty($item->Email)) {
+												echo htmlspecialchars($item->Email);
+											}
+											?>
+										<?php elseif($MProfileCounts == ""): ?>
+											<span onclick="alert('Be a paid member to view email.');" style="cursor: pointer;">
+												<img src="<?php echo base_url(); ?>assets/profileimages/view-contact-number.gif" alt="View Email" style="cursor: pointer; filter: blur(5px);" />
+												&nbsp;| &nbsp;
+												<a href="javascript:void(0);" style="color: #ff0066;">
+													<i class="fa fa-lock"></i>
+												</a>
+											</span>
+										<?php else: ?>
+											<span id="email-view">
+												<img src="<?php echo base_url(); ?>assets/profileimages/view-contact-number.gif" alt="View Email" style="cursor: pointer; filter: blur(5px);" />
+												&nbsp;| &nbsp;
+												<a href="javascript:void(0);" onclick="showEmail(<?php echo $item->Id; ?>)" style="color: #ff0066;">
+													<i class="fa fa-lock"></i>
+												</a>
+											</span>
+										<?php endif; ?>
+									</div>
+								</div>
 
-<!-- Address -->
-<div class="d-flex align-items-start">
-	<div class="me-3">
-		<div class="border rounded-circle d-flex align-items-center justify-content-center" style="width:40px; height:40px;">
-			<i class="fa fa-map-marker text-danger"></i>
-		</div>
-	</div>
-	<div>
-		<strong>Address:</strong> 
-		<?php if(count($alredyinsert) > 0): ?>
-			<?php 
-			if(!empty($item->PresentAddress)) {
-				echo htmlspecialchars($item->PresentAddress);
-			}
-			?>
-		<?php elseif($MProfileCounts == ""): ?>
-			<span onclick="alert('Be a paid member to view address.');" style="cursor: pointer;">
-				<img src="<?php echo base_url(); ?>assets/profileimages/view-contact-number.gif" alt="View Address" style="cursor: pointer; filter: blur(5px);" />
-				&nbsp;| &nbsp;
-				<a href="javascript:void(0);" style="color: #ff0066;">
-					<i class="fa fa-lock"></i>
-				</a>
-			</span>
-		<?php else: ?>
-			<span id="address-view">
-				<img src="<?php echo base_url(); ?>assets/profileimages/view-contact-number.gif" alt="View Address" style="cursor: pointer; filter: blur(5px);" />
-				&nbsp;| &nbsp;
-				<a href="javascript:void(0);" onclick="showAddress(<?php echo $item->Id; ?>)" style="color: #ff0066;">
-					<i class="fa fa-lock"></i>
-				</a>
-			</span>
-		<?php endif; ?>
-	</div>
-</div>
-
-
+								<!-- Address -->
+								<div class="d-flex align-items-start">
+									<div class="me-3">
+										<div class="border rounded-circle d-flex align-items-center justify-content-center" style="width:40px; height:40px;">
+											<i class="fa fa-map-marker text-danger"></i>
+										</div>
+									</div>
+									<div>
+										<strong>Address:</strong> 
+										<?php if(count($alredyinsert) > 0): ?>
+											<?php 
+											if(!empty($item->PresentAddress)) {
+												echo htmlspecialchars($item->PresentAddress);
+											}
+											?>
+										<?php elseif($MProfileCounts == ""): ?>
+											<span onclick="alert('Be a paid member to view address.');" style="cursor: pointer;">
+												<img src="<?php echo base_url(); ?>assets/profileimages/view-contact-number.gif" alt="View Address" style="cursor: pointer; filter: blur(5px);" />
+												&nbsp;| &nbsp;
+												<a href="javascript:void(0);" style="color: #ff0066;">
+													<i class="fa fa-lock"></i>
+												</a>
+											</span>
+										<?php else: ?>
+											<span id="address-view">
+												<img src="<?php echo base_url(); ?>assets/profileimages/view-contact-number.gif" alt="View Address" style="cursor: pointer; filter: blur(5px);" />
+												&nbsp;| &nbsp;
+												<a href="javascript:void(0);" onclick="showAddress(<?php echo $item->Id; ?>)" style="color: #ff0066;">
+													<i class="fa fa-lock"></i>
+												</a>
+											</span>
+										<?php endif; ?>
+									</div>
+								</div>
 
 							</div>
 						</div>
@@ -507,13 +505,13 @@ $id=$item->Id;
 			</div>
 		</div>
 
-	</div>
+
 <!-- Our Footer -->
 
 <div class="div" style='z-index: 999;'>
 	<?php echo $footer; ?>
 </div>
-
+	</div>
 
 <script>
 
