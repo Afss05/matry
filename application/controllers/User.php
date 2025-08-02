@@ -71,8 +71,8 @@ class User extends CI_Controller
         $data['wedding_details']=$this->Wedding_model->getwedding_status();
 		$data['userid']="";
 		$this->data = $data;
-		// $this->template['topmenu'] = $this->load->view('home/top_menu', $this->data, true);
-		$this->template['submenu'] = $this->load->view('home/sub_menu', $this->data, true);
+		$this->template['topmenu'] = $this->load->view('home/top_menu', $this->data, true);
+		// $this->template['submenu'] = $this->load->view('home/sub_menu', $this->data, true);
 		$this->template['footer'] = $this->load->view('home/footer', $this->data, true);
 		$this->load->view('home/adverties_view', $this->template);
 
@@ -1224,9 +1224,101 @@ class User extends CI_Controller
 	}
 	
 	
-	
-	
+		 // ---------------------------------------------- 
+//    public function wishlist() {
+//     $data["member_list"] = "Management";
 
+//     $userid = $this->session->userdata('logged_in');
+//     if ($userid == "") {
+//         redirect(base_url() . 'User/login');
+//     }
+
+//     $data["userlogin_details"] = "";
+
+//     $total = $this->Admin_model->userwishlist_bymemid($userid);
+//     $totalRecords = count($total);
+
+//     $limit = 15;
+
+//     $config["base_url"] = base_url('user/');
+//     $config["total_rows"] = $totalRecords;
+//     $config["per_page"] = $limit;
+//     $config['use_page_numbers'] = TRUE;
+//     $config['page_query_string'] = TRUE;
+//     $config['enable_query_strings'] = TRUE;
+//     $config['num_links'] = 2;
+//     $config['cur_tag_open'] = '&nbsp;<li class="active"><a>';
+//     $config['cur_tag_close'] = '</a></li>';
+//     $config['next_link'] = 'Next';
+//     $config['prev_link'] = 'Previous';
+
+//     $this->pagination->initialize($config);
+//     $str_links = $this->pagination->create_links();
+//     $links = explode('&nbsp;', $str_links);
+
+//     $offset = 0;
+//     if (!empty($_GET['per_page'])) {
+//         $pageNo = $_GET['per_page'];
+//         $offset = ($pageNo - 1) * $limit;
+//     }
+
+//     // ✅ Get user wishlist
+//     $wishlist = $this->Admin_model->userwishlist_bymemid($userid);
+
+//     // ✅ Add user name from User_model for each wishlist item
+//     foreach ($wishlist as &$item) {
+//         $item->username = $this->User_model->getNameById($item->user_id);
+//     }
+
+//     $data['profile_details'] = $wishlist;
+//     $data['totalResult'] = $totalRecords;
+//     $data['links'] = $links;
+//     $data['caste_details'] = $this->Admin_model->getcastedetails();
+//     $data['religionlist'] = $this->Admin_model->getreligondetails();
+
+//     $this->data = $data;
+//     $this->template['leftmenu'] = $this->load->view('left_menu', $this->data, true);
+//     $this->template['menu'] = $this->load->view('menu', $this->data, true);
+//     $this->load->view('wishlist', $this->template);
+// }
+
+
+public function wishlist() {
+    $this->load->model('User_model'); // ✅ Load User_model
+
+    $userid = $this->session->userdata('logged_in');
+    if ($userid == "") {
+        redirect(base_url() . 'User/login');
+    }
+
+    $wishlist = $this->Admin_model->userwishlist_bymemid($userid);
+
+    foreach ($wishlist as &$item) {
+        $profile_image = $this->User_model->getprofileimageStatus_byid($item->Id);
+        $FilePath = "defaultimage.jpg";
+
+        if (!empty($profile_image)) {
+            foreach ($profile_image as $row) {
+                $FilePath = $row->FilePath;
+                break;
+            }
+        }
+
+        $item->profile_image = $FilePath;
+    }
+
+    $data['profile_details'] = $wishlist;
+    $data['city'] = "Chennai"; // or get from session/user info
+    $data["member_list"] = "Management";
+    $data['caste_details'] = $this->Admin_model->getcastedetails();
+    $data['religionlist'] = $this->Admin_model->getreligondetails();
+
+    $this->template['leftmenu'] = $this->load->view('left_menu', $data, true);
+    $this->template['menu'] = $this->load->view('menu', $data, true);
+    $this->load->view('wishlist', $this->template);
 }
 
+
+}
 ?>
+

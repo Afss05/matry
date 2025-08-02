@@ -167,62 +167,62 @@ if (!empty($_GET['per_page'])) {
 	
 	
 	
-	 // ---------------------------------------------- 
-    public function wishlist(){
-    $data["member_list"] = "Management";
+	//  // ---------------------------------------------- 
+    // public function wishlist(){
+    // $data["member_list"] = "Management";
     
- 	$userid = $this->session->userdata('logged_in');
-	if($userid==""  ){
-		redirect(base_url() . 'User/login');
-	}
+ 	// $userid = $this->session->userdata('logged_in');
+	// if($userid==""  ){
+	// 	redirect(base_url() . 'User/login');
+	// }
 	
-	$data["userlogin_details"]="";
-	$userid = $this->session->userdata('logged_in');
+	// $data["userlogin_details"]="";
+	// $userid = $this->session->userdata('logged_in');
 
 	
-	$total=$this->Admin_model->userwishlist_bymemid($userid);
-	$totalRecords=count($total);
+	// $total=$this->Admin_model->userwishlist_bymemid($userid);
+	// $totalRecords=count($total);
 
-	$limit = 15;
+	// $limit = 15;
 
 	         
-	$config["base_url"] = base_url('searchindex/');
+	// $config["base_url"] = base_url('searchindex/');
 	
 
-	$config["total_rows"] = $totalRecords;
-	$config["per_page"] = $limit;
-	$config['use_page_numbers'] = TRUE;
-	$config['page_query_string'] = TRUE;
-	$config['enable_query_strings'] = TRUE;
-	$config['num_links'] = 2;
-	$config['cur_tag_open'] = '&nbsp;<li class="active"><a>';
-	$config['cur_tag_close'] = '</a></li>';
-	$config['next_link'] = 'Next';
-	$config['prev_link'] = 'Previous';
-	$this->pagination->initialize($config);
-	$str_links = $this->pagination->create_links();
-	$links = explode('&nbsp;', $str_links);
+	// $config["total_rows"] = $totalRecords;
+	// $config["per_page"] = $limit;
+	// $config['use_page_numbers'] = TRUE;
+	// $config['page_query_string'] = TRUE;
+	// $config['enable_query_strings'] = TRUE;
+	// $config['num_links'] = 2;
+	// $config['cur_tag_open'] = '&nbsp;<li class="active"><a>';
+	// $config['cur_tag_close'] = '</a></li>';
+	// $config['next_link'] = 'Next';
+	// $config['prev_link'] = 'Previous';
+	// $this->pagination->initialize($config);
+	// $str_links = $this->pagination->create_links();
+	// $links = explode('&nbsp;', $str_links);
 
-	$offset = 0;
-	if (!empty($_GET['per_page'])) {
-	$pageNo = $_GET['per_page'];
-	$offset = ($pageNo - 1) * $limit;
-	} 
-	$data['profile_details'] =$this->Admin_model->userwishlist_bymemid($userid);;
+	// $offset = 0;
+	// if (!empty($_GET['per_page'])) {
+	// $pageNo = $_GET['per_page'];
+	// $offset = ($pageNo - 1) * $limit;
+	// } 
+	// $data['profile_details'] =$this->Admin_model->userwishlist_bymemid($userid);;
 	
-	$data['totalResult'] =$totalRecords;
-	$data['links'] =$links;  
-	
-	
+	// $data['totalResult'] =$totalRecords;
+	// $data['links'] =$links;  
 	
 	
-	$data['caste_details']=$this->Admin_model->getcastedetails();
-	$data['religionlist']=$this->Admin_model->getreligondetails();	
-	$this->data = $data;
-	$this->template['topmenu'] = $this->load->view('home/top_menu', $this->data, true);
-	$this->template['footer'] = $this->load->view('home/footer', $this->data, true);
-    $this->load->view('wishlist', $this->template);
-	}
+	
+	
+	// $data['caste_details']=$this->Admin_model->getcastedetails();
+	// $data['religionlist']=$this->Admin_model->getreligondetails();	
+	// $this->data = $data;
+	// $this->template['topmenu'] = $this->load->view('home/top_menu', $this->data, true);
+	// $this->template['footer'] = $this->load->view('home/footer', $this->data, true);
+    // $this->load->view('wishlist', $this->template);
+	// }
     
 	
 	

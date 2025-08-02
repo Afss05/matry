@@ -1,267 +1,132 @@
+
+
+
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- css file -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>User Dashboard</title>
+    <!-- css file -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets_index/css/colors/default.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets_index/css/bootstrap.min.css">
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets_index/css/style.css">
-<!-- Responsive stylesheet -->
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets_index/css/responsive.css">
-<!-- Title -->
-<title></title>
-<!-- Favicon -->
-<link href="images/favicon.ico" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
-<link href="images/favicon.ico" sizes="128x128" rel="shortcut icon" />
+<link href="https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
-<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-	
-	
-	
+    <style>
+        .responsive-margin {
+        margin-left: -250px !important;
+        }
 
-<style>
-.table td, .table th {
-    padding: 8px;
- 
-}
-   
-   
-  /*user css */
-.pagination1>li>a, .pagination1>li>span {
-    position: relative;
-    float: left;
-    padding: 6px 12px;
-    margin-left: 3px;
-        margin-right: 3px;
-    line-height: 1.42857143;
-    color: #fff;
-    text-decoration: none;
-    background-color: #24bec5;
+        body {
+            background-color: #FEFBF0;
+        }
 
-    border: 1px solid #ddd;
-}
-        .pagination1>a {
-    position: relative;
-    float: left;
-    padding: 6px 12px;
-    margin-left: 3px;
-    margin-right: 3px;
-    line-height: 1.42857143;
-    color: #fff;
-    text-decoration: none;
-    background-color: #24bec5;
-    border: 1px solid #ddd;
-}
-
-.pagination1>a:hover{
-background-color: #337ab7;
-    color: #fff;
- 
-       
-}
-.pagination1>li>a:hover{
-background-color: #337ab7;
-    color: #fff;
-}
-.pagination1>li.active a{
-color:#fff!important;
-background: #337ab7;
-
-
-}
-.pagination1>li a{
-
-    margin-left: 3px;
-
-    margin-right: 3px;
-
-}
-
-   
-   
-   
-   
-   
-</style>
-
+    </style>
 </head>
 <body>
-<div class="wrapper">
-	<!--<div id="preloader" class="preloader">
-		<div id="pre" class="preloader_container"><div class="preloader_disabler btn btn-default">Disable Preloader</div></div>
-	</div>
-	 Header Styles -->
 
-	<header class="header-nav transparent">
-		<div class="container">
-		    <!-- Start Navigation -->
-		    <nav class="navbar navbar-default navbar-fixed  no-background bootsnav">
-		        <div class="container">
-		            <!-- Start Header Navigation -->
-		            <div class="navbar-header">
-		                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
-		                    <i class="fa fa-bars"></i>
-		                </button>
-		                <a class="navbar-brand ulockd-main-logo2" href="<?php echo base_url(); ?>">
-		                    <img src="<?php echo base_url(); ?>assets_index/images/header-logo2.png" class="logo logo-display hidden-md" alt="header-logo.png">
-		                    <img src="<?php echo base_url(); ?>assets_index/images/header-logo2.png" class="logo logo-scrolled" alt="">
-		                </a>
-		            </div>
-		            <!-- End Header Navigation -->
+    <div id="main-content" class="content-wrapper" >
+        <div class="div responsive-margin" style="background-color: #fff;">
+            <?php echo $leftmenu; ?>
+        </div>
 
-		            <!-- Collect the nav links, forms, and other content for toggling -->
-					<?php echo $topmenu; ?>
-				 </div>
-		    </nav>
-		    <!-- End Navigation -->
-		</div>
-	</header>
-	
-	
-	<!-- Our Shop -->
-	<section class="ulockd-shop">
-		<div class="container">
-			
-			<div class="row">
-					
-				<div class="col-md-12 ">
-				
-<?php if($this->session->flashdata('message')){     
-?>    
-<div class="alert alert-success success">
-<?php echo $this->session->flashdata('message') ?>                   
-</div>
-<?php } ?>    
+            <div class="wrapper wrapper-content p-3" id="mydata" >
+				<!-- <div class="wrapper wrapper-content" id="mydata" style="display: none;"> -->
+				<div class="row">
+                    <!-- table -->
+                    <div class="col-10">
+                        <div class="table-responsive">
+                            <table class="table table-bordered align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>S.No</th>
+                                        <th>Profile</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                <?php 
+                                    $mainStar=$mainRasi="";
+                                    $i=0;$countmatch=$matchid="0" ;
+
+                                    if(isset($profile_details) && ($profile_details!="")){
+                                    foreach($profile_details as $item2){
+                                    $id=$item2->Id;
+                                    $enid=$this->chsslibrary->encoder($id);
+                                    $Name=$item2->Name;
+                                    $Age=$item2->Age;
+                                    $Qualification=$item2->Qualification;
+                                    $Occupation=$item2->Occupation;
+                                    $comStar=$item2->Star;
+                                    $comRasi=$item2->Rasi;
+                                ?>
 
 
+                                    <!-- Example Row -->
+                                    <tr>
+                                        <td><?php echo ++$i; ?></td>
+                                        <td>
+                                            <!-- Profile Card -->
+                                            <div class="card border-0 d-flex flex-row align-items-center " style=" font-family: 'Poppins', sans-serif;">
+                                                
+                                                <!-- Left: Profile Image with Badge -->
+                                                <div class="position-relative" style="min-width: 130px;">
+                                                    <?php 
+                                                        $profile_image = $this->User_model->getprofileimageStatus_byid($id);
+                                                        $FilePath = "defaultimage.jpg";
+                                                        if (isset($profile_image) && ($profile_image != "")) {
+                                                            foreach ($profile_image as $row) {
+                                                                $FilePath = $row->FilePath;
+                                                            }
+                                                        }
+                                                    ?>
+                                                    <img src="<?php echo base_url(); ?>assets/profileimages/<?php echo $FilePath; ?>" class="rounded" style="width: 110px; height: 110px; object-fit: cover;">
+                                                    
+                                                </div>
 
+                                                <!-- Right: Profile Details -->
+                                                <div class="flex-grow-1 p-3">
+                                                    <div class="fw-semibold" style="font-size: 1.1rem; color: #333;"><?php echo $Name; ?></div>
 
+                                                    <div class="d-flex flex-wrap gap-3 mb-2 text-secondary" style="font-size: 0.95rem;">
+                                                        <span><strong>City:</strong> <?php echo $city; ?></span>
+                                                        <span><strong>Age:</strong> <?php echo $Age; ?></span>
+                                                        <!-- <span><strong>Height:</strong> <?php echo $Height; ?></span> -->
+                                                        <span><strong>Qualification:</strong> <?php echo $Qualification; ?></span>
+                                                        <span><strong>Job:</strong> <?php echo $Occupation; ?></span>
+                                                    </div>
 
+                                                    <!-- <div class="text-muted mb-2" style="font-size: 0.85rem;">
+                                                        <i class="fa fa-clock me-1"></i>Request on: <?php echo date('h:i A, d F Y'); ?>
+                                                    </div> -->
 
-
-
-<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-	<div class="row" style="margin:20px;" >
-<ul class="pagination1 ">
-<?php
-foreach ($links as $link) {
-echo "<li>" . $link . "</li>"; 
-}
-?>
-</ul>
-</div>
-</div>
-<div class="col-md-12 ">
-
-<div class="row  ulockd-shop-menubar ulockd-mrgb35">
-<div class="col-md-12">
-<h4 class="text-center">Profile</h4>
-<div>
-<div class="panel panel-default">
-<div class="panel-body">
-<div class="table-responsive">          
-<table class="table table-striped table-hover">
-<thead>
-<tr>
-
-
-<th>sl.no</th>
-<th>Photo</th>
-<th>Name</th>
-<th>Age</th>
-<th>Gender</th>
-<th>Qualification</th>
-<th>Profile</th>
-
-</tr>
-</thead>
-<tbody>
-
-<?php 
-
-
-$mainStar=$mainRasi="";
-$i=0;$countmatch=$matchid="0" ;
-
-if(isset($profile_details) && ($profile_details!="")){
-foreach($profile_details as $item2){
-$id=$item2->Id;
-$enid=$this->chsslibrary->encoder($id);
-$Name=$item2->Name;
-$Age=$item2->Age;
-$Qualification=$item2->Qualification;
-$Gender=$item2->Gender;
-$comStar=$item2->Star;
-$comRasi=$item2->Rasi;
-?>
-
-
-<tr>
-<td><?php echo ++$i; ?></td>
-<td>
-<?php  
-
-$profile_image=$this->User_model->getprofileimageStatus_byid($id);
-$FilePath="defaultimage.jpg";
-if(isset($profile_image) && ($profile_image!="")){
-foreach($profile_image as $row){
-$rid=$row->Id;
-$FilePath=$row->FilePath;
-}}  
-if($FilePath!=""){
-?>
-<img src="<?php echo base_url(); ?>assets/profileimages/<?php echo $FilePath; ?>" style="width:120px">
-<?php }else { ?>
-
-<img src="<?php echo base_url(); ?>assets/profileimages/defaultimage.jpg"  style="width:120px" alt="" >
-<?php } ?>
-</td>
-<td><?php echo $Name; ?></td>
-<td><?php echo $Age; ?></td>
-<td><?php if($Gender=="M"){ echo "Male"; }else { echo "Female"; }  ?></td>
-
-<td><?php echo $Qualification; ?></td>
-<td>
-<a href="<?php echo base_url(); ?>searchindex/search_profile/<?php echo $enid; ?>" ><button type="button" name="singlebutton" class="btn btn-default">view</button></a>
-</td>
-
-</tr>
-<?php }}  ?>  
+                                                    <a href="<?php echo base_url(); ?>searchindex/search_profile/<?php echo $enid; ?>" 
+                                                    class="btn btn-outline-dark btn-sm rounded-pill px-3">
+                                                        View full profile
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <?php }}  ?>  
+                                    <!-- Repeat more rows as needed -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
 
 
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-
-
+				</div>
 			</div>
-		</div>
-	</section>
 
-	<!-- Our Footer -->
-	<?php echo $footer;  ?>
-</div>
+    </div>
 
-
-<script>
+  <script>
 
 
 function getcaste(rasiid){
@@ -280,30 +145,5 @@ xmlhttp.open("GET", "<?php echo base_url(); ?>ajax/getcastebyreligion_ajax/"+ras
 xmlhttp.send();
 }
 </script>
-
-<!-- Wrapper End -->
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jquery-1.12.4.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/bootsnav.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/parallax.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/scrollto.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jquery-scrolltofixed-min.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jquery.counterup.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/gallery.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/wow.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/slider.js"></script>
-
-
-<!--
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/video-player.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jflickrfeed.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jquery.barfiller.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jflickrfeed.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/timepicker.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/tweetie.js"></script>
-<!-- Custom script for all pages 
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/color-switcher.js"></script> --> 
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/script.js"></script>
 </body>
-
 </html>

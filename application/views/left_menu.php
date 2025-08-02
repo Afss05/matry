@@ -46,8 +46,8 @@
       </a>
     </li>
     <li class="nav-item mb-2">
-      <a href="<?= base_url(); ?>searchindex/wishlist" 
-         class="nav-link fw-bold d-flex align-items-center <?= ($currentPage == 'searchindex' && $this->uri->segment(2) == 'wishlist') ? 'active' : '' ?>">
+      <a href="<?= base_url(); ?>user/wishlist" 
+         class="nav-link fw-bold d-flex align-items-center <?= ($currentPage == 'user' && $this->uri->segment(2) == 'wishlist') ? 'active' : '' ?>">
          <i class="fa fa-heart me-2 text-danger"></i> Wish List
       </a>
     </li>

@@ -301,45 +301,47 @@ session_cache_limiter("private_no_expire"); */
 </script>
 
 
-<section> 
+<section>
     <div class="promote-body">
-        <div class="container my-5">
-            <div class="row align-items-center promo-section">
-                <!-- Left Side Content -->
-                 <div class="row col-md-12" style="gap: 0px;">
-                    <div class="col-md-7 mb-4 mb-md-0">
-                        <h2 class="promo-heading mb-3">Plan Your Dream Wedding</h2>
-                        <p class="promo-text mb-4">
-                            Discover trusted wedding vendors, stunning venues, and expert services on 
-                            <strong style="color: black;">WeddingInfo.in</strong>. Now featured on BharatVivaha for your convenience!
-                        </p>
-                        <div class="elite-features promo-features">
-                            <div class="promo-features-item">
-                                <img src="<?php echo base_url(); ?>main/img/star.png" alt="Elite Profiles">
-                                <div>
-                                    <p>Top-rated Wedding Professionals</p>
-                                </div>
-                            </div>
-                            <div class="promo-features-item">
-                                <img src="<?php echo base_url(); ?>main/pan-service.png" alt="Elite Profiles">
-                                <div>
-                                    <p>Pan-India Services</p>
-                                </div>
-                            </div>
-                            <div class="promo-features-item">
-                                <img src="<?php echo base_url(); ?>main/EasyUse.png" alt="Elite Profiles">
-                                <div>
-                                    <p>Easy Vendor Access & Search</p>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="https://weddinginfo.in" target="_blank" class="btn promo-btn px-4 py-2">Visit WeddingInfo.in</a>
-                    </div>
+        <div class="container py-5">
+            <!-- Full-width Headline -->
+            <div class="row mb-4">
+                <div class="col-12 text-center">
+                    <h2 class="promo-heading" style="color: #b2002d; font-weight: 700; font-family: 'Poppins', sans-serif; font-size: 2.2rem;">
+                        WeddingInfo.in – Your Trusted Wedding Partner
+                    </h2>
+                </div>
+            </div>
 
-                    <!-- Right Side Image -->
-                    <div class="col-md-5 text-center">
-                        <img src="<?= base_url(); ?>main/wedding.png" alt="WeddingInfo Promotion" class="img-fluid rounded custom-inset-shadow">
+            <!-- Two-column layout -->
+            <div class="row align-items-center">
+                <!-- Left Column: Text -->
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <p class="promo-text mb-4" style="font-size: 1.15rem; color: #333;">
+                        BharatVivaha proudly partners with <strong style="color: #b2002d;">WeddingInfo.in</strong> to help you plan the perfect wedding. Find top-rated vendors, beautiful venues, and expert planners – all in one place!
+                    </p>
+                    <div class="promo-features mb-4" style="display: flex; flex-direction: column; gap: 16px;">
+                        <div class="promo-features-item d-flex align-items-center gap-3">
+                            <img src="<?php echo base_url(); ?>main/img/star.png" alt="Top Vendors" style="width: 40px;">
+                            <span style="font-weight: 500; color: #b2002d;">Verified Wedding Professionals</span>
+                        </div>
+                        <div class="promo-features-item d-flex align-items-center gap-3">
+                            <img src="<?php echo base_url(); ?>main/pan-service.png" alt="Pan India" style="width: 40px;">
+                            <span style="font-weight: 500; color: #b2002d;">Pan-India Coverage</span>
+                        </div>
+                        <div class="promo-features-item d-flex align-items-center gap-3">
+                            <img src="<?php echo base_url(); ?>main/EasyUse.png" alt="Easy Access" style="width: 40px;">
+                            <span style="font-weight: 500; color: #b2002d;">Easy Vendor Search</span>
+                        </div>
                     </div>
+                    <a href="https://weddinginfo.in" target="_blank" class="btn promo-btn px-4 py-2" style="background: #b2002d; color: #fff; border-radius: 24px; font-weight: 600; box-shadow: 0 2px 8px rgba(178,0,45,0.12);">
+                        Explore WeddingInfo.in
+                    </a>
+                </div>
+
+                <!-- Right Column: Image -->
+                <div class="col-md-6 text-center">
+                    <img src="<?= base_url(); ?>main/wedding.png" alt="WeddingInfo Promotion" class="img-fluid rounded custom-inset-shadow" style="max-width: 100%; ">
                 </div>
             </div>
         </div>
