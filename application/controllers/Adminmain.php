@@ -185,25 +185,53 @@ $myData = $this->Admin_model->getallmemberrecords();
  $config['num_tag_close'] = '</li>';*/
 
   //config for bootstrap pagination class integration
-        $config['full_tag_open'] = '<ul class="pagination">';
-        $config['full_tag_close'] = '</ul>';
-        $config['first_link'] = false;
-        $config['last_link'] = false;
-        $config['first_tag_open'] = '<li>';
-        $config['first_tag_close'] = '</li>';
-        $config['prev_link'] = '&laquo';
-        $config['prev_tag_open'] = '<li class="prev">';
-        $config['prev_tag_close'] = '</li>';
-        $config['next_link'] = '&raquo';
-        $config['next_tag_open'] = '<li>';
-        $config['next_tag_close'] = '</li>';
-        $config['last_tag_open'] = '<li>';
-        $config['last_tag_close'] = '</li>';
-        $config['cur_tag_open'] = '<li class="active"><a href="#">';
-        $config['cur_tag_close'] = '</a></li>';
-        $config['num_tag_open'] = '<li>';
-        $config['num_tag_close'] = '</li>';
+        // $config['full_tag_open'] = '<ul class="pagination">';
+        // $config['full_tag_close'] = '</ul>';
+        // $config['first_link'] = false;
+        // $config['last_link'] = false;
+        // $config['first_tag_open'] = '<li>';
+        // $config['first_tag_close'] = '</li>';
+        // $config['prev_link'] = '&laquo';
+        // $config['prev_tag_open'] = '<li class="prev">';
+        // $config['prev_tag_close'] = '</li>';
+        // $config['next_link'] = '&raquo';
+        // $config['next_tag_open'] = '<li>';
+        // $config['next_tag_close'] = '</li>';
+        // $config['last_tag_open'] = '<li>';
+        // $config['last_tag_close'] = '</li>';
+        // $config['cur_tag_open'] = '<li class="active"><a href="#">';
+        // $config['cur_tag_close'] = '</a></li>';
+        // $config['num_tag_open'] = '<li>';
+        // $config['num_tag_close'] = '</li>';
   
+		$config['full_tag_open']    = '<ul class="pagination">';
+$config['full_tag_close']   = '</ul>';
+
+$config['first_link']       = 'First';
+$config['first_tag_open']   = '<li class="page-item">';
+$config['first_tag_close']  = '</li>';
+
+$config['last_link']        = 'Last';
+$config['last_tag_open']    = '<li class="page-item">';
+$config['last_tag_close']   = '</li>';
+
+$config['next_link']        = '&raquo;';
+$config['next_tag_open']    = '<li class="page-item">';
+$config['next_tag_close']   = '</li>';
+
+$config['prev_link']        = '&laquo;';
+$config['prev_tag_open']    = '<li class="page-item">';
+$config['prev_tag_close']   = '</li>';
+
+$config['cur_tag_open']     = '<li class="page-item active"><a class="page-link" href="#">';
+$config['cur_tag_close']    = '</a></li>';
+
+$config['num_tag_open']     = '<li class="page-item">';
+$config['num_tag_close']    = '</li>';
+
+$config['attributes']       = ['class' => 'page-link']; // for Bootstrap 5
+
+
    $config['total_rows'] = $allcount; 
    $data["Totalmember"]=$this->Admin_model->getprofiledetails();
    $data["profile_details"]=$users_record;
@@ -327,6 +355,7 @@ $myData = $this->Admin_model->getallmemberrecords();
 		$this->template['leftmenu'] = $this->load->view('admin/left_menu', $this->data, true);		
 		$this->template['menu'] = $this->load->view('admin/menu', $this->data, true);
 		$this->template['loadjs'] = $this->load->view('admin/loadjs', $this->data, true);
+		 $this->session->set_flashdata('message', 'Payment added successfully');
 		$this->load->view('admin/payment_add', $this->template);
   }
   // ----------------------------------------------------------------------------- 
@@ -1020,7 +1049,7 @@ $myData = $this->Admin_model->getallmemberrecords();
 		$userid=$this->Admin_model->memberpayment_ajax($data,$updateid);
 		$this->session->set_flashdata('message', 'Added Successfully...');
 		$id=$this->chsslibrary->encoder($updateid);
-		redirect(base_url() ."adminmain/comment_byadmin/".$id);
+		redirect(base_url() ."adminmain/paidmemberlist/".$id);
     }
 
 	

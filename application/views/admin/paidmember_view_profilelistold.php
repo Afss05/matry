@@ -1,8 +1,4 @@
-<?php 
 
-header("Cache-Control: no cache");
-session_cache_limiter("private_no_expire"); 
-?>
 <!DOCTYPE html>
 <html>
 
@@ -26,18 +22,14 @@ session_cache_limiter("private_no_expire");
 <body class="">
 <?php echo $leftmenu; ?>
 
-<?php 
 
-$Totalmem=count($Totalmember);
-
-?>
 <div id="wrapper">
 
 <div id="page-wrapper" class="gray-bg">
 <?php echo $menu; ?>
 	<div class="row wrapper border-bottom white-bg page-heading">
 		<div class="col-sm-12">
-			<h2>Member Profile List  <span class="pull-right"  >Total Profile : <?php echo $Totalmem; ?></span> </h2>
+			<h2>Member Profile List</h2>
 	
 
 
@@ -57,16 +49,12 @@ $Totalmem=count($Totalmember);
                 <div class="ibox ">
 <div class="ibox-title">
 <h5>Member Profile List</h5>
-<div class="ibox-tools">
-<a href="<?php echo base_url(); ?>adminmain/add_profile"> <span class="label label-primary">Add</span> </a>					
-</div>
-
 
 </div>
                     <div class="ibox-content">
 
                         <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-hover dataTables-example" >
+                    <table class="table table-striped table-bordered table-hover " >
                     <thead>
                     <tr>
 				<th>Sl.no</th>
@@ -83,47 +71,43 @@ $Totalmem=count($Totalmember);
 				<th style="display:none;">Alternative Contact Number</th>
 				<th style="display:none;">Mother Tongue</th>
 				<th style="display:none;">Religion </th>
-				
-				
-<th style="display:none;">Caste Name </th>
-<th style="display:none;">Sub Caste</th>
-<th style="display:none;">Gothram </th>
-<th style="display:none;">Dosham </th>
-<th style="display:none;">Dosham Details</th>
-
+				<th style="display:none;">Caste Name </th>
+				<th style="display:none;">Sub Caste</th>
+				<th style="display:none;">Gothram </th>
+				<th style="display:none;">Dosham </th>
+				<th style="display:none;">Dosham Details</th>
 				<th style="display:none;">Rasi </th>
 				<th style="display:none;">Star </th>
 				<th style="display:none;">Father Name</th>
-
+				<th style="display:none;">Father's Alive</th>
+				<th style="display:none;">Father's Job</th>
 				<th style="display:none;">Mother's Name</th>
-				
-							<th style="display:none;">No Of Brothers </th>
+				<th style="display:none;">Mother's Alive</th>
+				<th style="display:none;">Mother's Job</th>
+				<th style="display:none;">Order Of Birth</th>
+				<th style="display:none;">No Of Brothers </th>
 				<th style="display:none;">No Of Sister  </th>
-		
-		
+				<th style="display:none;">Family Status </th>
+				<th style="display:none;">Family Type  </th>
+				<th style="display:none;">Family Values</th>
 				<th style="display:none;">Marital Status </th>
 				<th style="display:none;">Height  </th>
 				<th style="display:none;">Disability  </th>
 				<th style="display:none;">Qualification  </th>
-				
-				
-				
 				<th style="display:none;">Employed </th>
 				<th style="display:none;">Occupation </th>
-				<th style="display:none;">Job Location </th>
 				<th style="display:none;">Annual Income</th>
 				<th style="display:none;">State</th>
 				<th style="display:none;">City</th>
-				
+				<th style="display:none;">Permenant Address</th>
 				<th style="display:none;">Present Address</th>
-				
-				
-					<th style="display:none;">Partner Qualification </th>
+				<th style="display:none;">About Me</th>
+				<th style="display:none;">Partner Qualification </th>
 				
 				<th style="display:none;">Partner Employed in </th>
 				<th style="display:none;">Partner Occupation </th>
 				<th style="display:none;">Partner Annual Income </th>
-				<th style="display:none;">Partner Caste</th>
+				
 				<th style="display:none;">Partner Marital Status</th>
 				<th style="display:none;">Partner From Age</th>
 				
@@ -133,13 +117,12 @@ $Totalmem=count($Totalmember);
 				<th style="display:none;">Partner Diet </th>
 				
 				
-				<th>Image</th>
+				<th style="display:none;">Image</th>
 			
-				<th>Actions</th>
-				
+			
                     </tr>
                     </thead>
-                    <tbody >
+                    <tbody>
 					
 <?php 
 
@@ -162,60 +145,6 @@ $j++;
 <td style="display:none"><?php echo $item->ProfileFor; ?></td>
 <td ><?php echo $item->MemberCode; ?></td>
 <td ><?php echo $item->Email; ?>
-
-<form action="<?php echo base_url(); ?>adminmain/userprofile_align/" method="post" enctype="multipart/form-data" name="form1">
-<div class="form-group" style="margin-top:10px;">
-<label>Profile Align</label> 
-<input  type="hidden" name="updateid" value="<?php echo $item->Id; ?>" >
-    <input  type="hidden" name="pgender" value="<?php echo $item->Gender; ?>" >
-<select class="form-control m-b" onchange="javascript: form.submit(); " required name="palignment">
-<option value="0">select Profile Align</option>
-
-<?php 
-
-
- for($k=1;$k<=$Totalmem;$k++)
-{
-	if($item->ProAlignment==$k){
-	echo '<option value="'.$k.'" selected>'.$k.'</option>';
-
-	}else{
-	echo '<option value="'.$k.'">'.$k.'</option>';
-	}
-} 
-
- ?>			
-</select>
-</div>
-</form>
-
-
-
-<form action="<?php echo base_url(); ?>adminmain/userimage_index/" method="post" enctype="multipart/form-data" name="form1">
-<div class="form-group" style="margin-top:10px;"><label> Index Image</label> 
-<input  type="hidden" name="updateid" value="<?php echo $item->Id; ?>" >
-    <input  type="hidden" name="pgender" value="<?php echo $item->Gender; ?>" >
-<select class="form-control m-b" onchange="javascript: form.submit(); " required name="pindexalignment">
-
-<option value="0">select Image</option>
-
-<?php 
- for($kl=1;$kl<=4;$kl++)
-{
-	if($item->IndexImage==$kl){
-	echo '<option value="'.$kl.'" selected>'.$kl.'</option>';
-
-	}else{
-	echo '<option value="'.$kl.'">'.$kl.'</option>';
-	}
-} 
- ?>			
-</select>
-</div>
-</form>
-
-
-
 
 
 
@@ -249,9 +178,6 @@ $ReligionId=$item->ReligionId;
 echo $CasteName=$this->chsslibrary->getFieldVal(TBL__PREFIX2."religion", "Religion", "Id=".$ReligionId);
 }?>
 </td>
-
-
-
 
 <td style="display:none" ><?php 
 if($item->CastName!="" && $item->CastName!="0"){
@@ -303,6 +229,26 @@ echo  stripslashes($FatherName);
 
 </td>
 
+<td style="display:none">
+<?php 
+$FatherStatus="";
+if($item->FatherStatus!="" && $item->FatherStatus!="0"){
+echo $FatherStatus=$item->FatherStatus;
+}
+?>
+
+</td>
+
+<td style="display:none">
+<?php 
+$FatherJob="";
+if($item->FatherJob!="" && $item->FatherJob!="0"){
+$FatherJob=$item->FatherJob;
+echo  stripslashes($FatherJob);
+}
+?>
+
+</td>
 
 <td style="display:none">
 
@@ -318,7 +264,35 @@ echo  stripslashes($MotherName);
 
 
 
+<td style="display:none">
+<?php 
+$MotherStatus="";
+if($item->MotherStatus!="" && $item->MotherStatus!="0"){
+echo $MotherStatus=$item->MotherStatus;
+}
+?>
+</td>
+<td style="display:none">
 
+<?php 
+$MotherJob="";
+if($item->MotherJob!="" && $item->MotherJob!="0"){
+$MotherJob=$item->MotherJob;
+echo  stripslashes($MotherJob); 
+}
+?>
+
+</td>
+<td style="display:none">
+
+<?php 
+$OrderBirth="";
+if($item->OrderBirth!="" && $item->OrderBirth!="0"){
+echo $OrderBirth=$item->OrderBirth;
+}
+?>
+
+</td>
 
 <td style="display:none">
 
@@ -341,7 +315,23 @@ echo $NoOfSisters=$item->NoOfSisters;
 
 </td>
 
-
+<td style="display:none">
+<?php if($item->FamilyStatus!="" && $item->FamilyStatus!="0"){
+echo $item->FamilyStatus;
+}?>
+</td>
+<td style="display:none">
+<?php if($item->FamilyType!="" && $item->FamilyType!="0"){
+echo $item->FamilyType;
+}?>
+</td>
+  
+<td style="display:none">
+<?php if($item->FamilyValues!="" && $item->FamilyValues!="0"){
+echo $item->FamilyValues;
+}?>
+</td> 
+  
   <td style="display:none">
 <?php if($item->MaritalStatus!="" && $item->MaritalStatus!="0"){
 
@@ -377,10 +367,7 @@ echo $Disability=$item->Disability;
 echo $item->Qualification;
 }?>
 </td>
-
-
-
-
+ 
  <td style="display:none"><?php 
 $UserEmployed="";
 if($item->UserEmployed!="" && $item->UserEmployed!="0"){
@@ -398,13 +385,6 @@ $UserEmployed=$item->UserEmployed;
 echo $item->Occupation;
 }?>
 </td>
-
-<td style="display:none">
-<?php if($item->UserPlaceOfJob!="" && $item->UserPlaceOfJob!="0"){
-echo $item->UserPlaceOfJob;
-}?>
-</td>
-
  
 <td style="display:none">
 <?php if($item->MonthlyIncome!="" && $item->MonthlyIncome!="0"){
@@ -457,24 +437,20 @@ echo $statid=$this->chsslibrary->getFieldVal(TBL__PREFIX2."citymaster", "CityNam
 }?>
 </td>
  
-  <td style="display:none">
+ <td style="display:none">
+<?php if($item->PermenantAddress!="" && $item->PermenantAddress!="0"){
+echo $item->PermenantAddress;
+}?>
+</td>
+ <td style="display:none">
 <?php if($item->PresentAddress!="" && $item->PresentAddress!="0"){
 
 echo $item->PresentAddress;
 }?>
 </td>
-
-
-
- 
- 
-  
-
-  
-
- 
-
-
+<td style="display:none" ><?php if($item->AboutMe!="" && $item->AboutMe!="0"){
+echo $item->AboutMe;
+} ?></td>
  
  <td style="display:none">
 <?php if($item->PQualification!="" && $item->PQualification!="0"){
@@ -490,7 +466,7 @@ if($PJob=="2"){ echo "Government / Public Sector"; }
 if($PJob=="3"){ echo "Defense / Civil Services"; }
 if($PJob=="4"){ echo "Business / Self-Employed"; }
 if($PJob=="5"){ echo "Not Working"; }
-if($PJob=="6"){ echo "Private "; }
+
 }?>
 </td>
  <td style="display:none" >
@@ -541,14 +517,6 @@ if($PIncome=="28"){ echo "90 Lakhs - 1 Crore"; }
 ?>
 </td>
 
-
-<td style="display:none"><?php 
-if($item->PCaste!="" && $item->PCaste!="0"){
-$Casteid=$item->PCaste;
-echo $CasteName=$this->chsslibrary->getFieldVal(TBL__PREFIX2."caste", "CasteName", "Id=".$Casteid);
-} ?></td>
-
-
 <td style="display:none">
 <?php if($item->PMaritalStatus!="" && $item->PMaritalStatus!="0"){
 $PMaritalStatus=$item->PMaritalStatus;
@@ -561,14 +529,11 @@ echo str_replace("Doesnt","Doesn't",$PMaritalStatus);
 echo $item->PFromAge;
 }?>
 </td>
-
 <td style="display:none">
 <?php if($item->PToAge!="" && $item->PToAge!="0"){
 echo $item->PToAge;
 }?>
 </td>
-
-
 <td  style="display:none">
 <?php if($item->PJobRequest!="" && $item->PJobRequest!="0"){
 echo $item->PJobRequest;
@@ -583,9 +548,7 @@ echo str_replace("Doesnt","Doesn't",$PDiet);
 }?>
 </td>
 
-
- 
-<td class="">
+<td style="display:none">
 <?php  
 $profile_image=$this->Admin_model->getprofileimageStatus_byid($id);
 $FilePath="";
@@ -602,76 +565,11 @@ if($FilePath!=""){
 	<img src="<?php echo base_url(); ?>assets/profileimages/defaultimage.jpg" style="width:120px;">
 <?php } ?>
 </td>
-
-
-
-
-
-
-<td>
-<p>
-<a class="btn btn-white btn-sm" href="<?php echo base_url(); ?>profile/index/<?php  echo 
-$this->chsslibrary->encoder($id); ?>/<?php  echo 
-$this->chsslibrary->encoder($item->MemberCode); ?>" title="View profile" ><i class="fa fa-folder"> view </i></a>
-</p>
-<p>
-<a class="btn btn-white btn-sm" href="<?php echo base_url(); ?>profile/edit_profile/<?php  echo 
-$this->chsslibrary->encoder($id); ?>/<?php  echo 
-$this->chsslibrary->encoder("ByAdmin"); ?>" title="Edit profile"   target="_blank" ><i class="fa fa-pencil"> edit </i> </a></p>
-<p>
-<a class="btn btn-white btn-sm" href="<?php echo base_url(); ?>adminmain/profile_delete/<?php  echo 
-$this->chsslibrary->encoder($id); ?>" title="Delete profile"   onclick="return confirm('Are you sure you want to delete this item?');" ><i class="fa fa-trash"> delete </i>
-
-
-</a>
-</p>
-
-
-<p>
-<?php if($status=='1'){ ?>
-<span id="chngbtn<?php echo $item->Id;?>" >
-
-<a  title="click to inactive"  onclick="profinactive(<?php echo $item->Id; ?>);" > <span class="label label-primary">Active</span> </a>
-</span>
-<?php }elseif($status=='2'){ ?>
-<span id="chngbtn<?php echo $item->Id;?>" >
-
-<a   title="Click to active"   onclick="profactive(<?php echo $item->Id;?>);" ><span class="label label-warning">Inactive</span> </a>
-</span>
-<?php } ?>
-</p>
-
-
-<p>
-<?php
-$userscrib=$this->Admin_model->usersubscribedplan($id);
-if(count($userscrib)>0){
-?>
-<a href="<?php echo base_url(); ?>planactive/index/<?php  echo $this->chsslibrary->encoder($id); ?>" title="Plan Actived"  > <span class="label label-success" style="margin-bottom:10px;">Plan Actived</span> </a>
-
-<?php }else{ ?>
-<a href="<?php echo base_url(); ?>planactive/index/<?php  echo $this->chsslibrary->encoder($id); ?>" title="click to Buy Plan"  > <span class="label label-info" style="margin-bottom:10px;">Buy Plan</span> </a>
-
-
-<?php } ?>
-</p>
-
-</td>
-
-
-
-
-
-
 </tr>
 
 <?php } }  ?>
 
-
-
-
 </tbody>
-
 </table>
 </div>
 
@@ -696,34 +594,6 @@ if(count($userscrib)>0){
 
 
 
-<script src="<?php echo base_url(); ?>assets/ajax_jsmk/jquery.min.js"></script> 
-<script type="text/javascript">
-	$(document).ready(function(){
-		
-		show_product();	//call function show all product
-		
-		//$('#mydata').dataTable();
-		 
-		//function show all product
-		function show_product(){
-	
-		    $.ajax({
-		        type  : 'ajax',
-		        url   : '<?php echo base_url(); ?>adminmain/member_profiledata/',
-		        async : false,
-		        dataType : '',
-		        success : function(data){
-		        
-		            $('#show_data').html(data);
-		        }
-
-		    });
-		}
-
-
-	});
-
-</script>
 
 <script>      
 function profinactive(id){
@@ -761,7 +631,7 @@ xmlhttp.send();
 
 
 
-	<?php echo $loadjs; ?>
 
+	<?php echo $loadjs; ?>
 </body>
 </html>

@@ -59,7 +59,7 @@ body {
             <?php echo $leftmenu; ?>
         </div>
 
-            <div class="wrapper wrapper-content " id="mydata" >
+            <div class="wrapper wrapper-content mb-5" id="mydata" >
 				<!-- <div class="wrapper wrapper-content" id="mydata" style="display: none;"> -->
 				<div class="row">
                     <div class="col-lg-12" style="">
@@ -166,7 +166,22 @@ body {
                                                     </tr>
                                                     <tr>
                                                         <th>Marital Status</th>
-                                                        <td><?php echo htmlspecialchars($item->MaritalStatus ?? ''); ?></td>
+                                                        <td>
+                                                            <?php if($item->MaritalStatus!="" && $item->MaritalStatus!="0"){
+                                                                if($item->MaritalStatus=="1"){
+                                                                echo "Unmarried";
+                                                                }elseif($item->MaritalStatus=="2"){
+                                                                echo "Married";
+                                                                }elseif($item->MaritalStatus=="3"){
+                                                                echo "Widow/Widower";
+                                                                }
+                                                                elseif($item->MaritalStatus=="4"){
+                                                                echo "Divoce";
+                                                                }
+                                                                }
+
+                                                                ?>
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <th>Height</th>
@@ -178,27 +193,57 @@ body {
                                                     </tr>
                                                     <tr>
                                                         <th>Rasi</th>
-                                                        <td><?php echo htmlspecialchars($item->Rasi ?? ''); ?></td>
+                                                        <td>
+                                                            <?php if($item->Rasi!="" && $item->Rasi!="0"){
+														$Rasi=$item->Rasi;
+														echo $Rasi=$this->chsslibrary->getFieldVal(TBL__PREFIX2."rasi", "RasiName", "Id=".$Rasi);
+														} ?>
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <th>Star</th>
-                                                        <td><?php echo htmlspecialchars($item->Star ?? ''); ?></td>
+                                                        <td>
+                                                            <?php if($item->Star!="" && $item->Star!="0"){
+														$Star=$item->Star;
+														echo  $Star=$this->chsslibrary->getFieldVal(TBL__PREFIX2."star", "StarName", "Id=".$Star);
+														} ?>
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <th>Aiterno</th>
-                                                        <td><?php echo htmlspecialchars($item->Aiterno ?? ''); ?></td>
+                                                        <td>
+                                                            <?php if($item->AlternativeNumber!="" && $item->AlternativeNumber!="0"){
+                                                            echo $item->AlternativeNumber;
+                                                            }?>
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <th>State</th>
-                                                        <td><?php echo htmlspecialchars($item->State ?? ''); ?></td>
+                                                        <td>
+                                                            <?php if($item->StateId!="" && $item->StateId!="0"){
+                                                                $statid=$item->StateId;
+                                                                echo $statid=$this->chsslibrary->getFieldVal(TBL__PREFIX2."statemaster", "StateName", "Id=".$statid);
+                                                                }
+                                                            ?>
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <th>City</th>
-                                                        <td><?php echo htmlspecialchars($item->City ?? ''); ?></td>
+                                                        <td>
+                                                            <?php if($item->CityId!="" && $item->CityId!="0"){
+														$CityId=$item->CityId;
+														echo $statid=$this->chsslibrary->getFieldVal(TBL__PREFIX2."citymaster", "CityName", "Id=".$CityId);
+														}?>
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <th>Address</th>
-                                                        <td><?php echo htmlspecialchars($item->Address ?? ''); ?></td>
+                                                        <td>
+                                                            <?php if($item->PresentAddress!="" && $item->PresentAddress!="0"){
+
+														echo $item->PresentAddress;
+														}?>
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -216,39 +261,110 @@ body {
                                                 <tbody>
                                                     <tr>
                                                         <th>Qualification</th>
-                                                        <td><?php echo htmlspecialchars($item->PartnerQualification ?? ''); ?></td>
+                                                        <td><?php echo htmlspecialchars($item->PQualification ?? ''); ?></td>
                                                     </tr>
                                                     <tr>
                                                         <th>Employed In</th>
-                                                        <td><?php echo htmlspecialchars($item->PartnerEmployedIn ?? ''); ?></td>
+                                                        <td>
+                                                            <?php if($item->PJob!="" && $item->PJob!="0"){
+														$PJob=$item->PJob;
+														if($PJob=="1"){ echo "Private Company"; }
+														if($PJob=="2"){ echo "Government / Public Sector"; }
+														if($PJob=="3"){ echo "Defense / Civil Services"; }
+														if($PJob=="4"){ echo "Business / Self-Employed"; }
+														if($PJob=="5"){ echo "Not Working"; }
+														if($PJob=="6"){ echo "Private"; }
+														}?>
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <th>Occupation</th>
-                                                        <td><?php echo htmlspecialchars($item->PartnerOccupation ?? ''); ?></td>
+                                                        <td><?php echo htmlspecialchars($item->POccupation ?? ''); ?></td>
                                                     </tr>
                                                     <tr>
                                                         <th>Annual Income</th>
-                                                        <td><?php echo htmlspecialchars($item->PartnerAnnualIncome ?? ''); ?></td>
+                                                        <td>
+                                                            <?php if($item->PIncome!="" && $item->PIncome!="0"){
+														$PIncome=$item->PIncome;
+
+														if($PIncome=="3"){ echo "0 - 1 Lakhs"; }   
+														if($PIncome=="4"){ echo "1 - 2 Lakhs"; }    
+														if($PIncome=="5"){ echo "2 - 3 Lakhs"; }
+														if($PIncome=="6"){ echo "3 - 4 Lakhs"; }
+														if($PIncome=="7"){ echo "4 - 5 Lakhs"; }
+														if($PIncome=="8"){ echo "5 - 6 Lakhs"; }
+														if($PIncome=="9"){ echo "6 - 7 Lakhs"; }
+														if($PIncome=="10"){ echo "7 - 8 Lakhs"; }
+														if($PIncome=="11"){ echo "8 - 9 Lakhs"; }
+														if($PIncome=="12"){ echo "9 - 10 Lakhs"; }
+														if($PIncome=="13"){ echo "10 - 12 Lakhs"; }
+														if($PIncome=="14"){ echo "12 - 14 Lakhs"; }
+														if($PIncome=="15"){ echo "14 - 16 Lakhs"; }
+														if($PIncome=="16"){ echo "16 - 18 Lakhs"; }
+														if($PIncome=="17"){ echo "18 - 20 Lakhs"; }
+														if($PIncome=="18"){ echo "20 - 25 Lakhs"; }
+														if($PIncome=="19"){ echo "25 - 30 Lakhs"; }
+														if($PIncome=="20"){ echo "30 - 35 Lakhs"; }
+														if($PIncome=="21"){ echo "35 - 40 Lakhs"; }
+														if($PIncome=="22"){ echo "40 - 45 Lakhs"; }
+														if($PIncome=="23"){ echo "45 - 50 Lakhs"; }
+														if($PIncome=="24"){ echo "50 - 60 Lakhs"; }
+														if($PIncome=="25"){ echo "60 - 70 Lakhs"; }
+														if($PIncome=="26"){ echo "70 - 80 Lakhs"; }
+														if($PIncome=="27"){ echo "80 - 90 Lakhs"; }
+														if($PIncome=="28"){ echo "90 Lakhs - 1 Crore"; }
+														if($PIncome=="29"){ echo "1 Crore & Above"; }
+
+														}
+
+
+														?>
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <th>Caste Name</th>
-                                                        <td><?php echo htmlspecialchars($item->PartnerCasteName ?? ''); ?></td>
+                                                        <td>
+                                                            <?php 
+														if($item->PCaste!="" && $item->PCaste!="0"){
+														$Casteid=$item->PCaste;
+														echo $CasteName=$this->chsslibrary->getFieldVal(TBL__PREFIX2."caste", "CasteName", "Id=".$Casteid);
+														} ?>
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <th>Marital Status</th>
-                                                        <td><?php echo htmlspecialchars($item->PartnerMaritalStatus ?? ''); ?></td>
+                                                        <td>
+                                                            <?php if($item->PMaritalStatus!="" && $item->PMaritalStatus!="0"){
+														$PMaritalStatus=$item->PMaritalStatus;
+														echo str_replace("Doesnt","Doesn't",$PMaritalStatus);
+														}?>
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <th>Age</th>
-                                                        <td><?php echo htmlspecialchars($item->PartnerAge ?? ''); ?></td>
+                                                        <td>
+                                                            <?php if($item->PFromAge!="" && $item->PFromAge!="0"){
+														echo $item->PFromAge;
+														}?>
+                                                            -
+                                                            <?php if($item->PToAge!="" && $item->PToAge!="0"){
+
+                                                        echo $item->PToAge;
+                                                        }?>
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <th>Job Request</th>
-                                                        <td><?php echo htmlspecialchars($item->PartnerJobRequest ?? ''); ?></td>
+                                                        <td><?php echo htmlspecialchars($item->PJobRequest ?? ''); ?></td>
                                                     </tr>
                                                     <tr>
                                                         <th>Diet</th>
-                                                        <td><?php echo htmlspecialchars($item->PartnerDiet ?? ''); ?></td>
+                                                        <td>
+                                                            <?php if($item->PDiet!="" && $item->PDiet!="0"){
+                                                            $PDiet=$item->PDiet;
+                                                            echo str_replace("Doesnt","Doesn't",$PDiet);
+                                                            }?>
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -312,6 +428,11 @@ body {
                                                Family Details
                                             </button>
                                         </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link " id="topfour-tab" data-bs-toggle="tab" data-bs-target="#topfour" type="button" role="tab" aria-controls="topfour" aria-selected="false">
+                                               Horoscope Details
+                                            </button>
+                                        </li>
                                     </ul>
                                     <!-- Tab Content -->
                                     <div class="tab-content p-4" id="profileTabContent">
@@ -326,19 +447,77 @@ body {
                                                     </tr>
                                                     <tr>
                                                         <th>Employed In</th>
-                                                        <td><?php echo htmlspecialchars($item->EmployedIn ?? ''); ?></td>
+                                                        <td>
+                                                            <?php 
+														$UserEmployed="";
+														if($item->UserEmployed!="" && $item->UserEmployed!="0"){
+														$UserEmployed=$item->UserEmployed;
+														if($UserEmployed=="1"){ echo "Private Company"; }
+														if($UserEmployed=="2"){ echo "Government / Public Sector"; }  
+														if($UserEmployed=="3"){ echo "Defense / Civil Services"; }  
+														if($UserEmployed=="4"){ echo "Business / Self-Employed"; }  
+														if($UserEmployed=="5"){ echo "Not Working"; }  
+														if($UserEmployed=="6"){ echo "Private"; }
+														}
+														?>
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <th>Employee</th>
-                                                        <td><?php echo htmlspecialchars($item->Employee ?? ''); ?></td>
+                                                        <td>
+                                                            <?php if($item->Occupation!="" && $item->Occupation!="0"){
+
+														echo $item->Occupation;
+														}?>
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <th>Job Location</th>
-                                                        <td><?php echo htmlspecialchars($item->JobLocation ?? ''); ?></td>
+                                                        <td>
+                                                            <?php if($item->UserPlaceOfJob!="" && $item->UserPlaceOfJob!="0"){
+
+														echo $item->UserPlaceOfJob;
+														}?>
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <th>Annual Income</th>
-                                                        <td><?php echo htmlspecialchars($item->AnnualIncome ?? ''); ?></td>
+                                                        <td>
+                                                            <?php if($item->MonthlyIncome!="" && $item->MonthlyIncome!="0"){
+
+														$MonthlyIncome=$item->MonthlyIncome;
+
+
+														if($MonthlyIncome=="3"){ echo "0 - 1 Lakhs"; }   
+														if($MonthlyIncome=="4"){ echo "1 - 2 Lakhs"; }    
+														if($MonthlyIncome=="5"){ echo "2 - 3 Lakhs"; }
+														if($MonthlyIncome=="6"){ echo "3 - 4 Lakhs"; }
+														if($MonthlyIncome=="7"){ echo "4 - 5 Lakhs"; }
+														if($MonthlyIncome=="8"){ echo "5 - 6 Lakhs"; }
+														if($MonthlyIncome=="9"){ echo "6 - 7 Lakhs"; }
+														if($MonthlyIncome=="10"){ echo "7 - 8 Lakhs"; }
+														if($MonthlyIncome=="11"){ echo "8 - 9 Lakhs"; }
+														if($MonthlyIncome=="12"){ echo "9 - 10 Lakhs"; }
+														if($MonthlyIncome=="13"){ echo "10 - 12 Lakhs"; }
+														if($MonthlyIncome=="14"){ echo "12 - 14 Lakhs"; }
+														if($MonthlyIncome=="15"){ echo "14 - 16 Lakhs"; }
+														if($MonthlyIncome=="16"){ echo "16 - 18 Lakhs"; }
+														if($MonthlyIncome=="17"){ echo "18 - 20 Lakhs"; }
+														if($MonthlyIncome=="18"){ echo "20 - 25 Lakhs"; }
+														if($MonthlyIncome=="19"){ echo "25 - 30 Lakhs"; }
+														if($MonthlyIncome=="20"){ echo "30 - 35 Lakhs"; }
+														if($MonthlyIncome=="21"){ echo "35 - 40 Lakhs"; }
+														if($MonthlyIncome=="22"){ echo "40 - 45 Lakhs"; }
+														if($MonthlyIncome=="23"){ echo "45 - 50 Lakhs"; }
+														if($MonthlyIncome=="24"){ echo "50 - 60 Lakhs"; }
+														if($MonthlyIncome=="25"){ echo "60 - 70 Lakhs"; }
+														if($MonthlyIncome=="26"){ echo "70 - 80 Lakhs"; }
+														if($MonthlyIncome=="27"){ echo "80 - 90 Lakhs"; }
+														if($MonthlyIncome=="28"){ echo "90 Lakhs - 1 Crore"; }
+														if($MonthlyIncome=="29"){ echo "1 Crore & Above"; }
+
+														}?>
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -350,11 +529,20 @@ body {
                                                 <tbody>
                                                     <tr>
                                                         <th>Religion</th>
-                                                        <td><?php echo htmlspecialchars($item->Religion ?? ''); ?></td>
+                                                        <td>
+                                                            <?php if($item->ReligionId!="" && $item->ReligionId!="0"){
+														$ReligionId=$item->ReligionId;
+														echo $CasteName=$this->chsslibrary->getFieldVal(TBL__PREFIX2."religion", "Religion", "Id=".$ReligionId);
+														}?>
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <th>Caste Name</th>
-                                                        <td><?php echo htmlspecialchars($item->CasteName ?? ''); ?></td>
+                                                        <td><?php 
+														if($item->CastName!="" && $item->CastName!="0"){
+														$Casteid=$item->CastName;
+														echo $CasteName=$this->chsslibrary->getFieldVal(TBL__PREFIX2."caste", "CasteName", "Id=".$Casteid);
+														} ?></td>
                                                     </tr>
                                                     <tr>
                                                         <th>Mother Tongue</th>
@@ -364,13 +552,29 @@ body {
                                                         <th>Sub Caste</th>
                                                         <td><?php echo htmlspecialchars($item->SubCaste ?? ''); ?></td>
                                                     </tr>
+                                                    <?php  if($item->ReligionId=="1"){ ?>
                                                     <tr>
                                                         <th>Dosham</th>
-                                                        <td><?php echo htmlspecialchars($item->Dosham ?? ''); ?></td>
+                                                        <td>
+                                                            <?php 
+														if($item->HDossam!="" && $item->HDossam!="0"){
+														$HDossam=$item->HDossam;
+														if($HDossam=="1"){ echo "No"; }
+														if($HDossam=="2"){ echo "Yes"; }
+														if($HDossam=="3"){ echo "Don't know"; }
+														}?>
+                                                        <?php if($item->HDossam=="2"){ ?> - 
+                                                            						<?php 
+														if($item->HDoshamDetails!="" && $item->HDoshamDetails!="0"){ 
+														echo $HDoshamDetails=$item-> HDoshamDetails;
+
+														}?>
+                                                        </td>
                                                     </tr>
+                                                    <?php } } ?>
                                                     <tr>
                                                         <th>Gotra</th>
-                                                        <td><?php echo htmlspecialchars($item->Gotra ?? ''); ?></td>
+                                                        <td><?php echo $item->Gothram; ?></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -390,11 +594,11 @@ body {
                                                     </tr>
                                                     <tr>
                                                         <th>Father's Occupation</th>
-                                                        <td><?php echo htmlspecialchars($item->FatherOccupation ?? ''); ?></td>
+                                                        <td><?php echo htmlspecialchars($item->FatherJob ?? ''); ?></td>
                                                     </tr>
                                                     <tr>
                                                         <th>Mother's Occupation</th>
-                                                        <td><?php echo htmlspecialchars($item->MotherOccupation ?? ''); ?></td>
+                                                        <td><?php echo htmlspecialchars($item->MotherJob ?? ''); ?></td>
                                                     </tr>
                                                     <tr>
                                                         <th>No Of Brothers</th>
@@ -410,8 +614,72 @@ body {
                                                     </tr>
                                                     <tr>
                                                         <th>Other Details</th>
-                                                        <td><?php echo htmlspecialchars($item->OtherDetails ?? ''); ?></td>
+                                                        <td><?php echo htmlspecialchars($item->AboutMe ?? ''); ?></td>
                                                     </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- Family Details -->
+                                        <div class="tab-pane fade" id="topfour" role="tabpanel" aria-labelledby="topfour-tab">
+                                            <!-- <h5 class="fw-bold mb-3">Family Details</h5> -->
+                                            <table class="table table-bordered table-striped mb-0">
+                                                <tbody>
+                                                    <?php  
+														if(count($horoscope_details)>0 && ($horoscope_details!="")){ 
+														?>
+                                                        <p class="text-center"><a href="<?php echo $horurl; ?>"
+													class="btn btn-primary">Horoscope Delete</a> </p>
+
+
+											<div>
+												<style>
+													@media only screen and (min-width: 100px) and (max-width: 720px) {
+														.mk_horo {
+															height: 250px;
+															width: 100%;
+
+														}
+
+													}
+
+													@media only screen and (min-width: 720px) and (max-width: 1000px) {
+														.mk_horo {
+															height: 250px;
+															width: 100%;
+
+														}
+
+													}
+
+													@media only screen and (min-width: 1000px) and (max-width: 3000px) {
+														.mk_horo {
+															height: 250px;
+
+														}
+
+													}
+												</style>
+												<?php  
+														$m=0;
+
+														if(isset($horoscope_details) && ($horoscope_details!="")){
+														foreach($horoscope_details as $row1){
+														$rid=$row1->Id;
+														$FilePath=$row1->FilePath;
+														?>
+
+
+												<img class="mk_horo"
+													src="<?php echo base_url(); ?>assets/profileimages/<?php echo $FilePath; ?>">
+
+
+												<?php  $m++; }}  ?>
+
+
+											</div>
+
+
+											<?php  } ?>
                                                 </tbody>
                                             </table>
                                         </div>

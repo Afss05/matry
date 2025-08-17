@@ -1,40 +1,3 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Admin</title>
-
-    <link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="<?php echo base_url(); ?>assets/font-awesome/css/font-awesome.css" rel="stylesheet">
-
-    <link href="<?php echo base_url(); ?>assets/css/animate.css" rel="stylesheet">
-    <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet">
-<style>
-.mk_select{
-    background-color: #FFFFFF;
-    background-image: none;
-    border: 1px solid #e5e6e7;
-    border-radius: 1px;
-    color: inherit;
-
-    padding: 6px 12px;
-    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
-  
-}
-
-</style>
-</head>
-
-<body class="">
-<?php echo $leftmenu; ?>
-<div id="wrapper">
-
-<div id="page-wrapper" class="gray-bg">
-<?php echo $menu; ?>
 
 
 <?php 
@@ -65,131 +28,20 @@ if($CommentByadmin!="0" && $CommentByadmin!=""){
 
 ?>
 
-<div class="row wrapper border-bottom white-bg page-heading">
-<div class="col-sm-4">
-<h2><?php echo $title; ?> Comments </h2>
 
-</div>
-</div>
-	
+<form action="<?php echo $action; ?>" name="register" method="post" enctype="multipart/form-data">
+	<div class="ibox-content">
 
-<div class="wrapper wrapper-content animated fadeInRight">
-<div class="row">
-<div class="col-lg-12">
-<div class="ibox ">
-<div class="ibox-title">
-<h5><?php echo $title; ?> Comments </h5>
-<!--   <div class="ibox-tools">
-<a class="collapse-link">
-<i class="fa fa-chevron-up"></i>
-</a>
+		<div class="form-group mb-3">
+			<label for="comments" class="mb-1">Comments</label>
+			<textarea name="comments" required placeholder="Comments" class="form-control" rows="2" id="comments"><?php echo ($CommentByadmin!="0" && $CommentByadmin!="") ? $CommentByadmin : ""; ?></textarea>
+		</div>
 
-
-<a class="close-link">
-<i class="fa fa-times"></i>
-</a>
-</div> -->
-</div>
-
-
-<form action="<?php echo $action; ?>" name="register" method="post" enctype="multipart/form-data"  >
-
-
-
-<div class="ibox-content">
-<div class="row">
-<div class="col-sm-12 b-r">
-
-<?php if($this->session->flashdata('message')){     
-?>    
-<div class="alert alert-success success">
-<?php echo $this->session->flashdata('message') ?>                   
-</div>
-<?php } ?> 
-
-
-  
-<div class="row">
-<div class="col-md-6">
-
-<div class="form-group"><label>Comments </label>
-<textarea name="comments" required placeholder="Comments" class="form-control" rows="2" id="comments"><?php  if($CommentByadmin!="0" && $CommentByadmin!=""){echo $CommentByadmin; } ?></textarea>
-</div>
-</div>
-
-<div class="col-md-12">
-
-<button class="btn btn-sm btn-primary float-left m-t-n-xs" name="updateid" value="<?php  
-if($Id!=""){ echo $Id; }
- ?>" type="submit"><strong><?php echo $btn; ?></strong></button>
-
-</div>
-
-
-
-
-
-</div>
-
-
-
-
-
-
-</div>
-
-</div>
-</div>
-
-
-
-
-
-
-
-
-
-
-<div class="ibox-content">
-<div class="row">
-<div class="col-sm-12 b-r">
-<div class="row">
-
-
-
-</div>
-</div>
-
-</div>
-</div>
-
-
-
-
-
-
+		<button class="btn btn-sm btn-primary" name="updateid" value="<?php echo $Id ?: ""; ?>" type="submit">
+			<strong><?php echo $btn; ?></strong>
+		</button>
+	</div>
 </form>
-
-</div>
-</div>
-</div>
-</div>
-       
-	
-	
-<div class="footer">
-<div class="float-right">
-<strong></strong> .
-</div>
-<div>
-<strong> </strong>  
-</div>
-</div>
-
-</div>
-</div>
-
-	  
 	<script>  
 
 function valthisform()
