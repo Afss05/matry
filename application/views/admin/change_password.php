@@ -98,7 +98,7 @@
             </div>
 
             <div class="ibox-content col-lg-7">
-                <form role="form" action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
+                <form role="form" action="<?php echo base_url(); ?>adminmain/change_password_submit" method="post" enctype="multipart/form-data">
                     <?php if($this->session->flashdata('message')){ ?>
                         <div class="alert alert-success success">
                             <?php echo $this->session->flashdata('message') ?>

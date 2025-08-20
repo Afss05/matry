@@ -13,56 +13,80 @@
 
 
 <aside id="sidebar" class="sidebar bg-white shadow p-3">
-  <div class="text-center mb-4 d-none d-md-block">
-    <img src="<?=base_url()?>assets_index/images/header-logo2_back.png" alt="Logo" class="img-fluid shadow" style="max-height: 60px;">
+  <div class="text-center mb-4 border-bottom pb-3 d-none d-md-block">
+    <img src="<?= base_url() ?>assets_index/images/header-logo2_back.png" 
+         alt="Logo" 
+         class="img-fluid " 
+         style="max-height: 60px;">
   </div>
 
   <ul class="nav flex-column">
+
+    <!-- Dashboard -->
+    <!-- <li class="nav-item mb-2">
+      <a href="<?= base_url(); ?>adminmain" 
+         class="nav-link fw-bold d-flex align-items-center <?= ($this->uri->segment(2) == 'dashboard') ? 'active text-primary' : ''; ?>">
+         <i class="fa-solid fa-gauge me-2 text-primary"></i> Dashboard
+      </a>
+    </li> -->
+
+    <!-- Users -->
     <li class="nav-item mb-2">
       <a href="<?= base_url(); ?>adminmain/member_profilelist" 
-         class="nav-link fw-bold d-flex align-items-center ">
-         <i class="fa fa-user me-2 text-warning"></i>  Member Profile List
+         class="nav-link fw-bold d-flex align-items-center <?= ($this->uri->segment(2) == 'member_profilelist') ? 'active text-primary' : ''; ?>">
+         <i class="fa fa-user me-2 text-dark"></i> Users
       </a>
     </li>
+
+    <!-- Section: PAYMENTS -->
+    <li class="nav-item mt-3 pb-2 text-uppercase border-bottom small fw-bold text-muted">Payments</li>
     <li class="nav-item mb-2">
       <a href="<?= base_url(); ?>adminmain/paymentlist" 
-         class="nav-link fw-bold d-flex align-items-center ">
-         <i class="fa fa-money me-2 text-warning"></i> Payment master
+         class="nav-link fw-bold d-flex align-items-center <?= ($this->uri->segment(2) == 'paymentlist') ? 'active text-primary' : ''; ?>">
+         <i class="fa-solid fa-money-bill me-2 text-success"></i> All Payments
       </a>
     </li>
     <li class="nav-item mb-2">
       <a href="<?= base_url(); ?>adminmain/paidmemberlist" 
-         class="nav-link fw-bold d-flex align-items-center ">
-         <i class="fa fa-money me-2 text-warning"></i> Paid Member List
+         class="nav-link fw-bold d-flex align-items-center <?= ($this->uri->segment(2) == 'paidmemberlist') ? 'active text-primary' : ''; ?>">
+         <i class="fa-solid fa-credit-card me-2 text-danger"></i> Paid Members
       </a>
     </li>
+
+    <!-- Section: SETTINGS -->
+    <li class="nav-item mt-3 pb-2 border-bottom text-uppercase small fw-bold text-muted">Settings</li>
     <li class="nav-item mb-2">
       <a href="<?= base_url(); ?>adminmain/review_list" 
-         class="nav-link fw-bold d-flex align-items-center ">
-         <i class="fa fa-pencil me-2 text-warning"></i> Review Report
+         class="nav-link fw-bold d-flex align-items-center <?= ($this->uri->segment(2) == 'review_list') ? 'active text-primary' : ''; ?>">
+         <i class="fa-solid fa-gear me-2 text-dark"></i> Review Reports
       </a>
     </li>
-    <!-- <li class="nav-item mb-2">
-      <a href="<?php echo base_url(); ?>wedding_directory/" 
-         class="nav-link fw-bold d-flex align-items-center ">
-         <i class="fa fa-heart me-2 text-danger"></i> Wedding Directory
-      </a>
-    </li> -->
     <li class="nav-item mb-2">
       <a href="<?= base_url(); ?>adminmain/change_password" 
-         class="nav-link fw-bold d-flex align-items-center ">
+         class="nav-link fw-bold d-flex align-items-center <?= ($this->uri->segment(2) == 'change_password') ? 'active text-primary' : ''; ?>">
          <i class="fa fa-lock me-2 text-dark"></i> Change Password
       </a>
     </li>
+
   </ul>
 </aside>
 
-<div id="main-content" class="content-wrapper shadow-sm p-3 " style="">
-  <button id="toggleSidebarDesktop" class="btn btn-primary  d-none d-md-inline-block">
+
+<div id="main-content" class="content-wrapper shadow-sm p-3">
+
+  <!-- Sidebar Toggle Button -->
+  <button id="toggleSidebarDesktop" class="btn btn-primary d-none d-md-inline-block me-2">
     <i class="fa-solid fa-bars"></i>
   </button>
 
+  <!-- Logout Button -->
+  <a href="<?= base_url('adminmain/logout'); ?>" 
+     class="btn btn-danger float-end">
+     <i class="fa-solid fa-right-from-bracket"></i> Logout
+  </a>
+
 </div>
+
 
 
 <style>

@@ -1,81 +1,78 @@
+
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
+
 <head>
-    <title>Bharat Vivaha Matrimony</title>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- css file -->
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets_index/css/bootstrap.min.css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Best matrimony services in chennai | Top 10 matrimony services in chennai</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <meta name="description" content="Bharat Vivaha matrimony offer services like Best matrimony services in chennai, Top 10 matrimony services in chennai, best matrimony websites in chennai, Best matrimony services in tamilnadu, Top 10 matrimony services in tamilnadu, Bharat vivaha matrimony in chennai, Tamil Matrimony services in chennai, Telugu Matrimony services in chennai">
+    <meta name="keywords" content="Best matrimony services in chennai, Top 10 matrimony services in chennai, best matrimony websites in chennai, Best matrimony services in tamilnadu, Top 10 matrimony services in tamilnadu, Bharat vivaha matrimony in chennai, Tamil Matrimony services in chennai, Telugu Matrimony services in chennai">
+    <meta name="robots" CONTENT="all,index,follow"> 
+    <META NAME="revisit-after" CONTENT="3 days">
+    <!-- css file -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="<?php echo base_url(); ?>main/css/style.css">
 
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets_index/css/colors/default.css">
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets_index/css/style.css">
-<!-- Responsive stylesheet -->
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets_index/css/responsive.css">
-<!-- Title -->
-<title></title>
-<!-- Favicon -->
-<link href="images/favicon.ico" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
-<link href="images/favicon.ico" sizes="128x128" rel="shortcut icon" />
+    <!-- notication -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+     <!-- Bootstrap Icons CDN (add in <head> if not already included) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <style>
+        .card{
+            background: #fa73e3;
+            padding: 10px;
+            background: radial-gradient(circle, rgb(243, 143, 226) 0%, rgba(255, 255, 255, 1) 0%, rgb(253, 158, 220) 100%);
+        }
+    </style>
 </head>
 <body>
-<div class="wrapper">
+    <?php echo $topmenu; ?>
 
-	
-	<header class="header-nav transparent">
-		<div class="container">
-		    <!-- Start Navigation -->
-		    <nav class="navbar navbar-default navbar-fixed  no-background bootsnav">
-		        <div class="container">
-		            <!-- Start Header Navigation -->
-		            <div class="navbar-header">
-		                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
-		                    <i class="fa fa-bars"></i>
-		                </button>
-		                <a class="navbar-brand ulockd-main-logo2" href="<?php echo base_url(); ?>">
-		                    <img src="<?php echo base_url(); ?>assets_index/images/header-logo2.png" class="logo logo-display hidden-md" alt="header-logo.png">
-		                    <img src="<?php echo base_url(); ?>assets_index/images/header-logo2.png" class="logo logo-scrolled" alt="">
-		                </a>
-		            </div>
-		            <!-- End Header Navigation -->
+    <section>
+        <div class="price-head" style="font-family: 'Charm', cursive; font-weight: 600;">
+            <div class="pricing-content text-center  pt-5">
+                <p class="section-label">PRICING</p>
+                <h2 class="section-title">Get Started<br>Pick your Plan Now</h2>
+                <p class="section-subtext">
+                <!-- Lorem Ipsum is simply dummy text of the printing and typesetting industry. -->
+                </p>
+                <!-- <button class="pricing-btn">No credit card required</button> -->
+            </div>
+        </div>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100"><g fill="#FFEFD5"><path d="M0 0v100c166.7 0 166.7-66 333.3-66S500 77 666.7 77 833.3 28 1000 28V0H0Z" opacity=".5"></path><path d="M0 0v100c166.7 0 166.7-66 333.3-66S500 70 666.7 70 833.3 16 1000 16V0H0Z" opacity=".5"></path><path d="M0 0v100c166.7 0 166.7-66 333.3-66S500 63 666.7 63 833.3 4 1000 4V0H0Z"></path></g></svg></main>
 
-		            <!-- Collect the nav links, forms, and other content for toggling -->
-					<?php echo $topmenu; ?>
-				 </div>
-		    </nav>
-		    <!-- End Navigation -->
-		</div>
-	</header>
-	
-	
-	<!-- Our Pricing Table -->
-	<section class="ulockd-pricing">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 text-center">
-					<div class="ulockd-main-title">
-						<h2>Our Pricing Table</h2>
-					
-					</div>
-				</div>
-			</div>
-<div class="row ulockd-mrgn1260">
-<?php if($this->session->flashdata('message')){     
-?>    
-<div class="alert alert-success success">
-<?php echo $this->session->flashdata('message') ?>                   
+    </section>
+
+    <!-- aleart -->
+<div class="row ">
+    <?php if($this->session->flashdata('message')) { ?>    
+    <div class="alert-box">
+        <?php echo $this->session->flashdata('message'); ?>                   
+    </div>
+    <?php } ?>    
+
+    <script>
+    $(document).ready(function(){
+        setTimeout(function(){
+            $(".alert-box").fadeOut("slow");
+        }, 3000); // 3 seconds = 3000 milliseconds
+    });
+</script>
+
+
 </div>
-<?php } ?>    
-
-			
-<?php 
+    <section class=" py-5" style="font-family: 'Poppins', sans-serif;">
+    <div class="container">
+        <div class="row justify-content-center g-4">
+            <?php 
 $i=0;$j=0;
 $PaymentType=$Amount=$PaidedValidy=$ProfileCounts="";
 if(isset($payment_details) && ($payment_details!="")){
@@ -87,27 +84,35 @@ $ProfileCounts=$item->ProfileCounts;
 $PaidedValidy=$item->PaidedValidy;
 $id=$item->Id;
 
+          // Highlight middle (Gold) plan
+                    $highlight = strtolower($PaymentType) == "gold" ? "border-warning shadow-lg position-relative" : "border-light shadow-sm";
+
+                    // Badge for most popular
+                    $badge = strtolower($PaymentType) == "gold" ? '<span class="badge bg-warning text-dark position-absolute top-0 start-50 translate-middle mt-3">Most popular</span>' : '';
+
 $j++;
 ?>
-<div class="col-xxs-12 col-xs-6 col-sm-6 col-md-3 ulockd-pad395" style="margin-bottom:20px;">
-<div class="ulockd-pricing-table text-center">
-<div class="ulocked-pricing-header">
+            <div class="col-md-4">
+                <div class="card text-center rounded-4 p-4 <?php echo $highlight; ?>">
+                    <?php echo $badge; ?>
+                    <h4 class="fw-bold mt-3" style="font-family: 'charm', cursive;"><?php echo ucfirst($PaymentType); ?></h4>
+                    <!-- <p class="text-muted">Printer took a type and scrambled</p> -->
 
-<h2 class="text-uppercase"><?php echo $PaymentType; ?></h2>
-<p class="sub-title"><!--Monthly Plan--></p>
-</div>
-<div class="ulocked-pricing-details">
-<ul class="list-unstyled">
-<li> <b>Profile View :</b> <?php echo $ProfileCounts; ?>  </li>
-<li> <b>Amount :</b> <?php echo $Amount; ?></li>
-<li> <b>Days :</b> <?php echo $PaidedValidy; ?>  </li>
+                    <div class="my-3">
+                        <img src="<?php echo base_url(); ?>main/plan.png" alt="Plan Icon" style="max-width: 80px;">
+                    </div>
 
+                    <h3 class="fw-bold mb-3">₹<?php echo $Amount; ?><small class="text-muted"></small></h3>
 
-</ul>
-
-	
-	
-<?php 
+                    <ul class="list-unstyled text-start mx-auto" style="max-width: 240px;">
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> <?php echo $ProfileCounts; ?> Premium Profiles</li>
+                        <!-- <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> Free user profile can view</li> -->
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> View contact details</li>
+                        <!-- <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> Send interest</li> -->
+                        <!-- <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> Start chat</li> -->
+                        <li class="mb-2"><i class="bi bi-hourglass-split text-warning"></i> <?php echo $PaidedValidy; ?> Days Validity</li>
+                    </ul>
+                    <?php 
 $uid=$pamount=$this->chsslibrary->decoder($user_id);
 $userscrib=$this->Admin_model->usersubscribedplan($uid);
 $Paymentsubcrib="";
@@ -118,52 +123,26 @@ $Paymentsubcrib=$item4->PaymentType;
 
 if($Paymentsubcrib==$id){
 ?>
-<a  class="btn btn-lg btn-block ulockd-btn-thm2" style="    background-color:#303030;border-color: #303030;color: #ffffff;"><span> Subscribed</span></a>
+
+                    <a  class="btn btn-lg btn-block ulockd-btn-thm2" style="    background-color:#303030;border-color: #303030;color: #ffffff;"><span> Subscribed</span></a>
 <?php } else{ ?>
 
-<a href="javascript:void(0)" class="btn btn-lg btn-block ulockd-btn-thm2"><span> Choose Your Plan</span></a>
+<a href="javascript:void(0)" class="btn btn-lg btn-block ulockd-btn-thm2" style="background-color: #BB2D3B; border-color: #BB2D3B; color: #ffffff;"><span> Choose Your Plan</span></a>
 
 <?php } }  else{ ?>
 	
 <a href="<?php echo base_url(); ?>planactive/price_set_byadmin/<?php echo $this->chsslibrary->encoder($id); ?>/<?php echo $this->chsslibrary->encoder($Amount); ?>/<?php echo $user_id; ?>" class="btn btn-lg btn-block ulockd-btn-thm2"><span> Choose Your Plan</span></a>
 <?php } ?>
+                </div>
+            </div>
+            <?php 
+                } 
+            } 
+            ?>
+        </div>
+    </div>
+</section>
 
-</div>
-</div>
-</div>
-			
-<?php  } } ?>
-		
-			
-			</div>
-		</div>
-	</section>
-
-
-	<!-- Our Footer -->
-	<?php echo $footer; ?>
-</div>
-<!-- Wrapper End -->
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jquery-1.12.4.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/bootsnav.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/parallax.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/scrollto.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jquery-scrolltofixed-min.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jquery.counterup.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/gallery.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/wow.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/slider.js"></script>
-
-<!--
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/video-player.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jflickrfeed.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jquery.barfiller.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/timepicker.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/tweetie.js"></script>
-<!-- Custom script for all pages 
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/color-switcher.js"></script> --> 
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/script.js"></script>
+<?php echo $footer; ?>
 </body>
-
 </html>
