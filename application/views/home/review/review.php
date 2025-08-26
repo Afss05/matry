@@ -5,27 +5,16 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Font Awesome CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <!-- css file -->
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets_index/css/bootstrap.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets_index/css/colors/default.css">
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets_index/css/style.css">
-<!-- Responsive stylesheet -->
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets_index/css/responsive.css">
-<!-- Title -->
-<title></title>
-<!-- Favicon -->
-<link href="images/favicon.ico" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
-<link href="images/favicon.ico" sizes="128x128" rel="shortcut icon" />
+	<link rel="stylesheet" href="<?php echo base_url(); ?>main/css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
-<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-	
-	
 <!--  end  css include-->
 <style>
 .starRating:not(old){
@@ -130,190 +119,124 @@ background: #337ab7;
 
 </head>
 <body>
-<div class="wrapper">
+<?php echo $topmenu; ?>
 
-	
-	<header class="header-nav transparent">
-		<div class="container">
-		    <!-- Start Navigation -->
-		    <nav class="navbar navbar-default navbar-fixed  no-background bootsnav">
-		        <div class="container">
-		            <!-- Start Header Navigation -->
-		            <div class="navbar-header">
-		                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
-		                    <i class="fa fa-bars"></i>
-		                </button>
-		                <a class="navbar-brand ulockd-main-logo2" href="<?php echo base_url(); ?>">
-		                    <img src="<?php echo base_url(); ?>assets_index/images/header-logo2.png" class="logo logo-display hidden-md" alt="header-logo.png">
-		                    <img src="<?php echo base_url(); ?>assets_index/images/header-logo2.png" class="logo logo-scrolled" alt="">
-		                </a>
-		            </div>
-		            <!-- End Header Navigation -->
-
-		            <!-- Collect the nav links, forms, and other content for toggling -->
-					<?php echo $topmenu; ?>
-				 </div>
-		    </nav>
-		    <!-- End Navigation -->
-		</div>
-	</header>
-	
-	
-	
-	
-	
-
-	<!-- Our Story -->
-<section id="story" class="ulockd-about bgc-overlay-white9 " >
-<div class="container">
-<div class="row">
-<div class="col-md-6 col-md-offset-3 text-center">
-<div class="ulockd-main-title">
-<h2 class="text-thm2">Review </h2>
-<img src="<?php echo base_url(); ?>assets_index/images/resource/title-bottom.png"  alt="title-bottom.png">
-</div>
-
-
-</div>
-</div>
-<style>
-
-  
-.mk_box {
-/* border-radius: 50px 50px 50px 50px; */
-box-shadow: 0 2px 24px rgba(0, 0, 0, 0.2);
-}
-
-.mk_box  img{
-/* border-radius: 50px 50px 50px 50px; */
-}
-			
-</style>
-<div class="row">
-<div class="col-md-12  text-right">
-<h2> <span><a href="<?php echo base_url(); ?>user/review_add" ><button type="button" class="btn btn-sm ulockd-btn-thm2 ">Add Review</button></span> </a></h2>
-</div>
-</div>
-<?php if(isset($review_details) && count($review_details)>0){ ?>
-<div class="row">
-<div class="col-md-12">	
-
-
-
-<?php 
-$i=0;
-$j=0;
-
-foreach($review_details as $item4){
-	
-	$FilePath=$item4->FilePath;
-	$StarRating=$item4->UserRating;
-	
-?>
-<div class="col-md-6 col-xs-12  " style="margin-bottom:25px;">
-<div class="col-md-12 col-xs-12  mk_box" >
-<div class="col-md-8  col-sm-8 col-xs-12 ulockd-pdng15">
-<h5 class="text-thm2"><?php echo $item4->Name; ?></h5>
-<p><small class=""><span class="text-thm2"></span> <?php echo 
-$datebirth = $this->chsslibrary->returnindian_date($item4->CreatedDate);
-?> </small></p>
-
- <div class="">
-    
-    <span class="starRating">
-    <input id="rating10" type="radio" name=""  <?php if($StarRating=='5'){ echo "checked"; } ?> value="5">
-    <label for="rating10">5</label>
-    <input id="rating9" type="radio" name="" value="4"<?php if($StarRating=='4'){ echo "checked"; } ?>>
-    <label for="rating9">4</label>
-    <input id="rating8" type="radio" name="" value="3"  <?php if($StarRating=='3'){ echo "checked"; } ?> >
-    <label for="rating8">3</label>
-    <input id="rating7" type="radio" name="" value="2"  <?php if($StarRating=='2'){ echo "checked"; } ?>>
-    <label for="rating7">2</label>
-    <input id="rating6" type="radio" name="" value="1"  <?php if($StarRating=='1'){ echo "checked"; } ?>>
-    <label for="rating6">1</label>
-    </span>
-  </div>
-
-<p style=" text-align: justify;"> <?php echo $item4->Comments; ?></p>
-</div>
-<div class="col-md-4 col-sm-4  col-xs-12">
-
-<?php
-if($FilePath!=""){
-?>
-			
-<img  style="height: 160px;" src="<?php echo base_url(); ?>assets/profileimages/<?php echo $FilePath; ?>">
-
-<?php }else{ ?>
-<img class="img-responsive img-whp" src="<?php echo base_url(); ?>assets/profileimages/defaultimage.jpg"  style="height: 160px;">
-<?php } ?>
-
-</div> 
-</div>
-</div>
-
-<?php  }  ?>
-
-
-
-
-
-
-
-				
-</div>
-</div>
-<?php  }  ?>
-
-</div>
-</section>
-<?php if(count($links)>1){ ?>
-<section id="story" class="ulockd-about bgc-overlay-white9 " style="padding-top: 0px;padding-bottom: 0px;">
-<div class="container">
-<div class="row">
-<div class="col-md-12 col-md-offset-4">
-
-<div class="row" style="margin:20px;" >
-<ul class="pagination1 ">
-<?php
-foreach ($links as $link) {
-echo "<li>" . $link . "</li>"; 
-}
-?>
-</ul>
-</div>
-
-</div>
-</div></div>
-<!-- Our Footer -->
+<section>
+    <div class="search-head" style="font-family: 'Charm', cursive; font-weight: 600;">
+        <div class="pricing-content text-center  pt-5">
+            <p class="section-label">REVIEW</p>
+            <h2 class="section-title text-dark">Hear from Happy Couples</h2>
+            <p class="section-subtext">
+            <!-- Lorem Ipsum is simply dummy text of the printing and typesetting industry. -->
+            </p>
+            <!-- <button class="pricing-btn">No credit card required</button> -->
+        </div>
+    </div>
 </section>
 
-<?php  }  ?>
-	<?php echo $footer; ?>
+<div class="container py-5" style="font-family: Georgia, 'Times New Roman', Times, serif;">
+    <!-- Section Title -->
+    <div class="row mb-4">
+        <div class="col-lg-12   d-flex justify-content-between slider-column">
+            <h2 class="mb-2" style="color: #b2002d;"></h2>
+            <a href="<?php echo base_url(); ?>user/review_add" 
+            class="btn  stylish-btn">
+            <i class="fas fa-pen"></i> Add Review
+            </a>
+
+            <style>
+            .stylish-btn {
+            background: linear-gradient(135deg, #b2002d, #e63946); 
+            color: #fff !important;
+            border-radius: 30px;
+            font-weight: 400;
+            padding: 12px 28px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(178,0,45,0.3);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            }
+
+            .stylish-btn:hover {
+            background: linear-gradient(135deg, #e63946, #b2002d); 
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 18px rgba(178,0,45,0.5);
+            text-decoration: none;
+            }
+            </style>
+        </div>
+    </div>
+
+    <?php if(isset($review_details) && count($review_details) > 0){ ?>
+    <div class="row" >
+        <?php foreach($review_details as $item4): 
+            $FilePath = $item4->FilePath;
+            $StarRating = $item4->UserRating;
+        ?>
+        <div class="col-md-6 mb-4">
+            <div class="card shadow h-100">
+                <div class="row g-0">
+                    <div class="col-md-8 d-flex flex-column justify-content-between p-3">
+                        <div>
+                            <h5 class="card-title text-Dark"><?php echo $item4->Name; ?></h5>
+                            <p class="card-subtitle mb-2 text-muted">
+                                <small>
+                                    <?php echo $this->chsslibrary->returnindian_date($item4->CreatedDate); ?>
+                                </small>
+                            </p>
+                            <div class="mb-2">
+                                <span class="starRating">
+                                    <input id="rating10_<?php echo $item4->Id; ?>" type="radio" name="rating_<?php echo $item4->Id; ?>" <?php if($StarRating=='5'){ echo "checked"; } ?> value="5" disabled>
+                                    <label for="rating10_<?php echo $item4->Id; ?>">5</label>
+                                    <input id="rating9_<?php echo $item4->Id; ?>" type="radio" name="rating_<?php echo $item4->Id; ?>" value="4" <?php if($StarRating=='4'){ echo "checked"; } ?> disabled>
+                                    <label for="rating9_<?php echo $item4->Id; ?>">4</label>
+                                    <input id="rating8_<?php echo $item4->Id; ?>" type="radio" name="rating_<?php echo $item4->Id; ?>" value="3" <?php if($StarRating=='3'){ echo "checked"; } ?> disabled>
+                                    <label for="rating8_<?php echo $item4->Id; ?>">3</label>
+                                    <input id="rating7_<?php echo $item4->Id; ?>" type="radio" name="rating_<?php echo $item4->Id; ?>" value="2" <?php if($StarRating=='2'){ echo "checked"; } ?> disabled>
+                                    <label for="rating7_<?php echo $item4->Id; ?>">2</label>
+                                    <input id="rating6_<?php echo $item4->Id; ?>" type="radio" name="rating_<?php echo $item4->Id; ?>" value="1" <?php if($StarRating=='1'){ echo "checked"; } ?> disabled>
+                                    <label for="rating6_<?php echo $item4->Id; ?>">1</label>
+                                </span>
+                            </div>
+                            <p class="card-text" style="text-align: justify;"><?php echo $item4->Comments; ?></p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex align-items-center justify-content-center p-2">
+                        <?php if($FilePath != ""){ ?>
+                            <img src="<?php echo base_url(); ?>assets/profileimages/<?php echo $FilePath; ?>" class="img-fluid rounded" style="height: 160px; object-fit: cover;" alt="Profile">
+                        <?php } else { ?>
+                            <img src="<?php echo base_url(); ?>assets/profileimages/defaultimage.jpg" class="img-fluid rounded" style="height: 160px; object-fit: cover;" alt="Default">
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php endforeach; ?>
+    </div>
+    <?php } ?>
+
+    <?php if(count($links) > 1){ ?>
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+            <nav>
+                <ul class="pagination">
+                    <?php foreach ($links as $link) {
+                        echo "<li class='page-item'>" . $link . "</li>"; 
+                    } ?>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <?php } ?>
+
 </div>
+<?php echo $footer; ?>
 
 
-<!-- Wrapper End -->
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jquery-1.12.4.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/bootsnav.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/parallax.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/scrollto.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jquery-scrolltofixed-min.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jquery.counterup.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/gallery.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/wow.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/slider.js"></script>
-
-<!--
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/video-player.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jflickrfeed.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/jquery.barfiller.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/timepicker.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/tweetie.js"></script>
-<!-- Custom script for all pages 
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/color-switcher.js"></script> --> 
-<script type="text/javascript" src="<?php echo base_url(); ?>assets_index/js/script.js"></script>
 </body>
 
 </html>

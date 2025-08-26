@@ -6,28 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- css file -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets_index/css/colors/default.css">
 
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets_index/css/bootstrap.min.css">
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets_index/css/style.css">
-<!-- Responsive stylesheet -->
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets_index/css/responsive.css">
-<!-- Title -->
-<title></title>
-<!-- Favicon -->
-<link href="images/favicon.ico" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
-<link href="images/favicon.ico" sizes="128x128" rel="shortcut icon" />
-
-<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-	
-	
-	
+<link href="https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
 <style>
 .table td, .table th {
@@ -139,159 +122,64 @@ opacity : 1;
 	
 </head>
 <body>
-<div class="wrapper">
-	<!-- <div id="preloader" class="preloader">
-		<div id="pre" class="preloader_container"><div class="preloader_disabler btn btn-default">Disable Preloader</div></div>
-	</div>
-	Header Styles -->
-
-	<header class="header-nav transparent">
-		<div class="container">
-		    <!-- Start Navigation -->
-		    <nav class="navbar navbar-default navbar-fixed  no-background bootsnav">
-		        <div class="container">
-		            <!-- Start Header Navigation -->
-		            <div class="navbar-header">
-		                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
-		                    <i class="fa fa-bars"></i>
-		                </button>
-		                <a class="navbar-brand ulockd-main-logo2" href="<?php echo base_url(); ?>">
-		                    <img src="<?php echo base_url(); ?>assets_index/images/header-logo2.png" class="logo logo-display hidden-md" alt="header-logo.png">
-		                    <img src="<?php echo base_url(); ?>assets_index/images/header-logo2.png" class="logo logo-scrolled" alt="">
-		                </a>
-		            </div>
-		            <!-- End Header Navigation -->
-
-		            <!-- Collect the nav links, forms, and other content for toggling -->
-					<?php echo $topmenu; ?>
-				 </div>
-		    </nav>
-		    <!-- End Navigation -->
-		</div>
-	</header>
-	
-	
-	<!-- Our Shop -->
-	<section class="ulockd-shop">
-		<div class="container">
-			
-			<div class="row">
-
-			<div class="col-md-12 ">
-				
-  
-
-<div class="row ulockd-mrgn1260 ulockd-shop-menubar ulockd-mrgb35">
-<h4 class="text-center">Add Review</h4>
-<form class="form-horizontal" action="<?php echo base_url(); ?>user/review_submit" role="form" method="post" enctype="multipart/form-data"   >
-<div class="col-md-12">
-<div id="filter-panel" class="filter-panel collapse in" aria-expanded="true" style="">
-<div class="panel panel-default">
-<div class="panel-body">
-
-
-<div class="col-md-12">	
-
-<div class="col-md-4 col-md-offset-4  ">
-<?php if($this->session->flashdata('message')){     
-?>    
-<div class="alert alert-success success">
-<?php echo $this->session->flashdata('message') ?>                   
-</div>
-<?php } ?>  
-<div class="form-group">
-<label  class="control-label"  for="comments">Name:</label>
-<div >
-<input type="text"  name="name" id="name" class="form-control input-sm" >
-</div> <!-- form group [rows] -->
-</div>										 
-</div>
-<div class="col-md-4 col-md-offset-4  ">
-
-<div class="form-group">
-<label  class="control-label"  for="phone">Mobile:</label>
-<div >
-<input type="text" maxlength="12" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"  name="phone" id="phone" class="form-control input-sm" >                            
-</div> <!-- form group [rows] -->
-</div>										 
+    <?php echo $topmenu; ?>
+<div class="container py-5" style="font-family: Georgia, 'Times New Roman', Times, serif;">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-info text-white text-center">
+                    <h4 class="mb-0">Add Review</h4>
+                </div>
+                <div class="card-body">
+                    <?php if($this->session->flashdata('message')): ?>
+                        <div class="alert alert-success">
+                            <?php echo $this->session->flashdata('message'); ?>
+                        </div>
+                    <?php endif; ?>
+                    <form action="<?php echo base_url(); ?>user/review_submit" method="post" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name:</label>
+                            <input type="text" name="name" id="name" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Mobile:</label>
+                            <input type="text" maxlength="12" name="phone" id="phone" class="form-control" 
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="image-upload" class="form-label">Image:</label>
+                            <input type="file" name="profile_image[]" id="image-upload" class="form-control" multiple onchange="ValidateSize(this)">
+                        </div>
+                        <div class="mb-3">
+                            <label for="comments" class="form-label">Comments:</label>
+                            <textarea name="comments" id="comments" class="form-control" rows="3" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label d-block">Rating:</label>
+                            <span class="starRating">
+                                <input id="rating5" type="radio" name="rating" value="5">
+                                <label for="rating5">5</label>
+                                <input id="rating4" type="radio" name="rating" value="4">
+                                <label for="rating4">4</label>
+                                <input id="rating3" type="radio" name="rating" value="3">
+                                <label for="rating3">3</label>
+                                <input id="rating2" type="radio" name="rating" value="2">
+                                <label for="rating2">2</label>
+                                <input id="rating1" type="radio" name="rating" value="1">
+                                <label for="rating1">1</label>
+                            </span>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-info">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="col-md-4 col-md-offset-4  ">
-
-<div class="form-group">
-<label  class="control-label"  for="phone">Image:</label>
-<div >
-   <input type="file"  multiple="" onchange="ValidateSize(this)"  name="profile_image[]" id="image-upload" >                        
-</div> <!-- form group [rows] -->
-</div>										 
-</div>
-
-<div class="col-md-4 col-md-offset-4  ">
-
-<div class="form-group">
-<label  class="control-label"  for="comments">Comments:</label>
-<div >
-<textarea type="text"  name="comments" id="comments" class="form-control input-sm" ></textarea>                            
-</div> <!-- form group [rows] -->
-</div>										 
-</div>
-
-
-<div class="col-md-4 col-md-offset-4  ">
-
-<div class="form-group">
-	
-<label  class="control-label"  for="phone">Rating:</label>
-<div >
-
-
-    <span class="starRating">
-    <input id="rating5" type="radio" name="rating" value="5">
-    <label for="rating5">5</label>
-    <input id="rating4" type="radio" name="rating" value="4">
-    <label for="rating4">4</label>
-    <input id="rating3" type="radio" name="rating" value="3" >
-    <label for="rating3">3</label>
-    <input id="rating2" type="radio" name="rating" value="2">
-    <label for="rating2">2</label>
-    <input id="rating1" type="radio" name="rating" value="1" >
-    <label for="rating1">1</label>
-    </span>
-	
-</div> 
-</div>										 
-</div>
-
-
-<div class="col-md-4 col-md-offset-4 ">
-<div class="form-group">
-<button type="submit" class="btn btn-sm ulockd-btn-thm2 text-center">
- Submit
-</button>
-</div>										 
-</div>
-
-
-</div>
-
-</div>
-</div>
-
-</div>
-					 </form>	
-					</div>
-					
-</div>
-
-			
-			</div>
-		</div>
-	</section>
-
-	<!-- Our Footer -->
-	<?php echo $footer;  ?>
-</div>
-
+<?php echo $footer;  ?>
 
 <script>
 

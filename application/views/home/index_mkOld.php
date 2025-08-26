@@ -1145,3 +1145,83 @@ new Photostack( document.getElementById( 'photostack-3' ), {
 
 </body>
 </html>
+
+
+<main>
+  <section class="testimonial-section">
+    <div class="test">
+      <div class="section slider-section">
+        <div class="container slider-column"> 
+          <h2 class="">Real Stories, Real Matches – Hear from Happy Couples</h2>
+          <!-- <img src="<?= base_url(); ?>main/b1.png" class="arrow-animation d-block mx-auto" alt="heart arrow" /> -->
+          <div class="swiper swiper-slider">
+            <div class="swiper-wrapper">
+              <?php if (isset($review_details) && count($review_details) > 0): ?>
+                <?php foreach ($review_details as $item4): ?>
+                  <div class="swiper-slide text-center">
+                    <div class="divide">
+                      <img src="<?= base_url(); ?>assets/profileimages/<?= $item4->FilePath ?: 'defaultimage.jpg'; ?>" alt="Swiper">
+                      <h5 class="text-thm2 mt-2"><?= $item4->Name; ?></h5>
+                      <p style="text-align: justify; font-family: Tangerine; font-size:16px;">
+                        <?= $item4->Comments; ?>
+                      </p>
+                    </div>
+                  </div>
+                <?php endforeach; ?>
+              <?php endif; ?>
+            </div>
+            <!-- Pagination & Navigation -->
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group text-center mt-4">
+      <a href="<?php echo base_url(); ?>user/review">
+        <button type="submit" class="btn btn-lg ulockd-btn-thm2 bdrs20">More</button>
+      </a>
+    </div>
+  </section>
+  <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100"><g fill="#FFEFD5"><path d="M0 0v100c166.7 0 166.7-66 333.3-66S500 77 666.7 77 833.3 28 1000 28V0H0Z" opacity=".5"></path><path d="M0 0v100c166.7 0 166.7-66 333.3-66S500 70 666.7 70 833.3 16 1000 16V0H0Z" opacity=".5"></path><path d="M0 0v100c166.7 0 166.7-66 333.3-66S500 63 666.7 63 833.3 4 1000 4V0H0Z"></path></g></svg></main> -->
+</main>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+<!-- Swiper Initialization -->
+<script>
+  const swiper = new Swiper(".swiper-slider", {
+    centeredSlides: true,
+    spaceBetween: 20,
+    grabCursor: true,
+    loop: true,
+    autoplay: {
+      delay: 3000,
+      disableOnInteraction: false
+    },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev"
+    },
+    breakpoints: {
+      0: {
+        slidesPerView: 1,
+        spaceBetween: 15
+      },
+      576: {
+        slidesPerView: 1.25,
+        spaceBetween: 20
+      },
+      768: {
+        slidesPerView: 1.5,
+        spaceBetween: 20
+      }
+    }
+  });
+</script>

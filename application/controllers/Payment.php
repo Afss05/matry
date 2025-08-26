@@ -39,7 +39,7 @@ class Payment extends CI_Controller
 		$userid = $this->session->userdata('logged_in');
 		if($userid==""){
 			$userid="1";
-		//redirect(base_url() . 'User/login');
+		// redirect(base_url() . 'User/login');
 		}
 		
 		$memberpayment=$this->Admin_model->getuser_paymentbystatus($userid);

@@ -55,6 +55,9 @@ session_cache_limiter("private_no_expire"); */
 <!-- Swiper CSS (in <head>) -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 
+<!-- Font Awesome CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 
 </head>
 <body>
@@ -170,7 +173,7 @@ session_cache_limiter("private_no_expire"); */
             </div>
         </div>
     </div>
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100"><g fill="#FFEFD5"><path d="M0 0v100c166.7 0 166.7-66 333.3-66S500 77 666.7 77 833.3 28 1000 28V0H0Z" opacity=".5"></path><path d="M0 0v100c166.7 0 166.7-66 333.3-66S500 70 666.7 70 833.3 16 1000 16V0H0Z" opacity=".5"></path><path d="M0 0v100c166.7 0 166.7-66 333.3-66S500 63 666.7 63 833.3 4 1000 4V0H0Z"></path></g></svg></main>
+  <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100"><g fill="#FFEFD5"><path d="M0 0v100c166.7 0 166.7-66 333.3-66S500 77 666.7 77 833.3 28 1000 28V0H0Z" opacity=".5"></path><path d="M0 0v100c166.7 0 166.7-66 333.3-66S500 70 666.7 70 833.3 16 1000 16V0H0Z" opacity=".5"></path><path d="M0 0v100c166.7 0 166.7-66 333.3-66S500 63 666.7 63 833.3 4 1000 4V0H0Z"></path></g></svg></main> -->
 </section>
 
 <section >
@@ -221,117 +224,39 @@ session_cache_limiter("private_no_expire"); */
     </div>
 </section>
 
-<main>
-  <section class="testimonial-section">
-    <div class="test">
-      <div class="section slider-section">
-        <div class="container slider-column"> 
-          <h2 class="">Real Stories, Real Matches – Hear from Happy Couples</h2>
-          <!-- <img src="<?= base_url(); ?>main/b1.png" class="arrow-animation d-block mx-auto" alt="heart arrow" /> -->
-          <div class="swiper swiper-slider">
-            <div class="swiper-wrapper">
-              <?php if (isset($review_details) && count($review_details) > 0): ?>
-                <?php foreach ($review_details as $item4): ?>
-                  <div class="swiper-slide text-center">
-                    <div class="divide">
-                      <img src="<?= base_url(); ?>assets/profileimages/<?= $item4->FilePath ?: 'defaultimage.jpg'; ?>" alt="Swiper">
-                      <h5 class="text-thm2 mt-2"><?= $item4->Name; ?></h5>
-                      <p style="text-align: justify; font-family: Tangerine; font-size:16px;">
-                        <?= $item4->Comments; ?>
-                      </p>
-                    </div>
-                  </div>
-                <?php endforeach; ?>
-              <?php endif; ?>
-            </div>
-            <!-- Pagination & Navigation -->
-            <div class="swiper-pagination"></div>
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="form-group text-center mt-4">
-      <a href="<?php echo base_url(); ?>user/review">
-        <button type="submit" class="btn btn-lg ulockd-btn-thm2 bdrs20">More</button>
-      </a>
-    </div>
-  </section>
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100"><g fill="#FFEFD5"><path d="M0 0v100c166.7 0 166.7-66 333.3-66S500 77 666.7 77 833.3 28 1000 28V0H0Z" opacity=".5"></path><path d="M0 0v100c166.7 0 166.7-66 333.3-66S500 70 666.7 70 833.3 16 1000 16V0H0Z" opacity=".5"></path><path d="M0 0v100c166.7 0 166.7-66 333.3-66S500 63 666.7 63 833.3 4 1000 4V0H0Z"></path></g></svg></main>
-</main>
-
-<!-- Swiper JS -->
-<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-
-<!-- Swiper Initialization -->
-<script>
-  const swiper = new Swiper(".swiper-slider", {
-    centeredSlides: true,
-    spaceBetween: 20,
-    grabCursor: true,
-    loop: true,
-    autoplay: {
-      delay: 3000,
-      disableOnInteraction: false
-    },
-    pagination: {
-      el: ".swiper-pagination",
-      clickable: true
-    },
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev"
-    },
-    breakpoints: {
-      0: {
-        slidesPerView: 1,
-        spaceBetween: 15
-      },
-      576: {
-        slidesPerView: 1.25,
-        spaceBetween: 20
-      },
-      768: {
-        slidesPerView: 1.5,
-        spaceBetween: 20
-      }
-    }
-  });
-</script>
-
 
 <section>
     <div class="promote-body">
-        <div class="container py-5">
+        <div class="container-fluid promote-container" style="border-radius: 16px; z">
             <!-- Full-width Headline -->
-            <div class="row mb-4">
+            <div class="row">
                 <div class="col-12 text-center">
-                    <h2 class="promo-heading" style="color: #b2002d; font-weight: 700; font-family: 'Poppins', sans-serif; font-size: 2.2rem;">
+                    <h2 class="promo-heading " style="z-index: 999; padding-top: 50px; color: #b2002d; font-weight: 700; font-family: 'Poppins', sans-serif; font-size: 2.5rem;">
                         WeddingInfo.in – Your Trusted Wedding Partner
                     </h2>
                 </div>
             </div>
 
             <!-- Two-column layout -->
-            <div class="row align-items-center">
+            <div class="row align-items-center text-dark fw-bold">
                 <!-- Left Column: Text -->
-                <div class="col-md-6 mb-4 mb-md-0">
-                    <p class="promo-text mb-4" style="font-size: 1.15rem; color: #333;">
-                        BharatVivaha proudly partners with <strong style="color: #b2002d;">WeddingInfo.in</strong> to help you plan the perfect wedding. Find top-rated vendors, beautiful venues, and expert planners – all in one place!
+                <div class="col-md-6 mb-4 mb-md-0" style="padding-left: 50px;">
+                    <p class="promo-text mb-2" style="font-size: 1.15rem; color: black;">
+                        BharatVivaha proudly partners with <strong style="color : #b2002d;">WeddingInfo.in</strong> to help you plan the perfect wedding. Find top-rated vendors, beautiful venues, and expert planners – all in one place!
                     </p>
-                    <div class="promo-features mb-4" style="display: flex; flex-direction: column; gap: 16px;">
+                    <div class="promo-features mb-2 fw-bold" style="display: flex; flex-direction: column !important; color: black; column; gap: 16px;">
                         <div class="promo-features-item d-flex align-items-center gap-3">
-                            <img src="<?php echo base_url(); ?>main/img/star.png" alt="Top Vendors" style="width: 40px;">
-                            <span style="font-weight: 500; color: #b2002d;">Verified Wedding Professionals</span>
+                            <img src="<?php echo base_url(); ?>main/img/star.png" alt="Top Vendors" style="width: 30px;">
+                            <span style="font-weight: 400; color: b2002d;">Verified Wedding Professionals</span>
                         </div>
                         <div class="promo-features-item d-flex align-items-center gap-3">
-                            <img src="<?php echo base_url(); ?>main/pan-service.png" alt="Pan India" style="width: 40px;">
-                            <span style="font-weight: 500; color: #b2002d;">Pan-India Coverage</span>
+                            <img src="<?php echo base_url(); ?>main/pan-service.png" alt="Pan India" style="width: 30px;">
+                            <span style="font-weight: 400; color:b2002d;">Pan-India Coverage</span>
                         </div>
                         <div class="promo-features-item d-flex align-items-center gap-3">
-                            <img src="<?php echo base_url(); ?>main/EasyUse.png" alt="Easy Access" style="width: 40px;">
-                            <span style="font-weight: 500; color: #b2002d;">Easy Vendor Search</span>
+                            <img src="<?php echo base_url(); ?>main/EasyUse.png" alt="Easy Access" style="width: 30px;">
+                            <span style="font-weight: 400; color: b2002d;">Easy Vendor Search</span>
+                            <!-- <span style="font-weight: 500; color: #b2002d;">Easy Vendor Search</span> -->
                         </div>
                     </div>
                     <a href="https://weddinginfo.in" target="_blank" class="btn promo-btn px-4 py-2" style="background: #b2002d; color: #fff; border-radius: 24px; font-weight: 600; box-shadow: 0 2px 8px rgba(178,0,45,0.12);">
@@ -349,7 +274,7 @@ session_cache_limiter("private_no_expire"); */
 </section>
 
 <section>
-    <div class="container">
+    <div class="container my-5">
         <div class="col-lg-12 row">
             <h2 class="promo-heading mb-3" style="text-align: center; color: #b2002d;">Browse Matrimonial Profiles By</h2>
         </div>
@@ -447,7 +372,98 @@ session_cache_limiter("private_no_expire"); */
     </div>
 </section>
 
- <br>
+<!-- our testimonial -->
+
+<section class="testimonials-section m-5 py-5">
+  <div class="container">
+    <div class="text-center mb-5 slider-column">
+      <h2 class="fw-bold" style="text-align: center; color: #b2002d;">Real Stories, Real Matches – Hear from Happy Couples</h2> 
+    </div>
+    <div class="position-relative">
+      <!-- <div class="position-absolute top-0" style="left: 50px;" data-aos="fade-down-right">
+        <img class="img-fluid service-img" src="<?= base_url(); ?>main/img/setrevie.jpg" alt="setreive" height="80px" width="80px" />
+      </div> -->
+
+      <!-- Carousel wrapper -->
+      <div id="carouselExampleControls" class="carousel slide text-center carousel-dark" data-bs-ride="carousel">
+        <div class="carousel-inner">
+
+            <?php if (isset($review_details) && count($review_details) > 0): ?>
+            <?php 
+                $i=0; 
+                foreach ($review_details as $item4): 
+                    $FilePath = $item4->FilePath;
+                    $StarRating = $item4->UserRating;
+            ?>
+            <div class="carousel-item <?= ($i==0) ? 'active' : ''; ?>">
+                <!-- Profile Image -->
+                <img class="rounded-circle shadow-1-strong mb-1"
+                    src="<?= base_url(); ?>assets/profileimages/<?= $FilePath ?: 'defaultimage.jpg'; ?>"
+                    alt="avatar"
+                    style="width: 100px; height:100px; object-fit:cover;">
+                
+                <!-- Name & Comment -->
+                <div class="row d-flex justify-content-center">
+                <div class="col-lg-8">
+                    <h5 class="mb-3"><?= $item4->Name; ?></h5>
+                    <p class="text-muted" style="text-align: justify; font-family: Tangerine; font-size:16px;">
+                    <i class="fas fa-quote-left pe-2"></i>
+                    <?= $item4->Comments; ?>
+                    </p>
+                </div>
+                </div>
+
+                <!-- Stars Rating -->
+                <ul class="list-unstyled d-flex justify-content-center text-warning mb-0">
+                    <?php 
+                    for ($star = 1; $star <= 5; $star++): 
+                        if ($star <= $StarRating) {
+                            echo '<li><i class="fas fa-star fa-sm"></i></li>';
+                        } else {
+                            echo '<li><i class="far fa-star fa-sm"></i></li>';
+                        }
+                    endfor;
+                    ?>
+                </ul>
+
+            </div>
+            <?php $i++; endforeach; ?>
+            <?php endif; ?>
+
+
+        </div>
+
+        <!-- Controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+
+      </div>
+      <!-- Carousel wrapper -->
+<!-- 
+      <div class="position-absolute bottom-0" style="right: 0;" data-aos="fade-down-right">
+        <img class="img-fluid service-img" src="<?= base_url(); ?>main/img/star.jpg" alt="star" height="100px" width="100px" />
+      </div> -->
+    </div>
+
+    <!-- More button -->
+    <div class="form-group text-center mt-4">
+      <a href="<?php echo base_url(); ?>user/review">
+        <button type="submit" class="btn promo-btn px-4 py-2" style="background: #b2002d; color: #fff; border-radius: 24px; font-weight: 600; box-shadow: 0 2px 8px rgba(178,0,45,0.12);">More</button>
+      </a>
+    </div>
+  </div>
+</section>
+<!-- end our testimonial -->
+
+<style>
+    
+</style>
 
 <?php echo $footer; ?>
 

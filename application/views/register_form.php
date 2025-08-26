@@ -89,6 +89,7 @@ label {
 
 .form-group {
   padding: 3px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
 } 
 
 /* } */
@@ -138,15 +139,28 @@ label {
               <div class="col-xs-12 text-center">
                 <h2 class="text-thm2 ff-engnmt">Registration Free, fill the form below</h2>
                 <div class="messages">
-                  <?php if($this->session->flashdata('message')) { ?>    
-                    <div class="alert alert-success success flash-message">
-                      <?php echo $this->session->flashdata('message'); ?>                   
-                    </div>
-                  <?php } else if($this->session->flashdata('error')) { ?>
-                    <div class="alert alert-danger danger flash-message">
-                      <?php echo $this->session->flashdata('error'); ?>
-                    </div>
-                  <?php } ?>
+                 <?php if($this->session->flashdata('message')) { ?>    
+                  <div class="alert alert-success success flash-message">
+                    <?php echo $this->session->flashdata('message'); ?>                   
+                  </div>
+                <?php } else if($this->session->flashdata('error')) { ?>
+                  <div class="alert alert-danger danger flash-message">
+                    <?php echo $this->session->flashdata('error'); ?>
+                  </div>
+                <?php } ?>
+
+                <script>
+                  // Auto hide flash message after 3 seconds
+                  setTimeout(function() {
+                      let flashMsg = document.querySelector('.flash-message');
+                      if(flashMsg){
+                          flashMsg.style.transition = "opacity 0.5s ease";
+                          flashMsg.style.opacity = "0";
+                          setTimeout(()=> flashMsg.remove(), 500); // remove from DOM after fadeout
+                      }
+                  }, 3000);
+                </script>
+
                 </div>
               </div>
             </div>
@@ -386,20 +400,21 @@ label {
       <div class="col-xs-12 col-sm-12 col-md-12 text-center clearfix">
         <div class="messages">
           <?php if($this->session->flashdata('message')) { ?>    
-            <div class="alert alert-success success " id="flash-message">
+            <div class="alert alert-success success flash-message" id="flash-message">
               <?php echo $this->session->flashdata('message'); ?>                   
             </div>
           <?php } else if($this->session->flashdata('error')) { ?>
-            <div class="alert alert-danger danger flash-message">
+            <div class="alert alert-danger danger flash-message" id="flash-message">
               <?php echo $this->session->flashdata('error'); ?>
             </div>
           <?php } ?>
         </div>
+
       </div>
 
       <div class="row">
         <!-- Step-3 start -->
-        <div id="step3" class="form-step">
+        <div id="step3" class="form-step" >
           <div class="container">
             <div class="row">
               <div class="col-xs-12 text-center">
@@ -525,70 +540,239 @@ label {
         <!-- Step-3 end -->
 
 
-        <div id="step4" class="form-step">
-          <div class="col-xs-12 text-center">
-            <h2 class="text-thm2 ff-engnmt">Qualification Details</h2>
-          </div>
-
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="qualification">Qualification</label>
-              <input id="qualification" required value="<?php echo stripslashes($Qualification); ?>" name="qualification" class="custom-select" placeholder="Enter Qualification">
+        <div id="step4" class="form-step" style="display: none;">
+          <div class="row">
+            <div class="col-xs-12 text-center">
+              <h2 class="text-thm2 ff-engnmt">Qualification Details</h2>
             </div>
           </div>
 
-          <div class="col-md-6">
-            <?php $Userjob = ($item->UserEmployed!="" && $item->UserEmployed!="0") ? $item->UserEmployed : ""; ?>
-            <div class="form-group">
-              <label for="YourEmployed">Employed in</label>
-              <select class="custom-select" required id="YourEmployed" name="YourEmployed">
-                <option value="">Select</option>
-                <option value="1" <?php if($Userjob=="1"){ echo "selected"; } ?>>Private Sector</option>
-                <option value="2" <?php if($Userjob=="2"){ echo "selected"; } ?>>Government / Public Sector</option>
-                <option value="3" <?php if($Userjob=="3"){ echo "selected"; } ?>>Defense / Civil Services</option>
-                <option value="4" <?php if($Userjob=="4"){ echo "selected"; } ?>>Business / Self-Employed</option>
-                <option value="5" <?php if($Userjob=="5"){ echo "selected"; } ?>>Not Working</option>
-              </select>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="qualification">Qualification</label>
+                <input id="qualification" required value="<?php echo stripslashes($Qualification); ?>" name="qualification" class="custom-select" placeholder="Enter Qualification">
+              </div>
             </div>
-          </div>
 
-          <div class="col-md-6">
-            <?php $Occupation = ($item->Occupation != "" && $item->Occupation != "0") ? $item->Occupation : ""; ?>
-            <div class="form-group">
-              <label for="occupation">Employee</label>
-              <input id="occupation" required value="<?php echo stripslashes($Occupation); ?>" name="occupation" class="custom-select" placeholder="Enter Employee">
+            <div class="col-md-6">
+              <?php $Userjob = ($item->UserEmployed!="" && $item->UserEmployed!="0") ? $item->UserEmployed : ""; ?>
+              <div class="form-group">
+                <label for="YourEmployed">Employed in</label>
+                <select class="custom-select" required id="YourEmployed" name="YourEmployed">
+                  <option value="">Select</option>
+                  <option value="1" <?php if($Userjob=="1"){ echo "selected"; } ?>>Private Sector</option>
+                  <option value="2" <?php if($Userjob=="2"){ echo "selected"; } ?>>Government / Public Sector</option>
+                  <option value="3" <?php if($Userjob=="3"){ echo "selected"; } ?>>Defense / Civil Services</option>
+                  <option value="4" <?php if($Userjob=="4"){ echo "selected"; } ?>>Business / Self-Employed</option>
+                  <option value="5" <?php if($Userjob=="5"){ echo "selected"; } ?>>Not Working</option>
+                </select>
+              </div>
             </div>
-          </div>
 
-          <div class="col-md-6">
-            <?php $UserPlaceOfJob = ($item->UserPlaceOfJob != "" && $item->UserPlaceOfJob != "0") ? $item->UserPlaceOfJob : ""; ?>
-            <div class="form-group">
-              <label>Job Location</label>
-              <input name="joblocation" required id="joblocation" maxlength="120" value="<?php echo stripslashes($UserPlaceOfJob); ?>" type="text" placeholder="Location" class="custom-select">
+            <div class="col-md-6">
+              <?php $Occupation = ($item->Occupation != "" && $item->Occupation != "0") ? $item->Occupation : ""; ?>
+              <div class="form-group">
+                <label for="occupation">Employee</label>
+                <input id="occupation" required value="<?php echo stripslashes($Occupation); ?>" name="occupation" class="custom-select" placeholder="Enter Employee">
+              </div>
             </div>
-          </div>
 
-          <div class="col-md-6">
-            <?php $MonthlyIncome = ($item->MonthlyIncome != "" && $item->MonthlyIncome != "0") ? $item->MonthlyIncome : ""; ?>
-            <div class="form-group">
-              <label for="YourAnnual">Annual Income</label>
-              <select class="custom-select" required id="YourAnnual" name="YourAnnual">
-                <option value="">Select</option>
-                <?php 
-                  $incomes = [
-                    "3" => "0 - 1 Lakh","4" => "1 - 2 Lakhs","5" => "2 - 3 Lakhs","6" => "3 - 4 Lakhs",
-                    "7" => "4 - 5 Lakhs","8" => "5 - 6 Lakhs","9" => "6 - 7 Lakhs","10" => "7 - 8 Lakhs",
-                    "11" => "8 - 9 Lakhs","12" => "9 - 10 Lakhs","13" => "10 - 12 Lakhs","14" => "12 - 14 Lakhs",
-                    "15" => "14 - 16 Lakhs","16" => "16 - 18 Lakhs","17" => "18 - 20 Lakhs","18" => "20 - 25 Lakhs"
-                  ];
-                  foreach($incomes as $key => $value) {
-                    echo "<option value='$key' ".(($MonthlyIncome==$key)?"selected":"").">$value</option>";
-                  }
-                ?>
-              </select>
+            <div class="col-md-6">
+              <?php $UserPlaceOfJob = ($item->UserPlaceOfJob != "" && $item->UserPlaceOfJob != "0") ? $item->UserPlaceOfJob : ""; ?>
+              <div class="form-group">
+                <label>Job Location</label>
+                <input name="joblocation" required id="joblocation" maxlength="120" value="<?php echo stripslashes($UserPlaceOfJob); ?>" type="text" placeholder="Location" class="custom-select">
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <?php $MonthlyIncome = ($item->MonthlyIncome != "" && $item->MonthlyIncome != "0") ? $item->MonthlyIncome : ""; ?>
+              <div class="form-group">
+                <label for="YourAnnual">Annual Income</label>
+                <select class="custom-select" required id="YourAnnual" name="YourAnnual">
+                  <option value="">Select</option>
+                  <?php 
+                    $incomes = [
+                      "3" => "0 - 1 Lakh","4" => "1 - 2 Lakhs","5" => "2 - 3 Lakhs","6" => "3 - 4 Lakhs",
+                      "7" => "4 - 5 Lakhs","8" => "5 - 6 Lakhs","9" => "6 - 7 Lakhs","10" => "7 - 8 Lakhs",
+                      "11" => "8 - 9 Lakhs","12" => "9 - 10 Lakhs","13" => "10 - 12 Lakhs","14" => "12 - 14 Lakhs",
+                      "15" => "14 - 16 Lakhs","16" => "16 - 18 Lakhs","17" => "18 - 20 Lakhs","18" => "20 - 25 Lakhs"
+                    ];
+                    foreach($incomes as $key => $value) {
+                      echo "<option value='$key' ".(($MonthlyIncome==$key)?"selected":"").">$value</option>";
+                    }
+                  ?>
+                </select>
+              </div>
+            </div>
+            <!-- Buttons -->
+            <div class="col-md-12 text-center">
+              <button type="button" class="btn btn-secondary" id="backBtn4">Back</button>
+              <button type="button" class="btn btn-primary" id="nextBtn4">Next</button>
             </div>
           </div>
         </div>
+
+        <!-- Step-5 start -->
+        <div id="step5" class="form-step" style="display:none;">
+          <div class="row">
+            <div class="col-xs-12 text-center">
+              <h2 class="text-thm2 ff-engnmt">Family Details</h2>
+            </div>
+          </div>
+
+          <?php 
+            $FatherName="";
+            if($item->FatherName!="" && $item->FatherName!="0"){
+            $FatherName=$item->FatherName;
+            }
+
+            $MotherName="";
+            if($item->MotherName!="" && $item->MotherName!="0"){
+            $MotherName=$item->MotherName;
+            }
+
+            $NoOfBrothers="";
+            if($item->NoOfBrothers!="" && $item->NoOfBrothers!="0"){
+            $NoOfBrothers=$item->NoOfBrothers;
+            }
+
+            $NoOfSisters="";
+            if($item->NoOfSisters!="" && $item->NoOfSisters!="0"){
+            $NoOfSisters=$item->NoOfSisters;
+            }
+
+            $StateId="";
+            if($item->StateId!="" && $item->StateId!="0"){
+            $StateId=$item->StateId;
+            }
+
+            $CityId="";
+            if($item->CityId!="" && $item->CityId!="0"){
+            $CityId=$item->CityId;
+            }
+
+            $PermenantAddress=$PresentAddress="";
+            if($item->PermenantAddress!="" && $item->PermenantAddress!="0"){
+            $PermenantAddress=$item->PermenantAddress;
+            }
+
+            if($item->PresentAddress!="" && $item->PresentAddress!="0"){
+            $PresentAddress=$item->PresentAddress;
+            }
+
+          ?>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="father_name">Father's Name   </label>
+                <input id="father_name"  required value="<?php echo  stripslashes($FatherName); ?>"  name="father_name" class="custom-select" placeholder="Enter Father's Name">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="FatherJob">Father's Occupation   </label>
+                <input id="FatherJob"  required name="FatherJob" class="custom-select" placeholder="Enter FatherJob">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="mother_name">Mother's Name   </label>
+                <input id="mother_name"  required value="<?php echo  stripslashes($MotherName); ?>"  name="mother_name" class="custom-select" placeholder="Enter Mother's Name">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="MotherJob">Mother's Occupation   </label>
+                <input id="MotherJob"  required  name="MotherJob" class="custom-select" placeholder="Enter MotherJob">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="brothers">No Of Brothers  </label>
+                <select class="custom-select" required  id="brothers" name="brothers">
+                  <option value="">Select</option>
+                  <option value="1"  <?php if($NoOfBrothers=="1"){ echo "selected"; } ?>  >1</option>
+                  <option value="2"  <?php if($NoOfBrothers=="2"){ echo "selected"; } ?>  >2</option>
+                  <option value="3"  <?php if($NoOfBrothers=="3"){ echo "selected"; } ?> >3</option>
+                  <option value="4"  <?php if($NoOfBrothers=="4"){ echo "selected"; } ?> >4</option>
+                  <option value="Nil"  <?php if($NoOfBrothers=="Nil"){ echo "selected"; } ?> >Nil</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="sister">No Of Sister </label>
+                <select class="custom-select" required id="sister" name="sister">
+                  <option value="">Select</option>
+                  <option value="1"  <?php if($NoOfSisters=="1"){ echo "selected"; } ?>  >1</option>
+                  <option value="2"  <?php if($NoOfSisters=="2"){ echo "selected"; } ?>  >2</option>
+                  <option value="3"  <?php if($NoOfSisters=="3"){ echo "selected"; } ?> >3</option>
+                  <option value="4"  <?php if($NoOfSisters=="4"){ echo "selected"; } ?> >4</option>
+                  <option value="Nil"  <?php if($NoOfSisters=="Nil"){ echo "selected"; } ?> >Nil</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="state">State</label>
+                <select required class="custom-select"  id="state" name="state">
+                  <option value="">Select</option>
+                  <?php 
+                  foreach($state_details as $stateitem1){
+                  ?>
+                  <option value="<?php echo $stateitem1->Id; ?>" <?php if($StateId==$stateitem1->Id ) { echo "selected"; } ?> ><?php echo $stateitem1->StateName; ?></option>
+                  <?php } ?>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="city">City</label>
+                <select required class="custom-select"  id="city" name="city">
+                  <option value="">Select</option>
+                  <?php 
+                  foreach($city_details as $cityde){
+                  ?>
+                  <option value="<?php echo $cityde->Id; ?>"  <?php if($CityId==$cityde->Id ) { echo "selected"; } ?> ><?php echo $cityde->CityName; ?></option>
+                  <?php } ?>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="city">Present Address</label>
+                <textarea required name="present_address" placeholder="Present Address" class="custom-select" rows="2" id="about"><?php echo stripslashes($PresentAddress); ?></textarea>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="AboutMe">Other Details</label>
+                <textarea required name="AboutMe" placeholder="other-details" class="custom-select" rows="2" id="other-details"></textarea>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="FamilyStatus">Family Status</label>
+                <select class="custom-select" required name="FamilyStatus" id="FamilyStatus">
+                <option value="">Select Status</option>
+                <option value="middle"  >Middle</option>
+                <option value="upper"  >Upper</option>		
+                <option value="affluent"  >Affluent</option>		
+                </select>
+              </div>
+            </div>
+            <!-- Buttons -->
+            <div class="col-md-12 text-center">
+              <input name="update" value="<?php echo $userdbid; ?>" type="hidden">
+              <button type="button" class="btn btn-secondary" id="backBtn5">Back</button>
+              <button type="submit" class="btn btn-success">Submit</button>
+            </div>
+          </div>
+        </div>
+        <!-- Step-5 end -->
       </div>
     </form>
 
@@ -604,26 +788,25 @@ label {
     const backBtn4 = document.getElementById("backBtn4");
     const backBtn5 = document.getElementById("backBtn5");
 
-    // Show only step 3 initially
-    step3.style.display = "block";
-    step4.style.display = "none";
-    step5.style.display = "none";
-
+    // Step-3 → Step-4
     nextBtn3.addEventListener("click", function() {
       step3.style.display = "none";
       step4.style.display = "block";
     });
 
+    // Step-4 → Step-5
     nextBtn4.addEventListener("click", function() {
       step4.style.display = "none";
       step5.style.display = "block";
     });
 
+    // Step-4 ← Step-3
     backBtn4.addEventListener("click", function() {
       step4.style.display = "none";
       step3.style.display = "block";
     });
 
+    // Step-5 ← Step-4
     backBtn5.addEventListener("click", function() {
       step5.style.display = "none";
       step4.style.display = "block";
@@ -656,10 +839,60 @@ label {
 
 
 <?php  
+
 $PQualification="";
 if($item->PQualification!="" && $item->PQualification!="0"){
 $PQualification=$item->PQualification;
 } 
+
+$PJob="";
+if($item->PJob!="" && $item->PJob!="0"){
+$PJob=$item->PJob;
+}
+
+$POccupation="";
+if($item->POccupation!="" && $item->POccupation!="0"){
+$POccupation=$item->POccupation;
+}	
+
+$PIncome="";
+if($item->PIncome!="" && $item->PIncome!="0"){
+$PIncome=$item->PIncome;
+}
+
+$PMaritalStatus=""; 
+$MaritalStatus=array();
+if($item->PMaritalStatus!="" && $item->PMaritalStatus!="0"){
+$PMaritalStatus=$item->PMaritalStatus;
+}
+
+if($PMaritalStatus!=""){
+$starid="";
+$count_complexn=count($PMaritalStatus);
+//echo $count_hobbies;exit;
+for($i=0; $i<$count_complexn; $i++){
+$MaritalStatus=explode(",", $PMaritalStatus);
+}
+}
+
+$PJobRequest="";
+if($item->PJobRequest!="" && $item->PJobRequest!="0"){
+$PJobRequest=$item->PJobRequest;
+}
+
+$PDiet=$religious_status=array();
+if($item->PDiet!="" && $item->PDiet!="0"){
+$PDiet=$item->PDiet;
+}
+
+if($PDiet!=""){
+$starid="";
+$count_complexn=count($PDiet);
+//echo $count_hobbies;exit;
+for($i=0; $i<$count_complexn; $i++){
+$religious_status=explode(",", $PDiet);
+}
+
 
 ?>
 
@@ -671,14 +904,6 @@ $PQualification; ?>"  required name="Pqualification" class="custom-select" place
 </div>
 </div>
 
-<?php 
-
-$PJob="";
-if($item->PJob!="" && $item->PJob!="0"){
-$PJob=$item->PJob;
-}
-
-?>
 
 <div class="col-xxs-12 col-xs-6 col-sm-6 col-md-6 clearfix">
 <div class="form-group">
@@ -697,10 +922,7 @@ $PJob=$item->PJob;
 </div>
 
 <?php 
-$POccupation="";
-if($item->POccupation!="" && $item->POccupation!="0"){
-$POccupation=$item->POccupation;
-}	
+
 
 
 ?>
@@ -717,12 +939,7 @@ $POccupation=$item->POccupation;
 
 
 <?php 
-$PIncome="";
-if($item->PIncome!="" && $item->PIncome!="0"){
 
-$PIncome=$item->PIncome;
-
-}
 ?>
 <div class="col-xxs-12 col-xs-6 col-sm-6 col-md-6 clearfix">
 <div class="form-group">
@@ -829,20 +1046,7 @@ echo '<option value="'.$i.'">'.$i.'</option>';
 
 
 <?php  
-$PMaritalStatus=""; 
-$MaritalStatus=array();
-if($item->PMaritalStatus!="" && $item->PMaritalStatus!="0"){
-$PMaritalStatus=$item->PMaritalStatus;
-}
 
-if($PMaritalStatus!=""){
-$starid="";
-$count_complexn=count($PMaritalStatus);
-//echo $count_hobbies;exit;
-for($i=0; $i<$count_complexn; $i++){
-$MaritalStatus=explode(",", $PMaritalStatus);
-}
-}
 ?>
 <div class="col-xxs-12 col-xs-6 col-sm-6 col-md-6 clearfix">
 <div class="form-group">
@@ -866,10 +1070,7 @@ $MaritalStatus=explode(",", $PMaritalStatus);
 
 
  <?php 
-$PJobRequest="";
-if($item->PJobRequest!="" && $item->PJobRequest!="0"){
-$PJobRequest=$item->PJobRequest;
-}?>
+?>
 <div class="col-xxs-12 col-xs-6 col-sm-6 col-md-6 clearfix">
 <div class="form-group">
 <label for="height">Job  </label><br>
@@ -885,18 +1086,6 @@ $PJobRequest=$item->PJobRequest;
 
 
 <?php  
-$PDiet=$religious_status=array();
-if($item->PDiet!="" && $item->PDiet!="0"){
-$PDiet=$item->PDiet;
-}
-
-if($PDiet!=""){
-$starid="";
-$count_complexn=count($PDiet);
-//echo $count_hobbies;exit;
-for($i=0; $i<$count_complexn; $i++){
-$religious_status=explode(",", $PDiet);
-}
 }
 ?>
 

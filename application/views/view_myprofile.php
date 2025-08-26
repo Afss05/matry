@@ -69,10 +69,25 @@ body {
                                     <div class="row g-0 align-items-center">
                                         <!-- Left Side -->
                                         <div class="col-md-5 d-flex align-items-center p-4 flex-wrap" >
-                                            <img src="<?php echo base_url(); ?>assets_index/images/about/bride.jpg" 
-                                                alt="Profile Photo" 
-                                                class="me-3 img-fluid rounded-circle" 
-                                                style="max-width:120px; height:120px; object-fit:cover;">
+<?php  
+if (isset($profile_image) && !empty($profile_image)) {
+    $firstImage = $profile_image[0]->FilePath; // take first image only
+?>
+    <img src="<?php echo base_url('assets/profileimages/' . $firstImage); ?>" 
+         alt="Profile Photo"
+         class="me-3 img-fluid rounded-circle profile-photo"
+         style="max-width:120px; height:120px; object-fit:cover; cursor:pointer;">
+<?php 
+} else { 
+?>
+    <img src="<?php echo base_url('assets/profileimages/defaultimage.jpg'); ?>" 
+         alt="Profile Photo"
+         class="me-3 img-fluid rounded-circle"
+         style="max-width:120px; height:120px; object-fit:cover;">
+<?php 
+} 
+?>
+
 
                                             <div class="mt-3 mt-md-0">
                                                 <h4 class="mb-1 fw-bold"><?php echo $item->Name; ?></h4>
@@ -734,6 +749,57 @@ body {
 			</div>
 
     </div>
+
+
+    <!-- Photo Modal -->
+<!-- Lightbox Modal -->
+<div class="modal fade" id="photoModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content bg-transparent border-0 shadow-none">
+      <div class="modal-body p-0 position-relative">
+        <!-- Carousel -->
+        <div id="profileCarousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <?php if (isset($profile_image) && !empty($profile_image)) { 
+                $i=0; 
+                foreach($profile_image as $row) { ?>
+                  <div class="carousel-item <?php echo ($i==0)?'active':''; ?>">
+                    <img src="<?php echo base_url('assets/profileimages/'.$row->FilePath); ?>" 
+                         class="d-block" 
+                         style=" object-fit:cover;">
+                  </div>
+            <?php $i++; } } ?>
+          </div>
+          <!-- Controls -->
+          <button class="carousel-control-prev" type="button" data-bs-target="#profileCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#profileCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+        <!-- Close -->
+        <button type="button" class="btn-close position-absolute top-0 end-0 m-2 bg-light" data-bs-dismiss="modal"></button>
+  </div>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function(){
+    document.querySelector(".profile-photo")?.addEventListener("click", function(){
+      var modal = new bootstrap.Modal(document.getElementById('photoModal'));
+      modal.show();
+    });
+  });
+</script>
+<style>
+    .modal-backdrop.show {
+  backdrop-filter: blur(6px);
+  background-color: rgba(0,0,0,0.4);
+}
+
+</style>
+
 
     <script>
     </script>

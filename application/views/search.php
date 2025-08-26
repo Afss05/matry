@@ -85,10 +85,18 @@ body{
 
 <?php echo $topmenu; ?>
 
-
-
-
-
+  <section>
+    <div class="search-head" style="font-family: 'Charm', cursive; font-weight: 600;">
+        <div class="pricing-content text-center  pt-5">
+            <p class="section-label">SEARCH</p>
+            <h2 class="section-title text-dark">Find Your Future Life Partner</h2>
+            <p class="section-subtext">
+            <!-- Lorem Ipsum is simply dummy text of the printing and typesetting industry. -->
+            </p>
+            <!-- <button class="pricing-btn">No credit card required</button> -->
+        </div>
+    </div>
+  </section>
 
 <section>
   <div class="container mt-5 mb-5">

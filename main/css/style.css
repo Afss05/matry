@@ -511,12 +511,26 @@ label {
 
 /* promote section */
 
-/* .promote-body {
-    background: #ff38de;
-    background: linear-gradient(90deg, rgba(255, 56, 222, 0.49) 0%, rgba(255, 168, 239, 1) 50%);
-    background: #fa69e2;
-    background: linear-gradient(90deg, rgba(250, 105, 226, 1) 0%, rgba(217, 168, 255, 1) 50%);
-} */
+.promote-body {
+    background-attachment: fixed; /* Changed to fixed */
+    background-image: 
+        /* linear-gradient(rgba(80, 80, 80, 0.6), rgba(0, 0, 0, 0.6)), */
+        url("../weddingback.jpg") !important;
+    background-position: center center;
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    /* color: white; */
+    padding: 20px;
+} 
+
+.promote-container {
+    background-color: rgba(255, 255, 255, 0.815); /* White with 60% transparency */
+    /* padding: 100px; */
+}
+
 
 
 .promo-section {
@@ -561,9 +575,9 @@ label {
 }
 
 .promo-features {
-    padding-top: 30px !important;
+    padding-top: 10px !important;
     font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 22px !important;
+    font-size: 18px !important;
 }
 
 .promo-features-item {
@@ -694,8 +708,16 @@ label {
 }
 
 .price-head {
-    background: #FFEFD5;;
-    height: 250px;
+    /* background: #FFEFD5;; */
+    background-attachment: fixed; /* Changed to fixed */
+    background-image: url("../price.jpg") !important;
+    background-position: center center;
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 300px;
     /* color: #b2002d !important; */
 }
 
@@ -737,3 +759,17 @@ label {
 
 
 /* search profile view  */
+
+.search-head {
+    /* background: #FFEFD5;; */
+    background-attachment: fixed; /* Changed to fixed */
+    background-image: url("../img/searchpro.jpg") !important;
+    background-position: center center;
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 300px;
+    /* color: #b2002d !important; */
+}

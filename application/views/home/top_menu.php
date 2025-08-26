@@ -19,7 +19,7 @@
 
 <nav class="navbar navbar-expand-lg" >
   <div class="container-fluid pe-5">
-    <a class="navbar-brand ps-5" href="index.php">
+    <a class="navbar-brand ps-5" href="<?php echo base_url(); ?>">
       <img src="<?php echo base_url(); ?>assets_index/images/header-logo2_back.png" alt="Logo" width="100%" height="70px" class="rounded">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
